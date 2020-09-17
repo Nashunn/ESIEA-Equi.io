@@ -1,0 +1,36 @@
+/**
+ * Colors
+ */
+.bg-primary {background: #D4CDC3;}
+.bg-primary-dark {background: #7E6551;}
+.bg-primary-light {background: #F8F4E3;}
+.bg-secondary {background: #2D3935;}
+.bg-secondary-dark {background: #1C2321;}
+.bg-secondary-light {background: #b9bcb9;}
+.color-primary {color: #D4CDC3;}
+.color-primary-dark {color: #7E6551;}
+.color-primary-light {color: #F8F4E3;}
+.color-secondary {color: #2D3935;}
+.color-secondary-dark {color: #1C2321;}
+.color-secondary-light {color: #b9bcb9;}
+.border-primary {border: 1px solid #D4CDC3;}
+.border-primary-dark {border: 1px solid #7E6551;}
+.border-primary-light {border: 1px solid #F8F4E3;}
+.border-secondary {border: 1px solid #2D3935;}
+.border-secondary-dark {border: 1px solid #1C2321;}
+.border-secondary-light {border: 1px solid #b9bcb9;}
+
+/**
+ * Sections and div
+ */
+.section {
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+}
+.box .row.header {
+    flex: 0 1 auto;
+}
+.section .row.content {
+    flex: 1 1 auto;
+}
