@@ -1,12 +1,6 @@
-<div class="section">
-    <mat-toolbar class="row header bg-primary">
-        <span>{{title}}</span>
-    </mat-toolbar>
-    <div class="row content">
-        <p>
-            <b>content</b>
-            (fills remaining space)
-        </p>
-    </div>
-</div>
-
+<nb-layout>
+  <nb-layout-header fixed>{{title}}</nb-layout-header>
+  <nb-layout-column>
+    Page Content
+  </nb-layout-column>
+</nb-layout>

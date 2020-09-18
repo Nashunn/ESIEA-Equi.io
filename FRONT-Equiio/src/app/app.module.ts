@@ -1,21 +1,17 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-
-// Material
-import { MatToolbarModule } from '@angular/material/toolbar';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { LayoutModule } from '@angular/cdk/layout';
 
-import {MatGridListModule} from '@angular/material/grid-list';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatIconModule } from '@angular/material/icon';
-import { MatListModule } from '@angular/material/list';
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterModule } from '@angular/router'; // we also need angular router for Nebular to function properly
+
+import { NbEvaIconsModule } from '@nebular/eva-icons';
+import { NbButtonModule, NbSidebarModule } from '@nebular/theme';
+import { NbLayoutModule, NbThemeModule } from '@nebular/theme';
 
 @NgModule({
+  bootstrap: [AppComponent],
   declarations: [
     AppComponent,
   ],
@@ -23,15 +19,13 @@ import { MatListModule } from '@angular/material/list';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatToolbarModule,
-    LayoutModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatListModule,
-    MatGridListModule
+    NbThemeModule.forRoot({ name: 'default' }),
+    NbLayoutModule,
+    NbEvaIconsModule,
+    RouterModule, // RouterModule.forRoot(routes, { useHash: true }), if this is your app.module
+    NbSidebarModule.forRoot(), // NbSidebarModule.forRoot(), //if this is your app.module
+    NbButtonModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
 })
 export class AppModule { }
