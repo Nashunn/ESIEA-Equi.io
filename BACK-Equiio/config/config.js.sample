@@ -1,0 +1,7 @@
+// Create config.js file and replace <CHANGEME> by true config values
+module.exports = {
+    dbHost: "<CHANGEME>",
+    dbName: "<CHANGEME>",
+    dbUser: "<CHANGEME>",
+    dbPassword: "<CHANGEME>"
+}
