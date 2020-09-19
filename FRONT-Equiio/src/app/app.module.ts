@@ -9,11 +9,15 @@ import { RouterModule } from '@angular/router'; // we also need angular router f
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { NbButtonModule, NbSidebarModule } from '@nebular/theme';
 import { NbLayoutModule, NbThemeModule } from '@nebular/theme';
+import { EquiioHeaderComponent } from './equiio-header/equiio-header.component';
+import { WelcomeComponent } from './welcome/welcome.component';
 
 @NgModule({
   bootstrap: [AppComponent],
   declarations: [
     AppComponent,
+    EquiioHeaderComponent,
+    WelcomeComponent,
   ],
   imports: [
     BrowserModule,
