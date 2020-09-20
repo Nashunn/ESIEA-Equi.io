@@ -1,0 +1,57 @@
+<h2 class="row justify-content-center">Mon compte</h2>
+<div class="row justify-content-center">
+  <nb-card class="accent accent-info" style="width: 50%">
+    <nb-card-header class="row">
+      <div class="col-lg-8 text-left">Mes informations</div>
+      <div class="col-lg-4 text-right">
+        <button nbButton *ngIf="!isEditMode" status="danger" shape="round" size="small" (click)="toggleEditMode()"
+                nbTooltip="Modifier mes informations" nbTooltipPlacement="left" nbTooltipStatus="danger">
+          <nb-icon icon="edit-outline"></nb-icon>
+        </button>
+        <button nbButton *ngIf="isEditMode" status="success" shape="round" size="small" (click)="toggleEditMode()"
+                nbTooltip="Valider mes informations" nbTooltipPlacement="left" nbTooltipStatus="success">
+          <nb-icon icon="checkmark-outline"></nb-icon>
+        </button>
+      </div>
+    </nb-card-header>
+    <nb-card-body>
+      <div *ngIf="!isEditMode">
+        <div class="row mb-3">
+          <div class="col-lg-6 col-sm-6 col-6 text-left">Prénom</div>
+          <div class="col-lg-6 col-sm-6 col-6 text-right">Yohan</div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-lg-6 col-sm-6 col-6 text-left">Nom</div>
+          <div class="col-lg-6 col-sm-6 col-6 text-right">Le Bricquer</div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-lg-6 col-sm-6 col-6 text-left">E-mail</div>
+          <div class="col-lg-6 col-sm-6 col-6 text-right">yohan.lb@gmail.com</div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-lg-6 col-sm-6 col-6 text-left">Téléphone</div>
+          <div class="col-lg-6 col-sm-6 col-6 text-right">00 00 00 00 00</div>
+        </div>
+      </div>
+
+      <div *ngIf="isEditMode">
+        <div class="row mb-3">
+          <div class="col-lg-8 col-sm-8 col-8 text-left">Prénom</div>
+          <input class="col-lg-4 col-sm-4 col-4" type="text" nbInput value="Yohan" fieldSize="small">
+        </div>
+        <div class="row mb-3">
+          <div class="col-lg-8 col-sm-8 col-8 text-left">Nom</div>
+          <input class="col-lg-4 col-sm-4 col-4" type="text" nbInput value="Le Bricquer" fieldSize="small">
+        </div>
+        <div class="row mb-3">
+          <div class="col-lg-8 col-sm-8 col-8 text-left">E-mail</div>
+          <input class="col-lg-4 col-sm-4 col-4" type="text" nbInput value="yohan.lb@gmail.com" fieldSize="small">
+        </div>
+        <div class="row mb-3">
+          <div class="col-lg-8 col-sm-8 col-8 text-left">Téléphone</div>
+          <input class="col-lg-4 col-sm-4 col-4" type="text" nbInput value="00 00 00 00 00" fieldSize="small">
+        </div>
+      </div>
+    </nb-card-body>
+  </nb-card>
+</div>
