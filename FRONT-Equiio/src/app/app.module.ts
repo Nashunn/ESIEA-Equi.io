@@ -17,17 +17,15 @@ import {
   NbTreeGridModule,
 } from '@nebular/theme';
 import { NbLayoutModule, NbThemeModule } from '@nebular/theme';
-import { EquiioHeaderComponent } from './equiio-header/equiio-header.component';
-import { WelcomeComponent } from './welcome/welcome.component';
-import {UserComponent} from "./user/user.component";
+import { HomeComponent } from './home/home.component';
+import {UserComponent} from './user/user.component';
 
 @NgModule({
   bootstrap: [AppComponent],
   declarations: [
     AppComponent,
-    EquiioHeaderComponent,
-    WelcomeComponent,
     UserComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
