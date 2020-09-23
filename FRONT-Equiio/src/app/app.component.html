@@ -1,13 +1,13 @@
 <nb-layout>
   <nb-layout-header fixed>
-    <div class="col-lg-7 col-sm-7 col-7">
-      <a routerLink="/home">{{title}}</a>
+    <div class="col-3">
+      <a routerLink="/home" class="equiio_title">{{title}}</a>
     </div>
-    <div class="col-lg-5 col-sm-5 col-5">
-      <nb-actions size="medium">
-        <nb-action><a routerLink="/home">Mes prochaines leçons</a></nb-action>
-        <nb-action>M'inscrire à une leçon</nb-action>
+    <div class="col-8 offset-1">
+      <nb-actions size="medium" class="d-flex flex-row-reverse">
         <nb-action><a routerLink="/user">Mon compte</a></nb-action>
+        <nb-action>M'inscrire à une leçon</nb-action>
+        <nb-action><a routerLink="/home">Mes prochaines leçons</a></nb-action>
       </nb-actions>
     </div>
   </nb-layout-header>
