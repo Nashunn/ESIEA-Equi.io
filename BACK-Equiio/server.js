@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const cors = require('cors');
 
 const config  = require('./config/config');
 const routes = require("./routes/router");
@@ -8,6 +9,11 @@ const app = express();
 port = 3080;
 
 app.use(bodyParser.json());
+
+app.use(cors({
+    credentials: true,
+    origin: 'http://localhost:4200'
+}))
 
 // Start mongodb connection
 const uri = `mongodb+srv://${config.dbUser}:${config.dbPassword}@${config.dbHost}/${config.dbName}?retryWrites=true&w=majority`;

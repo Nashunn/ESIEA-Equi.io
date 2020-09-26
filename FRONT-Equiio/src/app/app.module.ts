@@ -1,13 +1,14 @@
 import {AppRoutingModule, routes} from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router'; // we also need angular router for Nebular to function properly
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 
+import { HttpClientModule } from '@angular/common/http';
+import {FormsModule} from '@angular/forms';
 import { NbAuthModule, NbPasswordAuthStrategy } from '@nebular/auth';
 import {
   NbActionsModule,
@@ -15,7 +16,7 @@ import {
   NbCardModule,
   NbIconModule,
   NbInputModule,
-  NbSidebarModule, NbTooltipModule,
+  NbSidebarModule, NbSpinnerModule, NbTooltipModule,
   NbTreeGridModule,
 } from '@nebular/theme';
 import { NbLayoutModule, NbThemeModule } from '@nebular/theme';
@@ -32,6 +33,7 @@ import { UserComponent } from './user/user.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     NbAuthModule.forRoot({
       strategies: [
@@ -75,6 +77,8 @@ import { UserComponent } from './user/user.component';
     NbActionsModule,
     NbTooltipModule,
     HttpClientModule,
+    NbSpinnerModule,
+    FormsModule,
   ],
   providers: [],
 })

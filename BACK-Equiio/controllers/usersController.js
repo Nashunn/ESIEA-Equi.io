@@ -1,15 +1,6 @@
 const errors = require('../utils/errors');
 const User = require("../models/users");
 
-exports.findAllUsers = function (req, res) {
-    User.find(function (err, users) {
-        if (err) {
-            res.send(err);
-        }
-        res.json(users);
-    });
-};
-
 exports.createUser = function (req, res) {
     User.create(
         {
@@ -28,3 +19,33 @@ exports.createUser = function (req, res) {
         }
     );
 }
+
+exports.findAllUsers = function (req, res) {
+    User.find(function (err, users) {
+        if (err) {
+            res.send(err);
+        }
+        res.json(users);
+    });
+};
+
+exports.getUser = function (req, res) {
+    console.log("getUser")
+    User.find({_id: req.params.id}, function (err, user) {
+        if (err) {
+            res.send(err);
+        }
+        res.json(user[0]);
+    });
+};
+
+exports.updateUser = function (req, res) {
+    console.log("updateUser")
+    console.log(req)
+    User.findByIdAndUpdate(req.params.id, req.body, function (err) {
+        if (err) {
+            res.send(err);
+        }
+        res.send(200);
+    });
+};
