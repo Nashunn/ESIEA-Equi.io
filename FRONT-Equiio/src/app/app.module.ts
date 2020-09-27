@@ -1,25 +1,28 @@
 import {AppRoutingModule, routes} from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 
+import { HttpClientModule } from '@angular/common/http';
+import {FormsModule} from '@angular/forms';
 import { NbAuthModule, NbPasswordAuthStrategy } from '@nebular/auth';
 import {
-  NbActionsModule,
+  NbActionsModule, NbAlertModule,
   NbButtonModule,
   NbCardModule,
   NbIconModule,
   NbInputModule,
   NbSidebarModule,
   NbTooltipModule,
+  NbSpinnerModule,
   NbTreeGridModule,
 } from '@nebular/theme';
 import { NbLayoutModule, NbThemeModule } from '@nebular/theme';
+import {AlertComponent} from './alert/alert.component';
 import { HomeComponent } from './home/home.component';
 import { UserComponent } from './user/user.component';
 //import { LoginComponent } from './login/login.component';
@@ -38,10 +41,12 @@ const formSetting: any = {
     UserComponent,
     HomeComponent,
     // LoginComponent,
+    AlertComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     NbAuthModule.forRoot({
       strategies: [
@@ -93,6 +98,9 @@ const formSetting: any = {
     NbActionsModule,
     NbTooltipModule,
     HttpClientModule,
+    NbSpinnerModule,
+    FormsModule,
+    NbAlertModule,
   ],
   providers: [],
 })

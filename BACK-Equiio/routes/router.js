@@ -6,8 +6,10 @@ const horsesController = require("../controllers/horsesController");
 const lessonsController = require("../controllers/lessonsController");
 
 router
-    .get("/users", usersController.findAllUsers)
     .post("/users", usersController.createUser)
+    .get("/users", usersController.findAllUsers)
+    .get("/users/:id", usersController.getUser)
+    .put("/users/:id", usersController.updateUser)
 
 router
     .get("/horses", horsesController.findAllHorses)
