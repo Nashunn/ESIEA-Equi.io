@@ -11,7 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
 import { NbAuthModule, NbPasswordAuthStrategy } from '@nebular/auth';
 import {
-  NbActionsModule,
+  NbActionsModule, NbAlertModule,
   NbButtonModule,
   NbCardModule,
   NbIconModule,
@@ -79,6 +79,7 @@ import { UserComponent } from './user/user.component';
     HttpClientModule,
     NbSpinnerModule,
     FormsModule,
+    NbAlertModule,
   ],
   providers: [],
 })

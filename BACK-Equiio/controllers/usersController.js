@@ -30,7 +30,6 @@ exports.findAllUsers = function (req, res) {
 };
 
 exports.getUser = function (req, res) {
-    console.log("getUser")
     User.find({_id: req.params.id}, function (err, user) {
         if (err) {
             res.send(err);
@@ -40,12 +39,13 @@ exports.getUser = function (req, res) {
 };
 
 exports.updateUser = function (req, res) {
-    console.log("updateUser")
-    console.log(req)
     User.findByIdAndUpdate(req.params.id, req.body, function (err) {
         if (err) {
-            res.send(err);
+            const json = {returnCode: 500, message: 'Failed to update user'}
+            res.send(err, json);
+        } else {
+            const json = {returnCode: 200, message: 'User updated with success'}
+            res.send(200, json);
         }
-        res.send(200);
     });
 };
