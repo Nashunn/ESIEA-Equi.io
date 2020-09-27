@@ -4,7 +4,7 @@ import { AppComponent } from './app.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterModule } from '@angular/router'; // we also need angular router for Nebular to function properly
+import { RouterModule } from '@angular/router';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 
 import { HttpClientModule } from '@angular/common/http';
@@ -16,13 +16,23 @@ import {
   NbCardModule,
   NbIconModule,
   NbInputModule,
-  NbSidebarModule, NbSpinnerModule, NbTooltipModule,
+  NbSidebarModule,
+  NbTooltipModule,
+  NbSpinnerModule,
   NbTreeGridModule,
 } from '@nebular/theme';
 import { NbLayoutModule, NbThemeModule } from '@nebular/theme';
 import {AlertComponent} from './alert/alert.component';
 import { HomeComponent } from './home/home.component';
 import { UserComponent } from './user/user.component';
+//import { LoginComponent } from './login/login.component';
+
+const formSetting: any = {
+  redirectDelay: 0,
+  showMessages: {
+    success: true,
+  },
+};
 
 @NgModule({
   bootstrap: [AppComponent],
@@ -30,6 +40,7 @@ import { UserComponent } from './user/user.component';
     AppComponent,
     UserComponent,
     HomeComponent,
+    // LoginComponent,
     AlertComponent,
   ],
   imports: [
@@ -64,7 +75,15 @@ import { UserComponent } from './user/user.component';
           },
         }),
       ],
-      forms: {},
+      forms: {
+        login: formSetting,
+        register: formSetting,
+        requestPassword: formSetting,
+        resetPassword: formSetting,
+        logout: {
+          redirectDelay: 0,
+        },
+      },
     }),
     NbThemeModule.forRoot({name: 'default'}),
     NbLayoutModule,
