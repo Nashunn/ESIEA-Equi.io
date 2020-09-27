@@ -22,6 +22,7 @@ import {
 import { NbLayoutModule, NbThemeModule } from '@nebular/theme';
 import { HomeComponent } from './home/home.component';
 import { UserComponent } from './user/user.component';
+//import { LoginComponent } from './login/login.component';
 
 const formSetting: any = {
   redirectDelay: 0,
@@ -36,6 +37,7 @@ const formSetting: any = {
     AppComponent,
     UserComponent,
     HomeComponent,
+    // LoginComponent,
   ],
   imports: [
     BrowserModule,

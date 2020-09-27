@@ -11,6 +11,7 @@ import {
   NbInputModule,
 } from '@nebular/theme';
 
+import { EquiioLoginComponent } from '../login/login.component';
 import { NgxAuthRoutingModule } from './auth-routing.module';
 
 @NgModule({
@@ -26,7 +27,7 @@ import { NgxAuthRoutingModule } from './auth-routing.module';
     NbAuthModule,
   ],
   declarations: [
-    // ... here goes our new components
+    EquiioLoginComponent,
   ],
 })
 export class NgxAuthModule {
