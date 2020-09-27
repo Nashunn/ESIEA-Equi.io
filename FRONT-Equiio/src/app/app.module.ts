@@ -20,6 +20,7 @@ import {
   NbTreeGridModule,
 } from '@nebular/theme';
 import { NbLayoutModule, NbThemeModule } from '@nebular/theme';
+import {AlertComponent} from './alert/alert.component';
 import { HomeComponent } from './home/home.component';
 import { UserComponent } from './user/user.component';
 
@@ -29,6 +30,7 @@ import { UserComponent } from './user/user.component';
     AppComponent,
     UserComponent,
     HomeComponent,
+    AlertComponent,
   ],
   imports: [
     BrowserModule,
