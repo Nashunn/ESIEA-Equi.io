@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { NbAuthComponent } from '@nebular/auth';
-import {EquiioLoginComponent} from '../login/login.component';
+// import { NbAuthComponent } from '@nebular/auth';
+import { EquiioLoginComponent } from '../login/login.component';
 
 export const routes: Routes = [
   {
     path: '',
-    component: NbAuthComponent,
+    // component: NbAuthComponent,
     children: [
       {
         path: 'login',
