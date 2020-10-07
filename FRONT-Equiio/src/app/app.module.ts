@@ -19,7 +19,7 @@ import {
   NbSidebarModule,
   NbTooltipModule,
   NbSpinnerModule,
-  NbTreeGridModule,
+  NbTreeGridModule, NbUserModule,
 } from '@nebular/theme';
 import { NbLayoutModule, NbThemeModule } from '@nebular/theme';
 import {AlertComponent} from './alert/alert.component';
@@ -89,7 +89,7 @@ const formSetting: any = {
     NbLayoutModule,
     NbEvaIconsModule,
     NbIconModule,
-    RouterModule.forRoot(routes, { useHash: true }),
+    RouterModule.forRoot(routes, {useHash: true}),
     NbSidebarModule.forRoot(),
     NbButtonModule,
     NbTreeGridModule,
@@ -101,6 +101,7 @@ const formSetting: any = {
     NbSpinnerModule,
     FormsModule,
     NbAlertModule,
+    NbUserModule,
   ],
   providers: [],
 })

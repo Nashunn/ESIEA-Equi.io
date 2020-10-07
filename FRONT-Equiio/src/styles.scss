@@ -3,6 +3,7 @@
 @import '~@nebular/theme/styles/globals';
 @import '~@nebular/auth/styles/globals';
 @import '~bootstrap/dist/css/bootstrap-grid.css';
+@import './src/global-style.scss';
 
 @include nb-install() {
   @include nb-theme-global();

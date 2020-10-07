@@ -6,9 +6,9 @@ import { RouterModule } from '@angular/router';
 import { NbAuthModule } from '@nebular/auth';
 import {
   NbAlertModule,
-  NbButtonModule,
+  NbButtonModule, NbCardModule,
   NbCheckboxModule,
-  NbInputModule,
+  NbInputModule, NbSpinnerModule, NbTabsetModule,
 } from '@nebular/theme';
 
 import { EquiioLoginComponent } from '../login/login.component';
@@ -25,6 +25,9 @@ import { NgxAuthRoutingModule } from './auth-routing.module';
     NbCheckboxModule,
     NgxAuthRoutingModule,
     NbAuthModule,
+    NbCardModule,
+    NbSpinnerModule,
+    NbTabsetModule,
   ],
   declarations: [
     EquiioLoginComponent,
