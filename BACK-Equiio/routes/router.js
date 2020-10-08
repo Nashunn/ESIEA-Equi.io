@@ -10,6 +10,7 @@ router
     .get("/users", usersController.findAllUsers)
     .get("/users/:id", usersController.getUser)
     .put("/users/:id", usersController.updateUser)
+    .post("/users/login", usersController.login)
     .delete("/users/:id", usersController.deleteUser)
 
 router

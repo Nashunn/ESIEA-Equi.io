@@ -62,3 +62,18 @@ exports.deleteUser = function (req, res) {
         }
     });
 };
+
+exports.login = function(req, res) {
+    User.findOne({email: req.body.email}, function(err, user) {
+        if (err) {
+            const json = {returnCode: 500, message: 'Failed to log in'}
+            res.send(err, json);
+        } else {
+            // Todo : Check if password is valid
+
+            // Todo : Assign token ?
+            const json = {returnCode: 200, message: 'User logged in'}
+            res.send(200, json);
+        }
+    })
+}
