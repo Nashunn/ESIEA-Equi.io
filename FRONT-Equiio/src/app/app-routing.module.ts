@@ -1,24 +1,18 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes  } from '@angular/router';
-import {
-  NbAuthComponent,
-  NbLoginComponent,
-  NbLogoutComponent,
-  NbRegisterComponent,
-  NbRequestPasswordComponent,
-  NbResetPasswordComponent,
-} from '@nebular/auth';
+import { AuthGuard } from './helpers/auth.guard';
 import {HomeComponent} from './home/home.component';
 import {UserComponent} from './user/user.component';
 
 export const routes: Routes = [
   {
-    path: 'auth',
-    loadChildren: () => import('src/app/auth/auth.module').then((m) => m.NgxAuthModule),
-  },
-  {
     path: 'home',
     component: HomeComponent,
+    canActivate: [AuthGuard], // secured
+  },
+  {
+    path: 'auth',
+    loadChildren: () => import('src/app/auth/auth.module').then((m) => m.NgxAuthModule),
   },
   {
     path: 'user',
