@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 
 let userSchema = mongoose.Schema({
-    id: {type: String, require: true},
     lastname: {
         type: String,
         trim: true,
@@ -35,6 +34,16 @@ let userSchema = mongoose.Schema({
     },
 }, {
     versionKey: false
+});
+
+// Duplicate the ID field.
+userSchema.virtual('id').get(function(){
+    return this._id;
+});
+
+// Ensure virtual fields are serialised.
+userSchema.set('toJSON', {
+    virtuals: true
 });
 
 let User = mongoose.model("User", userSchema);

@@ -1,0 +1,11 @@
+<h2 class="row justify-content-center">Gestion des utilisateurs</h2>
+<div class="row justify-content-center">
+  <nb-card>
+    <nb-card-body>
+      <div class="row">
+        <ng2-smart-table class="users-table" [settings]="settings" [source]="this.users"
+                         (deleteConfirm)="onDeleteConfirm($event)" (editConfirm)="onUpdateConfirm($event)"></ng2-smart-table>
+      </div>
+    </nb-card-body>
+  </nb-card>
+</div>
