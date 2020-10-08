@@ -42,10 +42,23 @@ exports.updateUser = function (req, res) {
     User.findByIdAndUpdate(req.params.id, req.body, function (err) {
         if (err) {
             const json = {returnCode: 500, message: 'Failed to update user'}
-            res.send(err, json);
+            res.status(500).send(json);
         } else {
             const json = {returnCode: 200, message: 'User updated with success'}
-            res.send(200, json);
+            res.status(200).send(json);
+        }
+    });
+};
+
+exports.deleteUser = function (req, res) {
+    console.log(req.params.id)
+    User.findByIdAndDelete(req.params.id, function (err) {
+        if (err) {
+            const json = {returnCode: 500, message: 'Failed to delete user'}
+            res.status(500).send(json);
+        } else {
+            const json = {returnCode: 200, message: 'User deleted with success'}
+            res.status(200).send(json);
         }
     });
 };

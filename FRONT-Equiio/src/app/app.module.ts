@@ -22,9 +22,11 @@ import {
   NbTreeGridModule, NbUserModule,
 } from '@nebular/theme';
 import { NbLayoutModule, NbThemeModule } from '@nebular/theme';
+import {Ng2SmartTableModule} from 'ng2-smart-table';
 import {AlertComponent} from './alert/alert.component';
 import { HomeComponent } from './home/home.component';
 import { UserComponent } from './user/user.component';
+import {UsersComponent} from './users/users.component';
 //import { LoginComponent } from './login/login.component';
 
 const formSetting: any = {
@@ -39,6 +41,7 @@ const formSetting: any = {
   declarations: [
     AppComponent,
     UserComponent,
+    UsersComponent,
     HomeComponent,
     // LoginComponent,
     AlertComponent,
@@ -101,6 +104,7 @@ const formSetting: any = {
     NbSpinnerModule,
     FormsModule,
     NbAlertModule,
+    Ng2SmartTableModule,
     NbUserModule,
   ],
   providers: [],
