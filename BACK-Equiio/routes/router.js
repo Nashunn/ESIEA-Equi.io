@@ -10,6 +10,7 @@ router
     .get("/users", usersController.findAllUsers)
     .get("/users/:id", usersController.getUser)
     .put("/users/:id", usersController.updateUser)
+    .delete("/users/:id", usersController.deleteUser)
 
 router
     .get("/horses", horsesController.findAllHorses)

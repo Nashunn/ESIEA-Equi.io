@@ -11,6 +11,7 @@
   },
   "private": true,
   "dependencies": {
+    "@akveo/ng2-completer": "^9.0.1",
     "@angular/animations": "~10.1.2",
     "@angular/cdk": "^10.0.0",
     "@angular/common": "~10.1.2",
@@ -26,6 +27,7 @@
     "bootstrap": "^4.5.2",
     "eva-icons": "^1.1.2",
     "nebular-icons": "^1.1.0",
+    "ng2-smart-table": "^1.6.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"

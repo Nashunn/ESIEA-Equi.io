@@ -10,6 +10,7 @@ import {
 } from '@nebular/auth';
 import {HomeComponent} from './home/home.component';
 import {UserComponent} from './user/user.component';
+import {UsersComponent} from './users/users.component';
 
 export const routes: Routes = [
   {
@@ -23,6 +24,10 @@ export const routes: Routes = [
   {
     path: 'user',
     component: UserComponent,
+  },
+  {
+    path: 'users',
+    component: UsersComponent,
   },
   {
     path: '',
