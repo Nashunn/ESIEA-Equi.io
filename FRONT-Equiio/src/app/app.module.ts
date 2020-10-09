@@ -1,4 +1,4 @@
-import {AppRoutingModule, routes} from './app-routing.module';
+import { AppRoutingModule, routes } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { NgModule } from '@angular/core';
@@ -7,9 +7,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 
-import { HttpClientModule } from '@angular/common/http';
-import {FormsModule} from '@angular/forms';
-import { NbAuthModule, NbPasswordAuthStrategy } from '@nebular/auth';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 import {
   NbActionsModule, NbAlertModule,
   NbButtonModule,
@@ -17,24 +16,18 @@ import {
   NbIconModule,
   NbInputModule,
   NbSidebarModule,
-  NbTooltipModule,
   NbSpinnerModule,
+  NbTooltipModule,
   NbTreeGridModule, NbUserModule,
 } from '@nebular/theme';
 import { NbLayoutModule, NbThemeModule } from '@nebular/theme';
-import {Ng2SmartTableModule} from 'ng2-smart-table';
-import {AlertComponent} from './alert/alert.component';
+import { Ng2SmartTableModule } from 'ng2-smart-table';
+import { AlertComponent } from './alert/alert.component';
+import { ErrorInterceptor } from './helpers/error.interceptor';
+import { JwtInterceptor } from './helpers/jwt.interceptor';
 import { HomeComponent } from './home/home.component';
 import { UserComponent } from './user/user.component';
-import {UsersComponent} from './users/users.component';
-//import { LoginComponent } from './login/login.component';
-
-const formSetting: any = {
-  redirectDelay: 0,
-  showMessages: {
-    success: true,
-  },
-};
+import { UsersComponent } from './users/users.component';
 
 @NgModule({
   bootstrap: [AppComponent],
@@ -43,7 +36,6 @@ const formSetting: any = {
     UserComponent,
     UsersComponent,
     HomeComponent,
-    // LoginComponent,
     AlertComponent,
   ],
   imports: [
@@ -51,43 +43,6 @@ const formSetting: any = {
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    NbAuthModule.forRoot({
-      strategies: [
-        NbPasswordAuthStrategy.setup({
-          name: 'email',
-          baseEndpoint: 'http://localhost:3080',
-          login: {
-            endpoint: '/auth/sign-in',
-            method: 'post',
-          },
-          register: {
-            endpoint: '/auth/sign-up',
-            method: 'post',
-          },
-          logout: {
-            endpoint: '/auth/sign-out',
-            method: 'post',
-          },
-          requestPass: {
-            endpoint: '/auth/request-pass',
-            method: 'post',
-          },
-          resetPass: {
-            endpoint: '/auth/reset-pass',
-            method: 'post',
-          },
-        }),
-      ],
-      forms: {
-        login: formSetting,
-        register: formSetting,
-        requestPassword: formSetting,
-        resetPassword: formSetting,
-        logout: {
-          redirectDelay: 0,
-        },
-      },
-    }),
     NbThemeModule.forRoot({name: 'default'}),
     NbLayoutModule,
     NbEvaIconsModule,
@@ -102,11 +57,14 @@ const formSetting: any = {
     NbTooltipModule,
     HttpClientModule,
     NbSpinnerModule,
-    FormsModule,
     NbAlertModule,
     Ng2SmartTableModule,
     NbUserModule,
+    ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+  ],
 })
 export class AppModule { }

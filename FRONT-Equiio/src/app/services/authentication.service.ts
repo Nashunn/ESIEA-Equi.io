@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { User } from '@app/models';
-import { environment } from '@environments/environment';
+import { environment } from '../../environments/environment';
+import { User } from '../models/user.model';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
@@ -25,7 +25,7 @@ export class AuthenticationService {
   public login(
     email: string,
     password: string,
-  ) {
+  ): Observable<Response> {
     return this.http.post<any>(`${environment.apiUrl}/users/login`, { email, password })
       .pipe(map((user) => {
         // store user details and jwt token in local storage to keep user logged in between page refreshes
@@ -44,7 +44,7 @@ export class AuthenticationService {
     licence: string,
     password: string,
     passwordConfirm: string,
-  ) {
+  ): Observable<Response> {
     return this.http.post<any>(`${environment.apiUrl}/users`, {
       firstname,
       lastname,
@@ -62,7 +62,7 @@ export class AuthenticationService {
       }));
   }
 
-  public logout() {
+  public logout(): void {
     // remove user from local storage to log user out
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);

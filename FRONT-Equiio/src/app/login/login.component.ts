@@ -1,9 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs/operators';
-
-import { AuthenticationService } from '@app/_services';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -49,11 +48,11 @@ export class EquiioLoginComponent implements OnInit {
   }
 
   // Getter for easy access to form fields
-  get flog() { return this.loginForm.controls; }
-  get freg() { return this.registerForm.controls; }
+  get flog(): { [p: string]: AbstractControl } { return this.loginForm.controls; }
+  get freg(): { [p: string]: AbstractControl } { return this.registerForm.controls; }
 
   // Submit Login form
-  public onSubmitLog() {
+  public onSubmitLog(): void {
     this.submitted = true;
 
     // stop here if form is invalid
@@ -76,7 +75,7 @@ export class EquiioLoginComponent implements OnInit {
   }
 
   // Submit Register form
-  public onSubmitReg() {
+  public onSubmitReg(): void {
     this.submitted = true;
 
     // stop here if form is invalid
