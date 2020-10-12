@@ -4,12 +4,13 @@ const User = require("../models/users");
 exports.createUser = function (req, res) {
     User.create(
         {
-            lastname: req.body.lastname,
             firstname: req.body.firstname,
+            lastname: req.body.lastname,
             mail: req.body.mail,
             phone: req.body.phone,
+            licence: req.body.licence,
             password: req.body.password,
-            type: req.body.type
+            type: req.body.password
         },
         function (err, user) {
             // Check if correct

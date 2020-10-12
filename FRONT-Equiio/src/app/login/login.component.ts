@@ -14,7 +14,8 @@ import { AuthenticationService } from '../services/authentication.service';
 export class EquiioLoginComponent implements OnInit {
   public loginForm: FormGroup;
   public registerForm: FormGroup;
-  public submitted = false;
+  public loginSubmitted = false;
+  public registerSubmitted = false;
   public error = '';
 
   // Constructor
@@ -53,7 +54,8 @@ export class EquiioLoginComponent implements OnInit {
 
   // Submit Login form
   public onSubmitLog(): void {
-    this.submitted = true;
+    this.loginSubmitted = true;
+    console.log('Login submit');
 
     // stop here if form is invalid
     if (this.loginForm.invalid) {
@@ -76,7 +78,7 @@ export class EquiioLoginComponent implements OnInit {
 
   // Submit Register form
   public onSubmitReg(): void {
-    this.submitted = true;
+    this.registerSubmitted = true;
 
     // stop here if form is invalid
     if (this.registerForm.invalid) {

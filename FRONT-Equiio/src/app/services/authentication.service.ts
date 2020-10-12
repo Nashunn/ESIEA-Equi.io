@@ -39,20 +39,21 @@ export class AuthenticationService {
   public register(
     firstname: string,
     lastname: string,
-    email: string,
-    tel: string,
+    mail: string,
+    phone: string,
     licence: string,
     password: string,
-    passwordConfirm: string,
+    type: string,
   ): Observable<Response> {
+    console.log('auth service : ' + firstname + ' ' + lastname);
     return this.http.post<any>(`${environment.apiUrl}/users`, {
       firstname,
       lastname,
-      email,
-      tel,
+      mail,
+      phone,
       licence,
       password,
-      passwordConfirm,
+      type,
     })
       .pipe(map((user) => {
         // store user details and jwt token in local storage to keep user logged in between page refreshes

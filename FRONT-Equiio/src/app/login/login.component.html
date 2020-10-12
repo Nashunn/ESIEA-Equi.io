@@ -8,7 +8,7 @@
             type="text"
             class="input-margin"
             formControlName="login_email"
-            [ngClass]="{ 'is-invalid': submitted && flog.login_email.errors }"
+            [ngClass]="{ 'is-invalid': loginSubmitted && flog.login_email.errors }"
             name="login_email" id="login_email" placeholder="Email"
             nbInput fullWidth
           />
@@ -17,7 +17,7 @@
             type="password"
             class="input-margin"
             formControlName="login_password"
-            [ngClass]="{ 'is-invalid': submitted && flog.login_password.errors }"
+            [ngClass]="{ 'is-invalid': loginSubmitted && flog.login_password.errors }"
             name="login_password" id="login_password" placeholder="Mot de passe"
             nbInput fullWidth
           />
@@ -28,11 +28,14 @@
         <form [formGroup]="registerForm" (ngSubmit)="onSubmitReg()">
           <!-- Firstname & Lastname -->
           <label for="reg_firstname" class="label-margin">Prénom et Nom<sup>*</sup></label>
+          <div *ngIf="registerSubmitted && (freg.reg_firstname.errors && freg.reg_lastname.errors)" class="invalid-feedback">
+            <div *ngIf="freg.reg_firstname.errors.required && freg.reg_lastname.errors.required">Prénom et Nom obligatoires</div>
+          </div>
           <input
             type="text"
             class="form-control input-margin col-5"
             formControlName="reg_firstname"
-            [ngClass]="{ 'is-invalid': submitted && freg.reg_firstname.errors }"
+            [ngClass]="{ 'is-invalid': registerSubmitted && freg.reg_firstname.errors }"
             name="reg_firstname" id="reg_firstname" placeholder="Prénom"
             nbInput fullWidth
           />
@@ -40,75 +43,72 @@
             type="text"
             class="form-control input-margin col-6 offset-1"
             formControlName="reg_lastname"
-            [ngClass]="{ 'is-invalid': submitted && freg.reg_lastname.errors }"
+            [ngClass]="{ 'is-invalid': registerSubmitted && freg.reg_lastname.errors }"
             name="reg_lastname" id="reg_lastname" placeholder="Nom"
             nbInput fullWidth
           />
-          <div *ngIf="submitted && freg.reg_firstname.errors && freg.reg_lastname.errors" class="invalid-feedback">
-            <div *ngIf="freg.reg_firstname.errors.required && freg.reg_lastname.errors.required">Prénom et Nom obligatoires</div>
-          </div>
           <!-- Email -->
           <label for="reg_email" class="label-margin">Email<sup>*</sup></label>
+          <div *ngIf="registerSubmitted && freg.reg_email.errors" class="invalid-feedback">
+            <div *ngIf="freg.reg_email.errors.required">Email obligatoire</div>
+          </div>
           <input
             type="text"
             class="input-margin"
             formControlName="reg_email"
-            [ngClass]="{ 'is-invalid': submitted && freg.reg_email.errors }"
+            [ngClass]="{ 'is-invalid': registerSubmitted && freg.reg_email.errors }"
             name="reg_email" id="reg_email" placeholder="Email"
             nbInput fullWidth
           />
-          <div *ngIf="submitted && freg.reg_email.errors" class="invalid-feedback">
-            <div *ngIf="freg.reg_email.errors.required">Email obligatoire</div>
-          </div>
           <!-- Phone -->
           <label for="reg_tel" class="label-margin">Tel<sup>*</sup></label>
+          <div *ngIf="registerSubmitted && freg.reg_tel.errors" class="invalid-feedback">
+            <div *ngIf="freg.reg_tel.errors.required">Téléphone obligatoire</div>
+          </div>
           <input
             type="tel"
             class="input-margin"
             formControlName="reg_tel"
-            [ngClass]="{ 'is-invalid': submitted && freg.reg_tel.errors }"
+            [ngClass]="{ 'is-invalid': registerSubmitted && freg.reg_tel.errors }"
             name="reg_tel" id="reg_tel" placeholder="Téléphone"
             nbInput fullWidth
           />
-          <div *ngIf="submitted && freg.reg_tel.errors" class="invalid-feedback">
-            <div *ngIf="freg.reg_tel.errors.required">Téléphone obligatoire</div>
-          </div>
           <!-- Licence number -->
           <label for="reg_licence" class="label-margin">Numéro de licence</label>
           <input
             type="text"
             class="input-margin"
             formControlName="reg_licence"
-            [ngClass]="{ 'is-invalid': submitted && freg.reg_licence.errors }"
+            [ngClass]="{ 'is-invalid': registerSubmitted && freg.reg_licence.errors }"
             name="reg_licence" id="reg_licence" placeholder="Numéro de licence"
             nbInput fullWidth
           />
           <!-- Password -->
           <label for="reg_password" class="label-margin">Mot de passe<sup>*</sup></label>
+          <div *ngIf="registerSubmitted && freg.reg_password.errors" class="invalid-feedback">
+            <div *ngIf="freg.reg_password.errors.required">Mot de passe obligatoire</div>
+          </div>
           <input
             type="password"
             class="input-margin"
             formControlName="reg_password"
-            [ngClass]="{ 'is-invalid': submitted && freg.reg_password.errors }"
+            [ngClass]="{ 'is-invalid': registerSubmitted && freg.reg_password.errors }"
             name="reg_password" id="reg_password" placeholder="Mot de passe"
             nbInput fullWidth
           />
-          <div *ngIf="submitted && freg.reg_password.errors" class="invalid-feedback">
-            <div *ngIf="freg.reg_password.errors.required">Mot de passe obligatoire</div>
-          </div>
           <!-- Password confirmation -->
           <label for="reg_passwordConfirm" class="label-margin">Mot de passe (Confirmation)<sup>*</sup></label>
+          <div *ngIf="registerSubmitted && freg.reg_passwordConfirm.errors" class="invalid-feedback">
+            <div *ngIf="freg.reg_passwordConfirm.errors.required">Confirmation de mot de passe obligatoire</div>
+          </div>
           <input
             type="password"
             class="input-margin"
             formControlName="reg_passwordConfirm"
-            [ngClass]="{ 'is-invalid': submitted && freg.reg_passwordConfirm.errors }"
+            [ngClass]="{ 'is-invalid': registerSubmitted && freg.reg_passwordConfirm.errors }"
             name="reg_passwordConfirm" id="reg_passwordConfirm" placeholder="Confirmation Mot de passe"
             nbInput fullWidth
           />
-          <div *ngIf="submitted && freg.reg_passwordConfirm.errors" class="invalid-feedback">
-            <div *ngIf="freg.reg_passwordConfirm.errors.required">Confirmation de mot de passe obligatoire</div>
-          </div>
           <!-- Form Button -->
           <button nbButton fullWidth status="primary" size="medium">S'inscrire</button>
           <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div>
