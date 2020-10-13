@@ -1,7 +1,11 @@
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
 const errors = require('../utils/errors');
 const User = require("../models/users");
 
 exports.createUser = function (req, res) {
+    const hashedPwd = bcrypt.hashSync(req.body.password, 8);
+
     User.create(
         {
             firstname: req.body.firstname,
@@ -9,14 +13,18 @@ exports.createUser = function (req, res) {
             mail: req.body.mail,
             phone: req.body.phone,
             licence: req.body.licence,
-            password: req.body.password,
-            type: req.body.password
+            password: hashedPwd,
+            type: req.body.type,
         },
         function (err, user) {
             // Check if correct
             if (err) return errors.checkErrors("user", res, err);
+            // create a token
+            let token = jwt.sign({id: user._id}, config.secret, {
+                expiresIn: 86400 // expires in 24 hours
+            });
 
-            res.status(201).send();
+            res.status(201).send({ auth: true, token: token });
         }
     );
 }

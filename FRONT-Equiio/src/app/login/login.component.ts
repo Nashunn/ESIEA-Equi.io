@@ -16,7 +16,8 @@ export class EquiioLoginComponent implements OnInit {
   public registerForm: FormGroup;
   public loginSubmitted = false;
   public registerSubmitted = false;
-  public error = '';
+  public errorLog = '';
+  public errorReg = '';
 
   // Constructor
   constructor(
@@ -55,7 +56,6 @@ export class EquiioLoginComponent implements OnInit {
   // Submit Login form
   public onSubmitLog(): void {
     this.loginSubmitted = true;
-    console.log('Login submit');
 
     // stop here if form is invalid
     if (this.loginForm.invalid) {
@@ -71,7 +71,7 @@ export class EquiioLoginComponent implements OnInit {
           this.router.navigate([returnUrl]);
         },
         error: (error) => {
-          this.error = error;
+          this.errorLog = error;
         },
       });
   }
@@ -85,14 +85,20 @@ export class EquiioLoginComponent implements OnInit {
       return;
     }
 
+    // stop here if pwd and pwdConfirm are not the same
+    if (this.registerForm.get('reg_passwordConfirm').value !== this.registerForm.get('reg_password').value) {
+      this.errorReg = 'Les mots de passe ne correspondent pas';
+      return;
+    }
+
     this.authenticationService.register(
-      this.freg.register_firstname.value,
-      this.freg.register_lastname.value,
-      this.freg.register_email.value,
-      this.freg.register_tel.value,
-      this.freg.register_licence.value,
-      this.freg.register_password.value,
-      this.freg.register_passwordConfirm.value,
+      this.registerForm.get('reg_firstname').value,
+      this.registerForm.get('reg_lastname').value,
+      this.registerForm.get('reg_email').value,
+      this.registerForm.get('reg_tel').value,
+      this.registerForm.get('reg_licence').value,
+      this.registerForm.get('reg_password').value,
+      'user',
       )
       .pipe(first())
       .subscribe({
@@ -102,7 +108,7 @@ export class EquiioLoginComponent implements OnInit {
           this.router.navigate([returnUrl]);
         },
         error: (error) => {
-          this.error = error;
+          this.errorReg = error;
         },
       });
   }

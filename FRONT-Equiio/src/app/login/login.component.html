@@ -3,7 +3,11 @@
     <nb-tabset fullWidth>
       <nb-tab tabTitle="Connexion">
         <form [formGroup]="loginForm" (ngSubmit)="onSubmitLog()">
+          <!-- Email -->
           <label for="login_email" class="label-margin">Email<sup>*</sup></label>
+          <div *ngIf="loginSubmitted && flog.login_email.errors" class="invalid-feedback">
+            <div *ngIf="flog.login_email.errors.required">Email obligatoire</div>
+          </div>
           <input
             type="text"
             class="input-margin"
@@ -12,7 +16,11 @@
             name="login_email" id="login_email" placeholder="Email"
             nbInput fullWidth
           />
+          <!-- Password -->
           <label for="login_password" class="label-margin">Mot de passe<sup>*</sup></label>
+          <div *ngIf="loginSubmitted && flog.login_password.errors" class="invalid-feedback">
+            <div *ngIf="flog.login_password.errors.required">Mot de passe obligatoire</div>
+          </div>
           <input
             type="password"
             class="input-margin"
@@ -22,6 +30,7 @@
             nbInput fullWidth
           />
           <button nbButton fullWidth status="primary" size="medium">Se connecter</button>
+          <div *ngIf="errorLog" class="invalid-feedback mt-3 mb-0">{{errorLog}}</div>
         </form>
       </nb-tab>
       <nb-tab tabTitle="Inscription">
@@ -30,6 +39,12 @@
           <label for="reg_firstname" class="label-margin">Prénom et Nom<sup>*</sup></label>
           <div *ngIf="registerSubmitted && (freg.reg_firstname.errors && freg.reg_lastname.errors)" class="invalid-feedback">
             <div *ngIf="freg.reg_firstname.errors.required && freg.reg_lastname.errors.required">Prénom et Nom obligatoires</div>
+          </div>
+          <div *ngIf="registerSubmitted && (freg.reg_firstname.errors && !freg.reg_lastname.errors)" class="invalid-feedback">
+            <div *ngIf="freg.reg_firstname.errors.required">Prénom obligatoire</div>
+          </div>
+          <div *ngIf="registerSubmitted && (!freg.reg_firstname.errors && freg.reg_lastname.errors)" class="invalid-feedback">
+            <div *ngIf="freg.reg_lastname.errors.required">Nom obligatoire</div>
           </div>
           <input
             type="text"
@@ -111,7 +126,7 @@
           />
           <!-- Form Button -->
           <button nbButton fullWidth status="primary" size="medium">S'inscrire</button>
-          <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div>
+          <div *ngIf="errorReg" class="invalid-feedback mt-3 mb-0">{{errorReg}}</div>
         </form>
       </nb-tab>
     </nb-tabset>
