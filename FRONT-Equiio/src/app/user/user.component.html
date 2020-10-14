@@ -17,39 +17,39 @@
     <nb-card-body *ngIf="!isLoading">
       <div *ngIf="!isEditMode">
         <div class="row mb-3">
-          <div class="col-lg-6 col-sm-6 col-6 text-left">Prénom</div>
-          <div class="col-lg-6 col-sm-6 col-6 text-right">{{user.firstname}}</div>
+          <div class="col-6 text-left">Prénom</div>
+          <div class="col-6 text-right">{{user.firstname}}</div>
         </div>
         <div class="row mb-3">
-          <div class="col-lg-6 col-sm-6 col-6 text-left">Nom</div>
-          <div class="col-lg-6 col-sm-6 col-6 text-right">{{user.lastname}}</div>
+          <div class="col-6 text-left">Nom</div>
+          <div class="col-6 text-right">{{user.lastname}}</div>
         </div>
         <div class="row mb-3">
-          <div class="col-lg-6 col-sm-6 col-6 text-left">E-mail</div>
-          <div class="col-lg-6 col-sm-6 col-6 text-right">{{user.mail}}</div>
+          <div class="col-6 text-left">E-mail</div>
+          <div class="col-6 text-right">{{user.mail}}</div>
         </div>
         <div class="row mb-3">
-          <div class="col-lg-6 col-sm-6 col-6 text-left">Téléphone</div>
-          <div class="col-lg-6 col-sm-6 col-6 text-right">{{user.phone}}</div>
+          <div class="col-6 text-left">Téléphone</div>
+          <div class="col-6 text-right">{{user.phone}}</div>
         </div>
       </div>
 
       <div *ngIf="isEditMode">
-        <div class="row mb-3">
-          <div class="col-lg-8 col-sm-8 col-8 text-left">Prénom</div>
-          <input class="col-lg-4 col-sm-4 col-4" type="text" nbInput [(ngModel)]="user.firstname" fieldSize="small">
+        <div class="row input-margin">
+          <div class="col-7 text-left">Prénom</div>
+          <input class="col-4" type="text" nbInput [(ngModel)]="user.firstname" fieldSize="small">
         </div>
-        <div class="row mb-3">
-          <div class="col-lg-8 col-sm-8 col-8 text-left">Nom</div>
-          <input class="col-lg-4 col-sm-4 col-4" type="text" nbInput [(ngModel)]="user.lastname" fieldSize="small">
+        <div class="row input-margin">
+          <div class="col-7 text-left">Nom</div>
+          <input class="col-4" type="text" nbInput [(ngModel)]="user.lastname" fieldSize="small">
         </div>
-        <div class="row mb-3">
-          <div class="col-lg-8 col-sm-8 col-8 text-left">E-mail</div>
-          <input class="col-lg-4 col-sm-4 col-4" type="text" nbInput [(ngModel)]="user.mail" fieldSize="small">
+        <div class="row input-margin">
+          <div class="col-7 text-left">E-mail</div>
+          <input class="col-4" type="text" nbInput [(ngModel)]="user.mail" fieldSize="small">
         </div>
-        <div class="row mb-3">
-          <div class="col-lg-8 col-sm-8 col-8 text-left">Téléphone</div>
-          <input class="col-lg-4 col-sm-4 col-4" type="text" nbInput [(ngModel)]="user.phone" fieldSize="small">
+        <div class="row input-margin">
+          <div class="col-7 text-left">Téléphone</div>
+          <input class="col-4" type="text" nbInput [(ngModel)]="user.phone" fieldSize="small">
         </div>
       </div>
     </nb-card-body>

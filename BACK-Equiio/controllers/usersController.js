@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const errors = require('../utils/errors');
 const User = require("../models/users");
+const config = require("../config/config")
 
 exports.createUser = function (req, res) {
     const hashedPwd = bcrypt.hashSync(req.body.password, 8);
@@ -24,7 +25,7 @@ exports.createUser = function (req, res) {
                 expiresIn: 86400 // expires in 24 hours
             });
 
-            res.status(201).send({ auth: true, token: token });
+            res.status(201).send({ auth: true, id: user._id, token: token });
         }
     );
 }
@@ -73,15 +74,25 @@ exports.deleteUser = function (req, res) {
 };
 
 exports.login = function(req, res) {
-    User.findOne({email: req.body.email}, function(err, user) {
+    User.findOne({mail: req.body.mail}, function(err, user) {
         if (err) {
-            const json = {returnCode: 500, message: 'Failed to log in'}
+            const json = { message: 'Server error' }
             res.send(err, json);
-        } else {
+        }
+        else if (!user) {
+            const json = { message: 'Failed to log in' }
+            res.send(401, json);
+        }
+        else {
             // Todo : Check if password is valid
 
-            // Todo : Assign token ?
-            const json = {returnCode: 200, message: 'User logged in'}
+
+            // Assign token
+            let token = jwt.sign({id: user._id}, config.secret, {
+                expiresIn: 86400 // expires in 24 hours
+            });
+
+            const json = { auth: true, id: user._id, token: token }
             res.send(200, json);
         }
     })

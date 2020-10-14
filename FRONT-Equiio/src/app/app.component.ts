@@ -11,11 +11,17 @@ import { AuthenticationService } from './services/authentication.service';
 
 export class AppComponent {
   public title = 'Equi.io';
-  public tokenValid = false;
   public currentUser: User;
+  public tokenValid = false;
 
   constructor(private router: Router, private authenticationService: AuthenticationService) {
-    this.authenticationService.currentUser.subscribe((x) => this.currentUser = x);
+    this.authenticationService.currentUser.subscribe((x) => {
+      this.currentUser = x;
+      if (this.currentUser !== null) {
+        this.tokenValid = !!this.currentUser.token;
+        console.log(this.tokenValid);
+      }
+    });
   }
 
   public logout(): void {
