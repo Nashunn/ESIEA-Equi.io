@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AlertComponent} from '../alert/alert.component';
+import { Response } from '../models/response.model';
 import {User} from '../models/user.model';
 import {AlertService} from '../services/alert.service';
 import {UserService} from '../services/user.service';
@@ -39,7 +40,7 @@ export class UserComponent implements OnInit {
 
   public updateUser(): void {
     this.userService.updateUser(this.user).subscribe(
-      (response) => {
+      (response: Response|any) => {
         if (response.returnCode > 200) {
           this.alertService.error(response.message);
         } else {
@@ -47,7 +48,7 @@ export class UserComponent implements OnInit {
         }
       },
       (err) => {
-        this.alertService.error('An error has occured.');
+        this.alertService.error('Une erreur est survenue');
       });
   }
 }

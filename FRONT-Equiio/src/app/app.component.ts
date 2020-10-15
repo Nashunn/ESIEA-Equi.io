@@ -19,13 +19,13 @@ export class AppComponent {
       this.currentUser = x;
       if (this.currentUser !== null) {
         this.tokenValid = !!this.currentUser.token;
-        console.log(this.tokenValid);
       }
     });
   }
 
   public logout(): void {
     this.authenticationService.logout();
+    this.tokenValid = false;
     this.router.navigate(['/auth/login']);
   }
 }

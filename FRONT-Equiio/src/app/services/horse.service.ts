@@ -2,7 +2,7 @@ import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {Horse} from '../models/horse.model';
-import {Response} from '../models/response.model';
+import {Response} from '../models/Response.model';
 
 @Injectable()
 export class HorseService {

@@ -5,7 +5,8 @@
     </div>
     <div class="col-8 offset-1">
       <nb-actions *ngIf="tokenValid" size="medium" class="d-flex flex-row-reverse">
-        <nb-action icon="log-out-outline" link="/auth/logout" icon-color="#222b45"></nb-action>
+        <nb-action class="p-0"><!-- Fixing nebular --></nb-action>
+        <nb-action icon="log-out-outline" (click)="logout()" icon-color="#222b45"></nb-action>
         <nb-action><a routerLink="/user">Mon compte</a></nb-action>
         <nb-action>M'inscrire à une leçon</nb-action>
         <nb-action><a routerLink="/home">Mes prochaines leçons</a></nb-action>
