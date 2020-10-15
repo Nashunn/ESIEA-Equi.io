@@ -14,8 +14,10 @@ import { AuthenticationService } from '../services/authentication.service';
 export class EquiioLoginComponent implements OnInit {
   public loginForm: FormGroup;
   public registerForm: FormGroup;
-  public submitted = false;
-  public error = '';
+  public loginSubmitted = false;
+  public registerSubmitted = false;
+  public errorLog = '';
+  public errorReg = '';
 
   // Constructor
   constructor(
@@ -53,7 +55,7 @@ export class EquiioLoginComponent implements OnInit {
 
   // Submit Login form
   public onSubmitLog(): void {
-    this.submitted = true;
+    this.loginSubmitted = true;
 
     // stop here if form is invalid
     if (this.loginForm.invalid) {
@@ -69,28 +71,34 @@ export class EquiioLoginComponent implements OnInit {
           this.router.navigate([returnUrl]);
         },
         error: (error) => {
-          this.error = error;
+          this.errorLog = error;
         },
       });
   }
 
   // Submit Register form
   public onSubmitReg(): void {
-    this.submitted = true;
+    this.registerSubmitted = true;
 
     // stop here if form is invalid
     if (this.registerForm.invalid) {
       return;
     }
 
+    // stop here if pwd and pwdConfirm are not the same
+    if (this.registerForm.get('reg_passwordConfirm').value !== this.registerForm.get('reg_password').value) {
+      this.errorReg = 'Les mots de passe ne correspondent pas';
+      return;
+    }
+
     this.authenticationService.register(
-      this.freg.register_firstname.value,
-      this.freg.register_lastname.value,
-      this.freg.register_email.value,
-      this.freg.register_tel.value,
-      this.freg.register_licence.value,
-      this.freg.register_password.value,
-      this.freg.register_passwordConfirm.value,
+      this.registerForm.get('reg_firstname').value,
+      this.registerForm.get('reg_lastname').value,
+      this.registerForm.get('reg_email').value,
+      this.registerForm.get('reg_tel').value,
+      this.registerForm.get('reg_licence').value,
+      this.registerForm.get('reg_password').value,
+      'user',
       )
       .pipe(first())
       .subscribe({
@@ -100,7 +108,7 @@ export class EquiioLoginComponent implements OnInit {
           this.router.navigate([returnUrl]);
         },
         error: (error) => {
-          this.error = error;
+          this.errorReg = error;
         },
       });
   }

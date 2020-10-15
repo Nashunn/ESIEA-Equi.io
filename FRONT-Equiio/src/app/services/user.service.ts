@@ -3,16 +3,19 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {Response} from '../models/response.model';
 import {User} from '../models/user.model';
+import { AuthenticationService } from './authentication.service';
 
 @Injectable()
 export class UserService {
   private baseURL = 'http://localhost:3080';
+  private currentUser: User;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private authenticationService: AuthenticationService) {
+    this.currentUser = this.authenticationService.currentUserValue;
   }
 
   public getUser(): Observable<User> {
-    return this.http.get<User>(this.baseURL + '/api/users/5f645cf0f15f6372c02c787f');
+    return this.http.get<User>(this.baseURL + '/api/users/' + this.currentUser.id);
   }
 
   public getUsers(): Observable<User[]> {

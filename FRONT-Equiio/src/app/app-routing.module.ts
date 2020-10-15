@@ -18,10 +18,12 @@ export const routes: Routes = [
   {
     path: 'user',
     component: UserComponent,
+    canActivate: [AuthGuard], // secured
   },
   {
     path: 'users',
     component: UsersComponent,
+    canActivate: [AuthGuard], // secured
   },
   {
     path: '',
