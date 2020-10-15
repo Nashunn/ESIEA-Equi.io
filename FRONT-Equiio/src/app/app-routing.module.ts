@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes  } from '@angular/router';
 import { AuthGuard } from './helpers/auth.guard';
 import {HomeComponent} from './home/home.component';
+import {HorsesComponent} from './horses/horses.component';
 import {UserComponent} from './user/user.component';
 import {UsersComponent} from './users/users.component';
 
@@ -24,6 +25,10 @@ export const routes: Routes = [
     path: 'users',
     component: UsersComponent,
     canActivate: [AuthGuard], // secured
+  },
+  {
+    path: 'horses',
+    component: HorsesComponent,
   },
   {
     path: '',

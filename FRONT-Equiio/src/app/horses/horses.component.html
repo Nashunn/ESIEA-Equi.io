@@ -1,0 +1,37 @@
+<h2 class="row justify-content-center">Gestion des chevaux</h2>
+<div class="row offset-lg-11">
+  <button nbButton shape="round" status="primary" (click)="openAddUserModal()"><nb-icon icon="plus"></nb-icon></button>
+</div>
+<div class="row justify-content-center">
+  <nb-card [nbSpinner]="isLoading" *ngIf="isLoading" class="col-lg-8">
+    <nb-card-body>Chargement</nb-card-body>
+  </nb-card>
+  <div *ngFor="let horse of this.horses; let i = index" class="row">
+    <nb-card class="col-lg-8">
+      <nb-card-header class="row">
+        <nb-user class="col-lg-8" name="{{horse.name}}" title="1m80" picture="{{horse.picture}}"></nb-user>
+        <div class="col-lg-4 text-right">
+          <button nbButton status="primary" shape="round" size="small" (click)="openAddUserModal(horse)"
+                  nbTooltip="Modifier le cheval" nbTooltipPlacement="left" nbTooltipStatus="primary">
+            <nb-icon icon="edit-outline"></nb-icon>
+          </button>
+        </div>
+      </nb-card-header>
+      <nb-card-body>
+        {{horse.description}}
+      </nb-card-body>
+      <nb-card-footer>
+        <div class="row justify-content-center">
+          <button nbButton *ngIf="!this.deleteMode[i]" shape="round" status="danger"
+                  nbTooltip="Supprimer le cheval" nbTooltipPlacement="left" nbTooltipStatus="danger">
+            <nb-icon icon="trash-2-outline" (click)="toggleDeleteMode(i)"></nb-icon>
+          </button>
+          <button nbButton *ngIf="this.deleteMode[i]" shape="round" status="success"
+                  nbTooltip="Confirmer la suppression" nbTooltipPlacement="left" nbTooltipStatus="success">
+            <nb-icon icon="checkmark-outline" (click)="deleteHorse(horse)"></nb-icon>
+          </button>
+        </div>
+      </nb-card-footer>
+    </nb-card>
+  </div>
+</div>

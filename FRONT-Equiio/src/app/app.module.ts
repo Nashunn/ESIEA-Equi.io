@@ -9,6 +9,7 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
 
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import {
   NbActionsModule, NbAlertModule,
   NbButtonModule,
@@ -26,6 +27,8 @@ import { AlertComponent } from './alert/alert.component';
 import { ErrorInterceptor } from './helpers/error.interceptor';
 import { JwtInterceptor } from './helpers/jwt.interceptor';
 import { HomeComponent } from './home/home.component';
+import { HorsesAddHorseDialogComponent } from './horses/horses-add-horse-dialog.component';
+import { HorsesComponent } from './horses/horses.component';
 import { UserComponent } from './user/user.component';
 import { UsersComponent } from './users/users.component';
 
@@ -33,6 +36,8 @@ import { UsersComponent } from './users/users.component';
   bootstrap: [AppComponent],
   declarations: [
     AppComponent,
+    HorsesAddHorseDialogComponent,
+    HorsesComponent,
     UserComponent,
     UsersComponent,
     HomeComponent,

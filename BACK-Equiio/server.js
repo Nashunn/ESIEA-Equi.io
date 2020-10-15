@@ -8,7 +8,7 @@ const routes = require("./routes/router");
 const app = express();
 port = 3080;
 
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '50mb'}));
 
 app.use(cors({
     credentials: true,

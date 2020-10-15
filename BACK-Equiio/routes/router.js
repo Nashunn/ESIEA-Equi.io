@@ -16,6 +16,8 @@ router
 router
     .get("/horses", horsesController.findAllHorses)
     .post("/horses", horsesController.createHorse)
+    .put("/horses/:id", horsesController.updateHorse)
+    .delete("/horses/:id", horsesController.deleteHorse)
 
 router
     .get("/lessons", lessonsController.findAllLessons)
