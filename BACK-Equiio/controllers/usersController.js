@@ -51,7 +51,6 @@ exports.updateUser = function (req, res) {
 };
 
 exports.deleteUser = function (req, res) {
-    console.log(req.params.id)
     User.findByIdAndDelete(req.params.id, function (err) {
         if (err) {
             const json = {returnCode: 500, message: 'Failed to delete user'}

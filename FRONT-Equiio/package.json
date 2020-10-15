@@ -24,7 +24,7 @@
     "@nebular/auth": "^6.1.0",
     "@nebular/eva-icons": "6.1.0",
     "@nebular/theme": "^6.1.0",
-    "bootstrap": "^4.5.2",
+    "bootstrap": "^4.5.3",
     "eva-icons": "^1.1.2",
     "nebular-icons": "^1.1.0",
     "ng2-smart-table": "^1.6.0",
