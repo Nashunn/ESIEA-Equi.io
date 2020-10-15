@@ -8,7 +8,8 @@ import { RouterModule } from '@angular/router';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import {
   NbActionsModule, NbAlertModule,
   NbButtonModule,

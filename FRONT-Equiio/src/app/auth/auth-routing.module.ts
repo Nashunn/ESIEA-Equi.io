@@ -10,6 +10,10 @@ export const routes: Routes = [
         path: 'login',
         component: EquiioLoginComponent,
       },
+      {
+        path: 'logout',
+        component: EquiioLoginComponent,
+      },
     ],
   },
 ];
