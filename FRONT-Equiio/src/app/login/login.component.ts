@@ -1,7 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs/operators';
+import {Response} from '../models/response.model';
+import {AlertService} from '../services/alert.service';
 import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
@@ -25,6 +27,7 @@ export class EquiioLoginComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private authenticationService: AuthenticationService,
+    private alertService: AlertService,
   ) {
     // redirect to home if already logged in
     if (this.authenticationService.currentUserValue) {
@@ -65,10 +68,17 @@ export class EquiioLoginComponent implements OnInit {
     this.authenticationService.login(this.flog.login_email.value, this.flog.login_password.value)
       .pipe(first())
       .subscribe({
-        next: () => {
+        next: (response: Response|any) => {
           // get return url from route parameters or default to '/'
           const returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
           this.router.navigate([returnUrl]);
+
+          // Todo : Display alert depending on the returnCode
+          if (response.returnCode > 200) {
+            this.alertService.error(response.message);
+          } else {
+            this.alertService.success(response.message);
+          }
         },
         error: (error) => {
           this.errorLog = error;
