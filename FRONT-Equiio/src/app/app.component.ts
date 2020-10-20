@@ -26,6 +26,5 @@ export class AppComponent {
   public logout(): void {
     this.authenticationService.logout();
     this.tokenValid = false;
-    this.router.navigate(['/auth/login']);
   }
 }
