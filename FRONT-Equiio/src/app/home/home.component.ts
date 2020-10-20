@@ -12,4 +12,8 @@ export class HomeComponent implements OnInit {
   public ngOnInit(): void {
   }
 
+  public redirectContact(): void {
+
+  }
+
 }
