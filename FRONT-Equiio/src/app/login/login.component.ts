@@ -30,7 +30,7 @@ export class EquiioLoginComponent implements OnInit {
     private alertService: AlertService,
   ) {
     // redirect to home if already logged in
-    if (this.authenticationService.currentUserValue) {
+    if (this.authenticationService.currentSessionValue) {
       this.router.navigate(['/']);
     }
   }

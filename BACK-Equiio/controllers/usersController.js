@@ -4,9 +4,9 @@ const errors = require('../utils/errors');
 const User = require("../models/users");
 const config = require("../config/config")
 
-function generateToken(userId) {
+function generateToken(userId, userRole) {
     // Assign token
-    return jwt.sign({id: userId}, config.secret, {
+    return jwt.sign({id: userId, role: userRole}, config.secret, {
         expiresIn: 86400 // expires in 24 hours
     });
 }
@@ -22,17 +22,14 @@ exports.createUser = function (req, res) {
             phone: req.body.phone,
             licence: req.body.licence,
             password: hashedPwd,
-            type: req.body.type,
+            role: req.body.role,
         },
         function (err, user) {
             // Check if correct
             if (err) return errors.checkErrors("user", res, err);
             // create a token
-            let token = jwt.sign({id: user._id}, config.secret, {
-                expiresIn: 86400 // expires in 24 hours
-            });
-
-            res.status(201).send({ auth: true, id: user._id, token: token });
+            const token = generateToken(user._id, user.role);
+            res.status(201).send({ token: token });
         }
     );
 }
@@ -47,11 +44,11 @@ exports.findAllUsers = function (req, res) {
 };
 
 exports.getUser = function (req, res) {
-    User.find({_id: req.params.id}, function (err, user) {
+    User.find({_id: req.params.id}, function (err, users) {
         if (err) {
             res.send(err);
         }
-        res.json(user[0]);
+        res.json(users[0]);
     });
 };
 
@@ -89,7 +86,7 @@ exports.login = function(req, res) {
         // user not found
         else if (!user) {
             const json = { returnCode: 401, message: 'Email ou Mot de passe incorrect' }
-            res.send(401, json);
+            res.status(401).send(json);
         }
         else {
             let pwdsMatches = bcrypt.compareSync(req.body.password, user.password);
@@ -97,16 +94,14 @@ exports.login = function(req, res) {
             // Check if password is valid
             if (pwdsMatches) {
                 // Assign token
-                let token = generateToken(user._id);
-                const json = { auth: true, id: user._id, token: token }
-                res.send(200, json);
+                let token = generateToken(user._id, user.role);
+                const json = { token: token }
+                res.status(200).send(json);
             }
             else { // error
                 const json = { returnCode: 401, message: 'Email ou Mot de passe incorrect' }
-                res.send(401, json);
+                res.status(401).send(json);
             }
-
-
         }
     })
 }
