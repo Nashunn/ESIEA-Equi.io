@@ -48,7 +48,6 @@ export class AuthenticationService {
     phone: string,
     licence: string,
     password: string,
-    type: string,
   ): Observable<Response> {
     return this.http.post<any>(`${environment.apiUrl}/api/users`, {
       firstname,
@@ -57,7 +56,6 @@ export class AuthenticationService {
       phone,
       licence,
       password,
-      type,
     })
       .pipe(map((res) => {
         // store user details and jwt token in local storage to keep user logged in between page refreshes

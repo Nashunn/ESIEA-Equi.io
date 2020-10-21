@@ -28,7 +28,7 @@ exports.createUser = function (req, res) {
             // Check if correct
             if (err) return errors.checkErrors("user", res, err);
             // create a token
-            const token = generateToken(user._id, user.type);
+            const token = generateToken(user._id, user.role);
             res.status(201).send({ token: token });
         }
     );
@@ -94,7 +94,7 @@ exports.login = function(req, res) {
             // Check if password is valid
             if (pwdsMatches) {
                 // Assign token
-                let token = generateToken(user._id, user.type);
+                let token = generateToken(user._id, user.role);
                 const json = { token: token }
                 res.status(200).send(json);
             }
