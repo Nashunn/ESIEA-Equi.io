@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { User } from './models/user.model';
+import { Roles } from './models/roles.model';
+import {Session} from './models/session.model';
 import { AuthenticationService } from './services/authentication.service';
 
 @Component({
@@ -8,17 +9,19 @@ import { AuthenticationService } from './services/authentication.service';
   styleUrls: ['./app.component.scss'],
   templateUrl: './app.component.html',
 })
-
 export class AppComponent {
   public title = 'Equi.io';
-  public currentUser: User;
+  public session: Session;
   public tokenValid = false;
+  public userRole: string;
+  public Roles = Roles;
 
   constructor(private router: Router, private authenticationService: AuthenticationService) {
-    this.authenticationService.currentUser.subscribe((x) => {
-      this.currentUser = x;
-      if (this.currentUser !== null) {
-        this.tokenValid = !!this.currentUser.token;
+    this.authenticationService.currentSession.subscribe((session) => {
+      this.session = session;
+      if (this.session !== null) {
+        this.tokenValid = !!this.session.getToken();
+        this.userRole = this.session.getUserRole();
       }
     });
   }

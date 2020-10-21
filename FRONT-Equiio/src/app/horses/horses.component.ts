@@ -31,16 +31,13 @@ export class HorsesComponent implements OnInit {
         this.horses = data;
         // Initialize deleteMode booleans to false (one for each card)
         this.horses.forEach(() => this.deleteMode.push(false));
-        console.log(this.deleteMode);
       },
       (err) => console.log(err),
       () => this.isLoading = false);
   }
 
   public toggleDeleteMode(i: number): void {
-    console.log(this.deleteMode[i]);
     this.deleteMode[i] = !this.deleteMode[i];
-    console.log(this.deleteMode[i]);
   }
 
   public deleteHorse(horse: Horse): void {

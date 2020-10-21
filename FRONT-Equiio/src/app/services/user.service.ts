@@ -2,20 +2,21 @@ import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {Response} from '../models/response.model';
+import {Session} from '../models/session.model';
 import {User} from '../models/user.model';
 import { AuthenticationService } from './authentication.service';
 
 @Injectable()
 export class UserService {
   private baseURL = 'http://localhost:3080';
-  private currentUser: User;
+  private currentSession: Session;
 
   constructor(private http: HttpClient, private authenticationService: AuthenticationService) {
-    this.currentUser = this.authenticationService.currentUserValue;
+    this.currentSession = this.authenticationService.currentSessionValue;
   }
 
   public getUser(): Observable<User> {
-    return this.http.get<User>(this.baseURL + '/api/users/' + this.currentUser.id);
+    return this.http.get<User>(this.baseURL + '/api/users/' + this.currentSession.getUserId());
   }
 
   public getUsers(): Observable<User[]> {

@@ -1,8 +1,9 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes  } from '@angular/router';
-import { AuthGuard } from './helpers/auth.guard';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {AuthGuard} from './helpers/auth.guard';
 import {HomeComponent} from './home/home.component';
 import {HorsesComponent} from './horses/horses.component';
+import {Roles} from './models/roles.model';
 import {UserComponent} from './user/user.component';
 import {UsersComponent} from './users/users.component';
 
@@ -19,15 +20,19 @@ export const routes: Routes = [
     path: 'user',
     component: UserComponent,
     canActivate: [AuthGuard], // secured
+    data: {roles: [Roles.User, Roles.Teacher, Roles.Admin]},
   },
   {
     path: 'users',
     component: UsersComponent,
     canActivate: [AuthGuard], // secured
+    data: {roles: [Roles.Admin]},
   },
   {
     path: 'horses',
     component: HorsesComponent,
+    canActivate: [AuthGuard], // secured
+    data: {roles: [Roles.Admin]},
   },
   {
     path: '',
