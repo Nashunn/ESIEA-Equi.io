@@ -12,18 +12,18 @@ export class HorseService {
   }
 
   public addHorse(horse: Horse): Observable<Response> {
-    return this.http.post<Response>(`${environment.apiUrl}'/api/horses/'`, horse);
+    return this.http.post<Response>(`${environment.apiUrl}/api/horses/`, horse);
   }
 
   public getHorses(): Observable<Horse[]> {
-    return this.http.get<Horse[]>(`${environment.apiUrl}'/api/horses/'`);
+    return this.http.get<Horse[]>(`${environment.apiUrl}/api/horses/`);
   }
 
   public updateHorse(horse: Horse): Observable<Response> {
-    return this.http.put<Response>(`${environment.apiUrl}'/api/horses'/${horse.id}`, horse);
+    return this.http.put<Response>(`${environment.apiUrl}/api/horses/${horse.id}`, horse);
   }
 
   public deleteHorse(horseId: string): Observable<Response> {
-    return this.http.delete<Response>(`${environment.apiUrl}'/api/horses'/${horseId}`);
+    return this.http.delete<Response>(`${environment.apiUrl}/api/horses/${horseId}`);
   }
 }

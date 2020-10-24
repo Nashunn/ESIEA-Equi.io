@@ -34,7 +34,10 @@ export class UserComponent implements OnInit {
   private getUser(): void {
     this.userService.getUser().subscribe(
       (data) => this.user = data,
-      (err) => console.log(err),
+      (err) => {
+        this.isLoading = false;
+        this.alertService.error('Error lors de la récupération de vos informations');
+      },
       () => this.isLoading = false);
   }
 
@@ -48,7 +51,7 @@ export class UserComponent implements OnInit {
         }
       },
       (err) => {
-        this.alertService.error('Une erreur est survenue');
+        this.alertService.error('Erreur lors de la mise à jour de vos informations');
       });
   }
 }
