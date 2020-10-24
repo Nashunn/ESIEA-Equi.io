@@ -108,7 +108,6 @@ export class EquiioLoginComponent implements OnInit {
       this.registerForm.get('reg_tel').value,
       this.registerForm.get('reg_licence').value,
       this.registerForm.get('reg_password').value,
-      'user',
       )
       .pipe(first())
       .subscribe({
