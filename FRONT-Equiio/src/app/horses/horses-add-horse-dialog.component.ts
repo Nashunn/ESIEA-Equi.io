@@ -8,7 +8,7 @@ import {HorseService} from '../services/horse.service';
   selector: 'app-add-horse-dialog',
   template: `
     <nb-card class="row">
-      <nb-card-header>{{this.horse ? 'Modifier un cheval' : 'Ajouter un cheval'}}</nb-card-header>
+      <nb-card-header>{{this.horse.id ? 'Modifier un cheval' : 'Ajouter un cheval'}}</nb-card-header>
       <nb-card-body>
         <div class="row mb-3">
           <input #name nbInput placeholder="Name" [(ngModel)]="this.horse.name">
@@ -54,7 +54,7 @@ export class HorsesAddHorseDialogComponent {
           }
         },
         (err) => {
-          this.alertService.error('An error has occured.');
+          this.alertService.error('Erreur lors de la modification du cheval');
         });
       this.dialogRef.close();
     } else {
@@ -68,7 +68,7 @@ export class HorsesAddHorseDialogComponent {
           }
         },
         (err) => {
-          this.alertService.error('An error has occured.');
+          this.alertService.error('Erreur lors de l\'ajout du cheval');
         });
       this.dialogRef.close(horse);
     }

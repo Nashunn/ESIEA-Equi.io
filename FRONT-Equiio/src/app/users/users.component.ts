@@ -63,7 +63,10 @@ export class UsersComponent implements OnInit {
       (data) => {
         this.users = data;
       },
-      (err) => console.log(err),
+      (err) => {
+        this.alertService.error('Erreur lors de la récupération des utilisateurs');
+        this.isLoading = false;
+      },
       () => this.isLoading = false);
   }
 
@@ -78,7 +81,7 @@ export class UsersComponent implements OnInit {
         }
       },
       (err) => {
-        this.alertService.error('An error has occured.');
+        this.alertService.error('Erreur lors de la modification de l\'utilisateur');
       });
   }
 
@@ -92,7 +95,7 @@ export class UsersComponent implements OnInit {
         }
       },
       (err) => {
-        this.alertService.error('An error has occured.');
+        this.alertService.error('Erreur lors de la suppression de l\'utilisateur');
       });
   }
 }

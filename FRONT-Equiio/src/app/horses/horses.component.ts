@@ -32,7 +32,10 @@ export class HorsesComponent implements OnInit {
         // Initialize deleteMode booleans to false (one for each card)
         this.horses.forEach(() => this.deleteMode.push(false));
       },
-      (err) => console.log(err),
+      (err) => {
+        this.isLoading = false;
+        this.alertService.error('Erreur lors de la récupération des chevaux');
+      },
       () => this.isLoading = false);
   }
 
@@ -50,7 +53,7 @@ export class HorsesComponent implements OnInit {
         }
       },
       (err) => {
-        this.alertService.error('An error has occured.');
+        this.alertService.error('Erreur lors de la suppression du cheval');
       });
   }
 
