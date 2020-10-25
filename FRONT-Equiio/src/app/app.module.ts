@@ -31,6 +31,8 @@ import { HorsesAddHorseDialogComponent } from './horses/horses-add-horse-dialog.
 import { HorsesComponent } from './horses/horses.component';
 import { UserComponent } from './user/user.component';
 import { UsersComponent } from './users/users.component';
+import { LessonsComponent } from './lessons/lessons.component';
+import {LessonsAddDialogComponent} from "./lessons/lessons-add-dialog.component";
 
 @NgModule({
   bootstrap: [AppComponent],
@@ -42,6 +44,8 @@ import { UsersComponent } from './users/users.component';
     UsersComponent,
     HomeComponent,
     AlertComponent,
+    LessonsComponent,
+    LessonsAddDialogComponent,
   ],
   imports: [
     BrowserModule,
