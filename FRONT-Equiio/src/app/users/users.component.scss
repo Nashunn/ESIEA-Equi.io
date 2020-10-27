@@ -1,3 +1,13 @@
+/* fix table size */
+
+.users-card {
+  width: 75%;
+}
+
+::ng-deep .nb-theme-default .users-table {
+  width: 100%;
+}
+
 /* fix table actions font size */
 
 ::ng-deep .nb-theme-default .users-table .ng2-smart-action.ng2-smart-action-add-add {

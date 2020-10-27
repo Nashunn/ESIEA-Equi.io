@@ -23,6 +23,18 @@ export class UserService {
     return this.http.get<User[]>(`${environment.apiUrl}/api/users/`);
   }
 
+  public addUser(firstname: string, lastname: string, mail: string, phone: string, licence: string,
+                 password: string): Observable<Response> {
+    return this.http.post<Response>(`${environment.apiUrl}/api/users/`, {
+      firstname,
+      lastname,
+      mail,
+      phone,
+      licence,
+      password,
+    });
+  }
+
   public updateUser(user: User): Observable<Response> {
     return this.http.put<Response>(`${environment.apiUrl}/api/users/${user.id}`, user);
   }

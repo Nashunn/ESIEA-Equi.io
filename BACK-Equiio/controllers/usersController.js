@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const errors = require('../utils/errors');
 const User = require("../models/users");
+const Roles = require("../models/roles");
 const config = require("../config/config")
 
 function generateToken(userId, userRole) {
@@ -11,9 +12,8 @@ function generateToken(userId, userRole) {
     });
 }
 
-exports.createUser = function (req, res) {
+exports.registerUser = function (req, res) {
     const hashedPwd = bcrypt.hashSync(req.body.password, 8);
-
     User.create(
         {
             firstname: req.body.firstname,
@@ -32,6 +32,41 @@ exports.createUser = function (req, res) {
             res.status(201).send({ token: token });
         }
     );
+}
+
+exports.createUser = function (req, res) {
+    User.findOne({mail: req.body.mail}, function (err, user) {
+        // Check if already exists
+        if (err) {
+            const json = {returnCode: 500, message: 'Erreur serveur'}
+            res.send(err, json);
+        } else if (user) {
+            const json = {returnCode: 409, message: "Erreur : un utilisateur avec cet email existe déjà"}
+            res.status(200).send(json);
+        } else if (!user) {
+            const hashedPwd = bcrypt.hashSync(req.body.password, 8);
+            User.create(
+                {
+                    firstname: req.body.firstname,
+                    lastname: req.body.lastname,
+                    mail: req.body.mail,
+                    phone: req.body.phone,
+                    licence: req.body.licence,
+                    password: hashedPwd,
+                    role: req.body.role,
+                },
+                function (err, user) {
+                    if (err) {
+                        const json = {returnCode: 500, message: "Erreur lors de la création de l'utilisateur"}
+                        res.status(500).send(json);
+                    } else {
+                        const json = {returnCode: 201, message: 'Utilisateur créé avec succès'}
+                        res.status(200).send(json);
+                    }
+                }
+            );
+        }
+    })
 }
 
 exports.findAllUsers = function (req, res) {
@@ -53,24 +88,40 @@ exports.getUser = function (req, res) {
 };
 
 exports.updateUser = function (req, res) {
-    User.findByIdAndUpdate(req.params.id, req.body, function (err) {
+    jwt.verify(req.headers['authorization'], config.secret, function(err, decoded) {
         if (err) {
-            const json = { returnCode: 500, message: 'Failed to update user' }
-            res.status(500).send(json);
+            res.status(403).send({ returnCode: 403, message: "Token non valide" });
+        } else if (decoded.role === Roles.Admin || decoded.id === req.body.id) {
+            // Update only authorized informations
+            const body = {
+                firstname: req.body.firstname,
+                lastname: req.body.lastname,
+                mail: req.body.mail,
+                phone: req.body.phone,
+                licence: req.body.licence,
+            }
+            User.findByIdAndUpdate(req.params.id, body, function (err) {
+                if (err) {
+                    const json = { returnCode: 500, message: "Erreur lors de la mise à jour de l'utilisateur" }
+                    res.status(500).send(json);
+                } else {
+                    const json = { returnCode: 200, message: 'Utilisateur modifié avec succès' }
+                    res.status(200).send(json);
+                }
+            });
         } else {
-            const json = { returnCode: 200, message: 'User updated with success' }
-            res.status(200).send(json);
+            res.status(403).send({ returnCode: 403, message: "Vous n'êtes pas autorisé à faire cette action" });
         }
-    });
+    })
 };
 
 exports.deleteUser = function (req, res) {
     User.findByIdAndDelete(req.params.id, function (err) {
         if (err) {
-            const json = { returnCode: 500, message: 'Failed to delete user' }
+            const json = { returnCode: 500, message: "Erreur lors de la suppression de l'utilisateur" }
             res.status(500).send(json);
         } else {
-            const json = { returnCode: 200, message: 'User deleted with success' }
+            const json = { returnCode: 200, message: 'Utilisateur supprimé avec succès' }
             res.status(200).send(json);
         }
     });
