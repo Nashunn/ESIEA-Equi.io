@@ -161,10 +161,11 @@ export class UsersAddUserDialogComponent implements OnInit {
         } else {
           this.alertService.success(response.message);
         }
+        this.dialogRef.close(true);
       },
       (err) => {
         this.alertService.error('Erreur lors de l\'ajout de l\'utilisateur');
+        this.dialogRef.close(false);
       });
-    this.dialogRef.close(true);
   }
 }
