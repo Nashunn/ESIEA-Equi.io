@@ -23,6 +23,10 @@ let userSchema = mongoose.Schema({
         trim: true,
         required: true
     },
+    licence: {
+        type: String,
+        trim: true
+    },
     password: {
         type: String,
         required: true

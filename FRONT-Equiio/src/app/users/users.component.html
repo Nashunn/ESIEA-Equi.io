@@ -1,6 +1,11 @@
-<h2 class="row justify-content-center">Gestion des utilisateurs</h2>
-<div class="row justify-content-center">
-  <nb-card>
+<div class="m-0 row justify-content-center">
+  <h2>Gestion des utilisateurs</h2>
+</div>
+<div class="m-0 row">
+  <button nbButton class="offset-lg-11" shape="round" status="primary" (click)="openAddUserModal()"><nb-icon icon="plus"></nb-icon></button>
+</div>
+<div class="m-0 row justify-content-center">
+  <nb-card class="users-card">
     <nb-card-body>
       <div class="row">
         <ng2-smart-table class="users-table" [settings]="settings" [source]="this.users"
