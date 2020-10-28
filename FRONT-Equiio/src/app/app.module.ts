@@ -32,6 +32,7 @@ import { HorsesComponent } from './horses/horses.component';
 import {LessonsAddDialogComponent} from './lessons/lessons-add-dialog.component';
 import { LessonsComponent } from './lessons/lessons.component';
 import { UserComponent } from './user/user.component';
+import { UsersAddUserDialogComponent } from './users/users-add-user-dialog.component';
 import { UsersComponent } from './users/users.component';
 
 @NgModule({
@@ -42,6 +43,7 @@ import { UsersComponent } from './users/users.component';
     HorsesComponent,
     UserComponent,
     UsersComponent,
+    UsersAddUserDialogComponent,
     HomeComponent,
     AlertComponent,
     LessonsComponent,

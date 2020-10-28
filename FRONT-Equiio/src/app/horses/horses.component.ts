@@ -57,7 +57,7 @@ export class HorsesComponent implements OnInit {
       });
   }
 
-  public openAddUserModal(horse?: Horse): void {
+  public openAddHorseModal(horse?: Horse): void {
     if (!horse) {
       horse = new Horse('', '', '');
     }
