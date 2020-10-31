@@ -11,12 +11,12 @@ let lessonSchema = mongoose.Schema({
         trim: true,
         required: true
     },
-    level: {
+    numRiders : {
         type: Number,
         trim: true,
         required: true
     },
-    numRiders : {
+    level: {
         type: Number,
         trim: true,
         required: true
@@ -27,6 +27,11 @@ let lessonSchema = mongoose.Schema({
     }
 }, {
     versionKey: false
+});
+
+// Ensure virtual fields are serialised.
+lessonSchema.set('toJSON', {
+    virtuals: true
 });
 
 let Lesson = mongoose.model("Lesson", lessonSchema);

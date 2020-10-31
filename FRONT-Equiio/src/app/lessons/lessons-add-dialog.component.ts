@@ -1,7 +1,11 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NbDialogRef } from '@nebular/theme';
+import {Lesson} from '../models/lesson.model';
+import {Response} from '../models/response.model';
 import { AlertService } from '../services/alert.service';
+import {AuthenticationService} from '../services/authentication.service';
+import {LessonService} from '../services/lesson.service';
 
 @Component({
   selector: 'app-lessons-add-dialog',
@@ -11,15 +15,17 @@ import { AlertService } from '../services/alert.service';
 })
 
 export class LessonsAddDialogComponent implements OnInit {
+  @Input() public lesson: Lesson;
   public form: FormGroup;
   public submitted = false;
   public error = '';
-  public selectedItem = '';
 
   constructor(
     protected dialogRef: NbDialogRef<LessonsAddDialogComponent>,
     private formBuilder: FormBuilder,
     private alertService: AlertService,
+    private lessonService: LessonService,
+    private authenticationService: AuthenticationService,
   ) {}
 
   public ngOnInit(): void {
@@ -46,9 +52,29 @@ export class LessonsAddDialogComponent implements OnInit {
       return;
     }
 
-    // Todo : Voir le select pour restylisé
-    // Créer un objet lesson avec les infos du form si tout est bon,
-    // puis ajouter en bdd et fermer la fenêtre
-    // puis dans le component lesson mettre a jour
+    // Create lesson if everything is ready
+    const lesson = new Lesson(
+      this.form.get('name').value,
+      this.form.get('date').value,
+      this.form.get('numRiders').value,
+      this.form.get('level').value,
+      this.authenticationService.currentSessionValue.getUserId(),
+    );
+
+    this.lessonService.addLesson(lesson).subscribe(
+      (response: Response|any) => {
+        if (response.returnCode > 200) {
+          this.alertService.error(response.message);
+        } else {
+          this.alertService.success(response.message);
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.alertService.error('Erreur lors de l\'ajout de la leçon');
+      });
+
+    // Close popup
+    this.dialogRef.close(lesson);
   }
 }

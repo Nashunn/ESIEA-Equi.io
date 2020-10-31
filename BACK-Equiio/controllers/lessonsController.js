@@ -19,9 +19,13 @@ exports.createLesson = function (req, res) {
     },
     function (err, lesson) {
         // Check if correct
-        if (err) return errors.checkErrors("lesson", res, err);
-
-        res.status(201).send();
+        if (err) {
+            const json = {returnCode: 500, message: "Erreur lors de la création de la leçon"}
+            res.status(500).send(json);
+        } else {
+            const json = {returnCode: 201, message: 'Leçon créée avec succès'}
+            res.status(200).send(json);
+        }
     }
     );
 };
@@ -29,10 +33,10 @@ exports.createLesson = function (req, res) {
 exports.updateLesson = function (req, res) {
     Lesson.findByIdAndUpdate(req.params.id, req.body, function(err) {
         if(err) {
-            const json = { returnCode: 500, message: 'Failed to update lesson' }
+            const json = { returnCode: 500, message: 'Erreur lors de la mise à jour de la leçon' }
             res.status(500).send(json);
         } else {
-            const json = { returnCode: 200, message: 'Lesson updated with success' }
+            const json = { returnCode: 200, message: 'Leçon mise à jour avec succès' }
             res.status(200).send(json);
         }
     });
@@ -41,10 +45,10 @@ exports.updateLesson = function (req, res) {
 exports.deleteLesson = function (req, res) {
     Lesson.findByIdAndDelete(req.params.id, function (err) {
         if (err) {
-            const json = { returnCode: 500, message: 'Failed to delete lesson' }
+            const json = { returnCode: 500, message: 'Erreur lors de la suppression de la leçon' }
             res.status(500).send(json);
         } else {
-            const json = { returnCode: 200, message: 'Lesson deleted with success' }
+            const json = { returnCode: 200, message: 'Leçon supprimée avec succès' }
             res.status(200).send(json);
         }
     });

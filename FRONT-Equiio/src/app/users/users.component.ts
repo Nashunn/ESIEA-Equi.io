@@ -15,7 +15,7 @@ import {UsersAddUserDialogComponent} from './users-add-user-dialog.component';
   providers: [UserService, AlertComponent, NbDialogService, { provide: NB_DIALOG_CONFIG, useValue: {}}],
 })
 export class UsersComponent implements OnInit {
-  private source: LocalDataSource;
+  public source: LocalDataSource;
 
   constructor(private userService: UserService, private alertService: AlertService, private dialogService: NbDialogService) {
   }

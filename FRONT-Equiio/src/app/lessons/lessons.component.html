@@ -2,6 +2,11 @@
   <h4 class="mb-3">Mes leçons</h4>
   <button nbButton status="primary" size="medium" class="mb-3" (click)="openAddLessonModal()">Créer une leçon</button>
   <div class="d-flex justify-content-start flex-wrap">
+    <!-- Loader -->
+    <nb-card [nbSpinner]="isLoading" *ngIf="isLoading" class="col-12">
+      <nb-card-body>Chargement</nb-card-body>
+    </nb-card>
+    <!-- Lessons -->
     <nb-card class="lesson mr-3 mb-3">
       <nb-card-body class="p-2 d-flex flex-column justify-content-center align-items-center text-center">
         <h6 class="my-2">Leçon du 06/09/2020</h6>
