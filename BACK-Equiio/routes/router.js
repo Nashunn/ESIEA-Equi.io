@@ -45,5 +45,7 @@ router
 router
     .get("/lessons", lessonsController.findAllLessons)
     .post("/lessons", lessonsController.createLesson)
+    .put("/lessons/:id", lessonsController.updateLesson)
+    .delete("lessons/:id", lessonsController.deleteLesson)
 
 module.exports = router;

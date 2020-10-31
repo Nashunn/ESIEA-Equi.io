@@ -16,6 +16,11 @@ let lessonSchema = mongoose.Schema({
         trim: true,
         required: true
     },
+    numRiders : {
+        type: Number,
+        trim: true,
+        required: true
+    },
     teacher_id: {
         type: String,
         trim: true

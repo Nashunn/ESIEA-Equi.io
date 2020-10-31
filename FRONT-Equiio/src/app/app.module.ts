@@ -13,9 +13,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   NbActionsModule, NbAlertModule,
   NbButtonModule,
-  NbCardModule,
+  NbCardModule, NbDatepickerModule,
   NbIconModule,
-  NbInputModule,
+  NbInputModule, NbSelectModule,
   NbSidebarModule,
   NbSpinnerModule,
   NbTooltipModule,
@@ -29,6 +29,8 @@ import { JwtInterceptor } from './helpers/jwt.interceptor';
 import { HomeComponent } from './home/home.component';
 import { HorsesAddHorseDialogComponent } from './horses/horses-add-horse-dialog.component';
 import { HorsesComponent } from './horses/horses.component';
+import {LessonsAddDialogComponent} from './lessons/lessons-add-dialog.component';
+import { LessonsComponent } from './lessons/lessons.component';
 import { UserComponent } from './user/user.component';
 import { UsersAddUserDialogComponent } from './users/users-add-user-dialog.component';
 import { UsersComponent } from './users/users.component';
@@ -44,6 +46,8 @@ import { UsersComponent } from './users/users.component';
     UsersAddUserDialogComponent,
     HomeComponent,
     AlertComponent,
+    LessonsComponent,
+    LessonsAddDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -69,6 +73,8 @@ import { UsersComponent } from './users/users.component';
     NbUserModule,
     ReactiveFormsModule,
     FormsModule,
+    NbDatepickerModule.forRoot(),
+    NbSelectModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
