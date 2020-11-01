@@ -60,7 +60,7 @@ export class LessonsAddDialogComponent implements OnInit {
       this.form.get('level').value,
       this.authenticationService.currentSessionValue.getUserId(),
     );
-
+    // Add lesson
     this.lessonService.addLesson(lesson).subscribe(
       (response: Response|any) => {
         if (response.returnCode > 200) {
@@ -70,7 +70,6 @@ export class LessonsAddDialogComponent implements OnInit {
         }
       },
       (err) => {
-        console.log(err);
         this.alertService.error('Erreur lors de l\'ajout de la leçon');
       });
 

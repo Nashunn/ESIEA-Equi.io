@@ -7,15 +7,16 @@ exports.findAllLessons = function (req, res) {
             res.send(err);
         }
         res.json(lessons);
-    });
+    }).populate('teacherId');
 };
 
 exports.createLesson = function (req, res) {
     Lesson.create({
         name: req.body.name,
         date: req.body.date,
+        numRiders: req.body.numRiders,
         level: req.body.level,
-        teacher_id: req.body.teacher_id
+        teacherId: req.body.teacherId,
     },
     function (err, lesson) {
         // Check if correct
@@ -23,7 +24,7 @@ exports.createLesson = function (req, res) {
             const json = {returnCode: 500, message: "Erreur lors de la création de la leçon"}
             res.status(500).send(json);
         } else {
-            const json = {returnCode: 201, message: 'Leçon créée avec succès'}
+            const json = {returnCode: 200, message: 'Leçon créée avec succès'}
             res.status(200).send(json);
         }
     }

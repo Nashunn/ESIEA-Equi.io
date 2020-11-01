@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Schema = require("mongoose/lib/schema");
 
 let lessonSchema = mongoose.Schema({
     id: {type: String, require: true},
@@ -21,10 +22,7 @@ let lessonSchema = mongoose.Schema({
         trim: true,
         required: true
     },
-    teacher_id: {
-        type: String,
-        trim: true
-    }
+    teacherId: [{ type: Schema.Types.ObjectId, ref: 'User' }]
 }, {
     versionKey: false
 });
