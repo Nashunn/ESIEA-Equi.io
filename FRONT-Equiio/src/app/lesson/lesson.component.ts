@@ -6,6 +6,7 @@ import {AlertComponent} from '../alert/alert.component';
 import {Lesson} from '../models/lesson.model';
 import {AlertService} from '../services/alert.service';
 import {LessonService} from '../services/lesson.service';
+import {Response} from "../models/response.model";
 
 @Component({
   selector: 'app-lesson',
@@ -17,14 +18,13 @@ export class LessonComponent implements OnInit {
   public isLoading = true;
   public isEditMode = false;
   public lesson: Lesson; // actual lesson
-  public tempLessonTime: string; // form temp time
+  public tempLessonDate: Date; // form temp date
 
   constructor(
     private lessonService: LessonService,
     private alertService: AlertService,
     private router: Router,
     private route: ActivatedRoute,
-    public datepipe: DatePipe,
   ) { }
 
   public ngOnInit(): void {
@@ -35,8 +35,7 @@ export class LessonComponent implements OnInit {
   private getLesson(lessonId: string): void {
     this.lessonService.getLesson(lessonId).subscribe((data) => {
         this.lesson = data;
-        // this.tempLessonTime = this.datepipe.transform(this.lesson.date, 'HH:mm');
-        console.log(this.lesson.date);
+        this.tempLessonDate = new Date(this.lesson.date);
         this.isLoading = false;
       },
       (err) => {
@@ -53,15 +52,20 @@ export class LessonComponent implements OnInit {
   }
 
   private toggleEditModeAndUpdateLesson(): void {
-    console.log(this.lesson.date);
+    this.lesson.date = this.tempLessonDate.toISOString();
+    this.lessonService.updateLesson(this.lesson).subscribe(
+      (response: Response) => {
+        if (response.returnCode > 200) {
+          this.alertService.error(response.message);
+        } else {
+          this.alertService.success(response.message);
+        }
+      },
+    );
     this.isEditMode = false;
   }
 
   private back(): void {
     this.router.navigate(['/lessons']);
-  }
-
-  private constructNewDate(lessonDate: string, lessonTime: string): string {
-    return lessonDate.substring(0, 11) + lessonTime + ':00.000Z';
   }
 }

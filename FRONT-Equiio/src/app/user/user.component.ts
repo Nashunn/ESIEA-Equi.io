@@ -43,7 +43,7 @@ export class UserComponent implements OnInit {
 
   public updateUser(): void {
     this.userService.updateUser(this.user).subscribe(
-      (response: Response|any) => {
+      (response: Response) => {
         if (response.returnCode > 200) {
           this.alertService.error(response.message);
         } else {

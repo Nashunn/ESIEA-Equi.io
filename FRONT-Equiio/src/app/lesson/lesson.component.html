@@ -50,24 +50,12 @@
                 class="col-7"
                 placeholder="Date"
                 [nbDatepicker]="dateTimePicker"
-                [(ngModel)]="lesson.date"
+                [(ngModel)]="tempLessonDate"
                 name="date" id="date"
                 nbInput
               />
-              <nb-date-picker #dateTimePicker></nb-date-picker>
+              <nb-date-timepicker #dateTimePicker></nb-date-timepicker>
             </div>
-            <!-- Time -->
-            <!--div class="row my-1">
-              <div class="col-5 py-2"><b>Heure :</b></div>
-              <input
-                class="col-7"
-                type="time"
-                [value]="tempLessonTime"
-                [(ngModel)]="tempLessonTime"
-                name="time" id="time"
-                nbInput
-              />
-            </div-->
             <!-- Num Riders -->
             <div class="row my-1">
               <div class="col-5 py-2"><b>Nombre de cavaliers :</b></div>

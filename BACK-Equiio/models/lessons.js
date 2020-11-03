@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const Schema = require("mongoose/lib/schema");
 
 let lessonSchema = mongoose.Schema({
-    id: {type: String, require: true},
     name: {
         type: String,
         trim: true
@@ -25,6 +24,11 @@ let lessonSchema = mongoose.Schema({
     teacherId: [{ type: Schema.Types.ObjectId, ref: 'User' }]
 }, {
     versionKey: false
+});
+
+// Duplicate the ID field.
+lessonSchema.virtual('id').get(function(){
+    return this._id;
 });
 
 // Ensure virtual fields are serialised.
