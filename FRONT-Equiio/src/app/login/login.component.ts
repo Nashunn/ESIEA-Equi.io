@@ -67,28 +67,27 @@ export class EquiioLoginComponent implements OnInit {
 
     this.authenticationService.login(this.flog.login_email.value, this.flog.login_password.value)
       .pipe(first())
-      .subscribe({
-        next: (response: Response|any) => {
+      .subscribe((response: Response|any) => {
+        if (response.returnCode > 200) {
+          this.alertService.error(response.message);
+          // this.errorLog = response.message;
+        } else {
           // get return url from route parameters or default to '/'
           const returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
           this.router.navigate([returnUrl]);
-
-          // Todo : Display alert depending on the returnCode
-          if (response.returnCode > 200) {
-            this.alertService.error(response.message);
-          } else {
-            this.alertService.success(response.message);
-          }
-        },
-        error: (error) => {
-          this.errorLog = error;
-        },
+        }
       });
   }
 
   // Submit Register form
   public onSubmitReg(): void {
     this.registerSubmitted = true;
+
+    // stop here if phone length !== 10
+    if (this.registerForm.get('reg_tel').value.length !== 10) {
+      this.errorReg = 'Le téléphone doit être composé de 10 chiffres';
+      return;
+    }
 
     // stop here if form is invalid
     if (this.registerForm.invalid) {
@@ -110,15 +109,15 @@ export class EquiioLoginComponent implements OnInit {
       this.registerForm.get('reg_password').value,
       )
       .pipe(first())
-      .subscribe({
-        next: () => {
+      .subscribe((response: Response|any) => {
+        if (response.returnCode > 200) {
+          this.alertService.error(response.message);
+          // this.errorLog = response.message;
+        } else {
           // get return url from route parameters or default to '/'
           const returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
           this.router.navigate([returnUrl]);
-        },
-        error: (error) => {
-          this.errorReg = error;
-        },
+        }
       });
   }
 }

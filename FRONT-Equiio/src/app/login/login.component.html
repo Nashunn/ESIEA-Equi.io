@@ -4,16 +4,16 @@
       <nb-tab tabTitle="Connexion">
         <form [formGroup]="loginForm" (ngSubmit)="onSubmitLog()">
           <!-- Email -->
-          <label for="login_email" class="label-margin">Email<sup>*</sup></label>
+          <label for="login_email" class="label-margin">Email/Téléphone<sup>*</sup></label>
           <div *ngIf="loginSubmitted && flog.login_email.errors" class="invalid-feedback">
-            <div *ngIf="flog.login_email.errors.required">Email obligatoire</div>
+            <div *ngIf="flog.login_email.errors.required">Email/Téléphone obligatoire</div>
           </div>
           <input
             type="text"
             class="input-margin"
             formControlName="login_email"
             [ngClass]="{ 'is-invalid': loginSubmitted && flog.login_email.errors }"
-            name="login_email" id="login_email" placeholder="Email"
+            name="login_email" id="login_email" placeholder="Email/Téléphone"
             nbInput fullWidth
           />
           <!-- Password -->
@@ -76,7 +76,7 @@
             nbInput fullWidth
           />
           <!-- Phone -->
-          <label for="reg_tel" class="label-margin">Tel<sup>*</sup></label>
+          <label for="reg_tel" class="label-margin">Téléphone<sup>*</sup></label>
           <div *ngIf="registerSubmitted && freg.reg_tel.errors" class="invalid-feedback">
             <div *ngIf="freg.reg_tel.errors.required">Téléphone obligatoire</div>
           </div>
