@@ -1,8 +1,9 @@
-<nb-card>
+<nb-card style="width: 50vw">
   <nb-card-body>
     <h4 class="my-3">Créer une leçon</h4>
     <form [formGroup]="form" (ngSubmit)="submit()">
       <!-- Name -->
+      <label for="name" class="label-margin">Nom</label>
       <input
         type="text"
         class="input-margin"
@@ -12,8 +13,9 @@
         nbInput fullWidth
       />
       <!-- Date -->
+      <label for="date" class="label-margin">Date<sup>*</sup></label>
       <div *ngIf="submitted && f.date.errors" class="invalid-feedback">
-        <div *ngIf="f.date.errors.required">Date obligatoire</div>
+        <div *ngIf="f.date.errors.required">Obligatoire</div>
       </div>
       <input
         class="input-margin"
@@ -26,8 +28,9 @@
       />
       <nb-datepicker #dateTimePicker></nb-datepicker>
       <!-- Number of riders -->
+      <label for="date" class="label-margin">Nombre maximum de cavaliers<sup>*</sup></label>
       <div *ngIf="submitted && f.numRiders.errors" class="invalid-feedback">
-        <div *ngIf="f.numRiders.errors.required">Nombre maximum de cavaliers obligatoire</div>
+        <div *ngIf="f.numRiders.errors.required">Obligatoire</div>
       </div>
       <input
         type="number"
@@ -39,8 +42,9 @@
         nbInput fullWidth
       />
       <!-- Level -->
+      <label for="level" class="label-margin">Niveau<sup>*</sup></label>
       <div *ngIf="submitted && f.level.errors" class="invalid-feedback">
-        <div *ngIf="f.level.errors.required">Niveau obligatoire</div>
+        <div *ngIf="f.level.errors.required">Obligatoire</div>
       </div>
       <nb-select
         class="input-margin"
@@ -55,8 +59,8 @@
         </nb-option>
       </nb-select>
     </form>
-
-    <button nbButton fullWidth status="primary" size="medium">Créer</button>
+    <!-- Form Button -->
+    <button nbButton fullWidth status="primary" size="medium" (click)="submit()">Créer</button>
     <div *ngIf="error" class="invalid-feedback mt-3 mb-0">{{error}}</div>
   </nb-card-body>
 </nb-card>

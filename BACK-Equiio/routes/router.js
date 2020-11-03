@@ -40,9 +40,10 @@ router
     .delete("/horses/:id", checkAuth([Roles.Admin]), horsesController.deleteHorse)
 
 router
-    .get("/lessons", lessonsController.findAllLessons)
-    .post("/lessons", lessonsController.createLesson)
-    .put("/lessons/:id", lessonsController.updateLesson)
-    .delete("lessons/:id", lessonsController.deleteLesson)
+    .get("/lessons", checkAuth([Roles.Admin, Roles.Teacher, Roles.User]), lessonsController.findAllLessons)
+    .get("/lessons/:id", checkAuth([Roles.Admin, Roles.Teacher, Roles.User]), lessonsController.findLesson)
+    .post("/lessons", checkAuth([Roles.Admin, Roles.Teacher]), lessonsController.createLesson)
+    .put("/lessons/:id", checkAuth([Roles.Admin, Roles.Teacher]), lessonsController.updateLesson)
+    .delete("lessons/:id", checkAuth([Roles.Admin, Roles.Teacher]), lessonsController.deleteLesson)
 
 module.exports = router;

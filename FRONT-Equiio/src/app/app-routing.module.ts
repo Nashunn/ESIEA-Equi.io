@@ -3,6 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {AuthGuard} from './helpers/auth.guard';
 import {HomeComponent} from './home/home.component';
 import {HorsesComponent} from './horses/horses.component';
+import {LessonComponent} from './lesson/lesson.component';
 import {LessonsComponent} from './lessons/lessons.component';
 import {Roles} from './models/roles.model';
 import {UserComponent} from './user/user.component';
@@ -40,6 +41,12 @@ export const routes: Routes = [
     component: LessonsComponent,
     canActivate: [AuthGuard], // secured
     data: {roles: [Roles.User, Roles.Teacher, Roles.Admin]},
+  },
+  {
+    path: 'lesson/:id',
+    component: LessonComponent,
+    canActivate: [AuthGuard], // secured
+    data: {roles: [Roles.Teacher, Roles.Admin]},
   },
   {
     path: '',

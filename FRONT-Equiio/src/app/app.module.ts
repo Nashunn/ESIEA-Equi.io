@@ -13,11 +13,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   NbActionsModule, NbAlertModule,
   NbButtonModule,
-  NbCardModule, NbDatepickerModule,
+  NbCardModule, NbDatepickerModule, NbDateTimePickerComponent,
   NbIconModule,
   NbInputModule, NbSelectModule,
   NbSidebarModule,
-  NbSpinnerModule,
+  NbSpinnerModule, NbTimepickerModule,
   NbTooltipModule,
   NbTreeGridModule, NbUserModule,
 } from '@nebular/theme';
@@ -29,11 +29,13 @@ import { JwtInterceptor } from './helpers/jwt.interceptor';
 import { HomeComponent } from './home/home.component';
 import { HorsesAddHorseDialogComponent } from './horses/horses-add-horse-dialog.component';
 import { HorsesComponent } from './horses/horses.component';
+import { LessonComponent } from './lesson/lesson.component';
 import {LessonsAddDialogComponent} from './lessons/lessons-add-dialog.component';
 import { LessonsComponent } from './lessons/lessons.component';
 import { UserComponent } from './user/user.component';
 import { UsersAddUserDialogComponent } from './users/users-add-user-dialog.component';
 import { UsersComponent } from './users/users.component';
+import {DatePipe} from "@angular/common";
 
 @NgModule({
   bootstrap: [AppComponent],
@@ -48,6 +50,7 @@ import { UsersComponent } from './users/users.component';
     AlertComponent,
     LessonsComponent,
     LessonsAddDialogComponent,
+    LessonComponent,
   ],
   imports: [
     BrowserModule,
@@ -74,6 +77,7 @@ import { UsersComponent } from './users/users.component';
     ReactiveFormsModule,
     FormsModule,
     NbDatepickerModule.forRoot(),
+    NbTimepickerModule.forRoot(),
     NbSelectModule,
   ],
   providers: [
