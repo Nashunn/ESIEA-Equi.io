@@ -1,0 +1,103 @@
+<div class="m-5">
+  <!-- Loader -->
+  <nb-card [nbSpinner]="isLoading" *ngIf="isLoading" class="col-12">
+    <nb-card-body>Chargement</nb-card-body>
+  </nb-card>
+  <!-- Lessons -->
+  <div *ngIf="!isLoading">
+    <div class="row">
+      <nb-actions size="medium">
+        <nb-action icon="undo-outline" (click)="back()"></nb-action>
+      </nb-actions>
+      <h3 class="my-0">{{ lesson.name }}</h3>
+    </div>
+    <div class="row my-3">
+      <nb-card class="col-6">
+        <nb-card-header class="row p-2">
+          <div class="col-lg-8 text-left pt-2">Informations</div>
+          <div class="col-lg-4 text-right">
+            <button nbButton *ngIf="!isEditMode" status="danger" shape="round" size="small" (click)="toggleEditMode()"
+                    nbTooltip="Modifier mes informations" nbTooltipPlacement="left" nbTooltipStatus="danger">
+              <nb-icon icon="edit-outline"></nb-icon>
+            </button>
+            <button nbButton *ngIf="isEditMode" status="success" shape="round" size="small" (click)="toggleEditModeAndUpdateLesson()"
+                    nbTooltip="Valider mes informations" nbTooltipPlacement="left" nbTooltipStatus="success">
+              <nb-icon icon="checkmark-outline"></nb-icon>
+            </button>
+          </div>
+        </nb-card-header>
+        <nb-card-body>
+          <div *ngIf="!isEditMode">
+            <b>Moniteur :</b> {{ lesson.teacherId[0].lastname }} {{ lesson.teacherId[0].firstname }}<br/>
+            <b>Date : </b>{{ lesson.date | date:'dd MMM yyyy'}}<br/>
+            <b>Heure : </b>{{ lesson.date | date:'HH:mm'}}<br/>
+            <b>Nombre de cavaliers : </b>{{ lesson.numRiders }}<br/>
+            <b>Niveau : </b>Galop {{ lesson.level }}<br/>
+          </div>
+          <div *ngIf="isEditMode">
+            <!-- Teacher -->
+            <div class="row my-1">
+              <div class="col-5 py-2"><b>Moniteur :</b></div>
+              <input class="col-7" type="text" fieldSize="small"
+                     [placeholder]="lesson.teacherId[0].lastname + ' ' + lesson.teacherId[0].firstname"
+                     nbInput disabled
+              />
+            </div>
+            <!-- Date -->
+            <div class="row my-1">
+              <div class="col-5 py-2"><b>Date :</b></div>
+              <input
+                class="col-7"
+                placeholder="Date"
+                [nbDatepicker]="dateTimePicker"
+                [(ngModel)]="lesson.date"
+                name="date" id="date"
+                nbInput
+              />
+              <nb-date-picker #dateTimePicker></nb-date-picker>
+            </div>
+            <!-- Time -->
+            <!--div class="row my-1">
+              <div class="col-5 py-2"><b>Heure :</b></div>
+              <input
+                class="col-7"
+                type="time"
+                [value]="tempLessonTime"
+                [(ngModel)]="tempLessonTime"
+                name="time" id="time"
+                nbInput
+              />
+            </div-->
+            <!-- Num Riders -->
+            <div class="row my-1">
+              <div class="col-5 py-2"><b>Nombre de cavaliers :</b></div>
+              <input
+                type="number"
+                class="col-7"
+                min="0"
+                [valueAsNumber]="lesson.numRiders"
+                [(ngModel)]="lesson.numRiders"
+                name="numRiders" id="numRiders"
+                nbInput
+              />
+            </div>
+            <!-- Level -->
+            <div class="row my-1">
+              <div class="col-5 py-2"><b>Niveau :</b></div>
+              <nb-select
+                class="col-7 px-0"
+                name="level" id="level"
+                [(ngModel)]="lesson.level"
+                [(selected)]="lesson.level"
+              >
+                <nb-option *ngFor="let level of [1,2,3,4,5,6,7]" [value]="level">
+                  Galop {{ level }}
+                </nb-option>
+              </nb-select>
+            </div>
+          </div>
+        </nb-card-body>
+      </nb-card>
+    </div>
+  </div>
+</div>

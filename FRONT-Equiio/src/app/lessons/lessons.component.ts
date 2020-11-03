@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Router} from '@angular/router';
 import {NB_DIALOG_CONFIG, NbDialogService} from '@nebular/theme';
 import {AlertComponent} from '../alert/alert.component';
 import {Lesson} from '../models/lesson.model';
@@ -25,6 +26,7 @@ export class LessonsComponent implements OnInit {
 
   constructor(
     private authenticationService: AuthenticationService,
+    private router: Router,
     private dialogService: NbDialogService,
     private lessonService: LessonService,
     private alertService: AlertService,
@@ -42,7 +44,7 @@ export class LessonsComponent implements OnInit {
   }
 
   private getLesson(): void {
-    this.lessonService.getLesson().subscribe((data) => {
+    this.lessonService.getLessons().subscribe((data) => {
         this.lessons = data;
       },
       (err) => {
@@ -64,5 +66,9 @@ export class LessonsComponent implements OnInit {
         lesson,
       },
     }).onClose.subscribe((addedLesson) => addedLesson && this.getLesson());
+  }
+
+  public openLessonDetails(id: string): void {
+    this.router.navigate(['/lesson', id]);
   }
 }

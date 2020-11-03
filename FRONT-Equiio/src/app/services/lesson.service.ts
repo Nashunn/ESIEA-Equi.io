@@ -14,8 +14,12 @@ export class LessonService {
     return this.http.post<Response>(`${environment.apiUrl}/api/lessons/`, lesson);
   }
 
-  public getLesson(): Observable<Lesson[]> {
+  public getLessons(): Observable<Lesson[]> {
     return this.http.get<Lesson[]>(`${environment.apiUrl}/api/lessons/`);
+  }
+
+  public getLesson(lessonId: string): Observable<Lesson> {
+    return this.http.get<Lesson>(`${environment.apiUrl}/api/lessons/${lessonId}`);
   }
 
   public updateLesson(lesson: Lesson): Observable<Response> {

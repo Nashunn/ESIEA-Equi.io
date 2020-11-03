@@ -10,6 +10,15 @@ exports.findAllLessons = function (req, res) {
     }).populate('teacherId');
 };
 
+exports.findLesson = function (req, res) {
+    Lesson.find({_id: req.params.id}, function (err, lessons) {
+        if (err) {
+            res.send(err);
+        }
+        res.json(lessons[0]);
+    }).populate('teacherId');
+};
+
 exports.createLesson = function (req, res) {
     Lesson.create({
         name: req.body.name,
