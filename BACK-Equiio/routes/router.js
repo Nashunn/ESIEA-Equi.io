@@ -10,12 +10,9 @@ const config = require("../config/config")
 
 checkAuth = function (roles) {
     return async (req, res, next) => {
-        console.log(req.headers['authorization'])
         jwt.verify(req.headers['authorization'], config.secret, function(err, decoded) {
-            console.log(err)
-            console.log(decoded)
             if (err) {
-                res.status(403).send({ returnCode: 403, message: "Token non valide" });
+                res.status(401).send({ returnCode: 401, message: "Token non valide" });
             } else if (!roles.includes(decoded.role)) {
                 res.status(403).send({ returnCode: 403, message: "Vous n'êtes pas autorisé à faire cette action" });
             } else {
