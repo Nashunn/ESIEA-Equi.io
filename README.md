@@ -30,7 +30,7 @@ Todo
 - ![Angular](https://angular.io/)
 - ![Node.js](https://nodejs.org/)
 - ![Angular Material](https://material.angular.io/) 
-- ![mlab](https://mlab.com/home)
+- ![MongoDB](https://cloud.mongodb.com/)
 
 ## Installation
 Todo
