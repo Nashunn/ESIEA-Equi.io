@@ -102,14 +102,28 @@ exports.updateUser = function (req, res) {
     jwt.verify(req.headers['authorization'], config.secret, function(err, decoded) {
         if (err) {
             res.status(403).send({ returnCode: 403, message: "Token non valide" });
-        } else if (decoded.role === Roles.Admin || decoded.id === req.body.id) {
-            // Update only authorized informations
-            const body = {
-                firstname: req.body.firstname,
-                lastname: req.body.lastname,
-                mail: req.body.mail,
-                phone: req.body.phone,
-                licence: req.body.licence,
+        }
+        if (decoded.role === Roles.Admin || decoded.id === req.body.id) {
+            let body;
+            if (decoded.role === Roles.Admin) {
+                // The admin can update role
+                body = {
+                    firstname: req.body.firstname,
+                    lastname: req.body.lastname,
+                    mail: req.body.mail,
+                    phone: req.body.phone,
+                    licence: req.body.licence,
+                    role: req.body.role
+                }
+            } else if (decoded.id === req.body.id) {
+                // The user or teacher cannot update role
+                body = {
+                    firstname: req.body.firstname,
+                    lastname: req.body.lastname,
+                    mail: req.body.mail,
+                    phone: req.body.phone,
+                    licence: req.body.licence,
+                }
             }
             User.findByIdAndUpdate(req.params.id, body, function (err) {
                 if (err) {
