@@ -13,25 +13,36 @@ function generateToken(userId, userRole) {
 }
 
 exports.registerUser = function (req, res) {
-    const hashedPwd = bcrypt.hashSync(req.body.password, 8);
-    User.create(
-        {
-            firstname: req.body.firstname,
-            lastname: req.body.lastname,
-            mail: req.body.mail,
-            phone: req.body.phone,
-            licence: req.body.licence,
-            password: hashedPwd,
-            role: req.body.role,
-        },
-        function (err, user) {
-            // Check if correct
-            if (err) return errors.checkErrors("user", res, err);
-            // create a token
-            const token = generateToken(user._id, user.role);
-            res.status(201).send({ token: token });
+    User.findOne({'$or': [{mail: req.body.mail}, {phone: req.body.mail}]}, function (err, user) {
+        // Check if already exists
+        if (err) {
+            const json = {returnCode: 500, message: 'Erreur serveur'}
+            res.send(err, json);
+        } else if (user) {
+            const json = {returnCode: 409, message: "Erreur : un utilisateur avec cet email/téléphone existe déjà"}
+            res.status(200).send(json);
+        } else if (!user) {
+            const hashedPwd = bcrypt.hashSync(req.body.password, 8);
+            User.create(
+                {
+                    firstname: req.body.firstname,
+                    lastname: req.body.lastname,
+                    mail: req.body.mail,
+                    phone: req.body.phone,
+                    licence: req.body.licence,
+                    password: hashedPwd,
+                    role: req.body.role,
+                },
+                function (err, user) {
+                    // Check if correct
+                    if (err) return errors.checkErrors("user", res, err);
+                    // create a token
+                    const token = generateToken(user._id, user.role);
+                    res.status(201).send({token: token});
+                }
+            );
         }
-    );
+    })
 }
 
 exports.createUser = function (req, res) {
@@ -41,7 +52,7 @@ exports.createUser = function (req, res) {
             const json = {returnCode: 500, message: 'Erreur serveur'}
             res.send(err, json);
         } else if (user) {
-            const json = {returnCode: 409, message: "Erreur : un utilisateur avec cet email existe déjà"}
+            const json = {returnCode: 409, message: "Erreur : un utilisateur avec cet email/téléphone existe déjà"}
             res.status(200).send(json);
         } else if (!user) {
             const hashedPwd = bcrypt.hashSync(req.body.password, 8);
@@ -128,7 +139,7 @@ exports.deleteUser = function (req, res) {
 };
 
 exports.login = function(req, res) {
-    User.findOne({mail: req.body.mail}, function(err, user) {
+    User.findOne({'$or': [{mail: req.body.mail}, {phone: req.body.mail}]}, function(err, user) {
         // error
         if (err) {
             const json = { returnCode: 500,  message: 'Erreur serveur' }
@@ -136,8 +147,8 @@ exports.login = function(req, res) {
         }
         // user not found
         else if (!user) {
-            const json = { returnCode: 401, message: 'Email ou Mot de passe incorrect' }
-            res.status(401).send(json);
+            const json = { returnCode: 401, message: 'Les identifiants sont incorrects' }
+            res.status(200).send(json);
         }
         else {
             let pwdsMatches = bcrypt.compareSync(req.body.password, user.password);
@@ -150,8 +161,8 @@ exports.login = function(req, res) {
                 res.status(200).send(json);
             }
             else { // error
-                const json = { returnCode: 401, message: 'Email ou Mot de passe incorrect' }
-                res.status(401).send(json);
+                const json = { returnCode: 401, message: 'Les identifiants sont incorrects' }
+                res.status(200).send(json);
             }
         }
     })
