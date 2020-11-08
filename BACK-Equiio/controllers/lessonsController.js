@@ -19,6 +19,18 @@ exports.findLesson = function (req, res) {
     }).populate('teacherId');
 };
 
+exports.findAllLessonsByTeacher = function (req, res) {
+    Lesson.find({teacherId: req.params.id}, function (err, lessons) {
+        if (err) {
+            const json = {returnCode: 500, message: "Erreur lors de la récupération des leçons"}
+            res.status(500).send(json);
+        } else {
+            const json = {returnCode: 200, message: 'Leçons récupérées avec succès'}
+            res.status(200).send(json);
+        }
+    });
+}
+
 exports.createLesson = function (req, res) {
     Lesson.create({
         name: req.body.name,

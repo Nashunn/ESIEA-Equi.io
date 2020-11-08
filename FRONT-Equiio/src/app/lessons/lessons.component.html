@@ -1,6 +1,10 @@
 <div class="m-5">
+  <!-- Next lessons in 24h -->
+  <h4 class="mb-3 mt-0">Prochaines leçons</h4>
+
+  <!-- List of lessons -->
   <h4 class="mb-3">Mes leçons</h4>
-  <button nbButton status="primary" size="medium" class="mb-3" (click)="openAddLessonModal()">Créer une leçon</button>
+  <button nbButton status="primary" size="medium" class="mb-3" (click)="openAddLessonModal()" *ngIf="this.userRole === Roles.Teacher">Créer une leçon</button>
   <div class="d-flex justify-content-start flex-wrap">
     <!-- Loader -->
     <nb-card [nbSpinner]="isLoading" *ngIf="isLoading" class="col-12">
@@ -14,7 +18,6 @@
         <div class=""><b>Date : </b>{{ lesson.date | date:'dd MMM yyyy'}}</div>
         <div class=""><b>Heure : </b>{{ lesson.date | date:'HH:mm'}}</div>
         <div *ngIf="this.userRole === Roles.Teacher" class=""><b>Nombre de cavaliers : </b>{{ lesson.numRiders }}</div>
-        <div *ngIf="this.userRole === Roles.User" class=""><b>Cheval : </b>XXXX</div>
         <div class=""><b>Niveau : </b>Galop {{ lesson.level }}</div>
         <button *ngIf="this.userRole === Roles.Teacher" nbButton status="primary" size="tiny" class="my-3" (click)="openLessonDetails(lesson._id)">Détails de la leçon</button>
       </nb-card-body>

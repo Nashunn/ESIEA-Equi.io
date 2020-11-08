@@ -18,6 +18,10 @@ export class LessonService {
     return this.http.get<Lesson[]>(`${environment.apiUrl}/api/lessons/`);
   }
 
+  public getLessonsByTeacher(teacherId: string): Observable<Lesson[]> {
+    return this.http.get<Lesson[]>(`${environment.apiUrl}/api/lessons/teacher/${teacherId}`);
+  }
+
   public getLesson(lessonId: string): Observable<Lesson> {
     return this.http.get<Lesson>(`${environment.apiUrl}/api/lessons/${lessonId}`);
   }

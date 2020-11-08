@@ -60,7 +60,10 @@
       </nb-select>
     </form>
     <!-- Form Button -->
-    <button nbButton fullWidth status="primary" size="medium" (click)="submit()">Créer</button>
+    <div class="d-flex justify-content-between flex-wrap">
+      <button nbButton status="danger" size="medium" class="col-5" (click)="cancel()">Annuler</button>
+      <button nbButton status="primary" size="medium" class="col-5" (click)="submit()">Créer</button>
+    </div>
     <div *ngIf="error" class="invalid-feedback mt-3 mb-0">{{error}}</div>
   </nb-card-body>
 </nb-card>

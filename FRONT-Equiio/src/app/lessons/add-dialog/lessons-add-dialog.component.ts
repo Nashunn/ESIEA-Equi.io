@@ -1,17 +1,17 @@
 import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NbDialogRef } from '@nebular/theme';
-import {Lesson} from '../models/lesson.model';
-import {Response} from '../models/response.model';
-import { AlertService } from '../services/alert.service';
-import {AuthenticationService} from '../services/authentication.service';
-import {LessonService} from '../services/lesson.service';
+import {Lesson} from '../../models/lesson.model';
+import {Response} from '../../models/response.model';
+import { AlertService } from '../../services/alert.service';
+import {AuthenticationService} from '../../services/authentication.service';
+import {LessonService} from '../../services/lesson.service';
 
 @Component({
   selector: 'app-lessons-add-dialog',
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './lessons-add-dialog.components.html',
-  styleUrls: ['./lessons.component.scss'],
+  styleUrls: ['../lessons.component.scss'],
 })
 
 export class LessonsAddDialogComponent implements OnInit {

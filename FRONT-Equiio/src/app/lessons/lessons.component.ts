@@ -8,7 +8,7 @@ import { Session } from '../models/session.model';
 import {AlertService} from '../services/alert.service';
 import { AuthenticationService } from '../services/authentication.service';
 import {LessonService} from '../services/lesson.service';
-import { LessonsAddDialogComponent } from './lessons-add-dialog.component';
+import { LessonsAddDialogComponent } from './add-dialog/lessons-add-dialog.component';
 
 @Component({
   selector: 'app-lessons',
