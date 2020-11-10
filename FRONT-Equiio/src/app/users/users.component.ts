@@ -76,7 +76,6 @@ export class UsersComponent implements OnInit {
   }
 
   public onSearch(query: string = ''): void {
-    console.log('on search');
     if (query !== '') {
       this.source.setFilter([
         {
