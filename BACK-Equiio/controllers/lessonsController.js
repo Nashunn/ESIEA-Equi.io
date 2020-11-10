@@ -27,7 +27,7 @@ exports.findAllLessonsByTeacher = function (req, res) {
         } else {
             res.json(lessons);
         }
-    });
+    }).populate('teacherId');
 }
 
 exports.createLesson = function (req, res) {
