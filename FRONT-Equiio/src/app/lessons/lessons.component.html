@@ -1,17 +1,30 @@
 <div class="m-5">
+  <button nbButton status="primary" size="medium" class="mb-3" (click)="openAddLessonModal()" *ngIf="this.userRole === Roles.Teacher">Créer une leçon</button>
   <!-- Next lessons in 24h -->
   <h4 class="mb-3 mt-0">Prochaines leçons</h4>
+  <!-- Next Lessons -->
+  <nb-card *ngFor="let lesson of nextLessons" class="lesson mr-3 mb-3">
+    <nb-card-body class="p-2 d-flex flex-column justify-content-center align-items-center text-center">
+      <h5 class="my-2">{{ lesson.name }}</h5>
+      <div class=""><b>Moniteur : </b>{{ lesson.teacherId[0].lastname }} {{ lesson.teacherId[0].firstname }}</div>
+      <div class=""><b>Date : </b>{{ lesson.date | date:'dd MMM yyyy'}}</div>
+      <div class=""><b>Heure : </b>{{ lesson.date | date:'HH:mm'}}</div>
+      <div *ngIf="this.userRole === Roles.Teacher" class=""><b>Nombre de cavaliers : </b>{{ lesson.numRiders }}</div>
+      <div class=""><b>Niveau : </b>Galop {{ lesson.level }}</div>
+      <button *ngIf="this.userRole === Roles.Teacher" nbButton status="primary" size="tiny" class="my-3" (click)="openLessonDetails(lesson._id)">Détails de la leçon</button>
+    </nb-card-body>
+  </nb-card>
 
   <!-- List of lessons -->
   <h4 class="mb-3">Mes leçons</h4>
-  <button nbButton status="primary" size="medium" class="mb-3" (click)="openAddLessonModal()" *ngIf="this.userRole === Roles.Teacher">Créer une leçon</button>
+
   <div class="d-flex justify-content-start flex-wrap">
     <!-- Loader -->
     <nb-card [nbSpinner]="isLoading" *ngIf="isLoading" class="col-12">
       <nb-card-body>Chargement</nb-card-body>
     </nb-card>
     <!-- Lessons -->
-    <nb-card *ngFor="let lesson of lessons" class="lesson mr-3 mb-3">
+    <nb-card *ngFor="let lesson of otherLessons" class="lesson mr-3 mb-3">
       <nb-card-body class="p-2 d-flex flex-column justify-content-center align-items-center text-center">
         <h5 class="my-2">{{ lesson.name }}</h5>
         <div class=""><b>Moniteur : </b>{{ lesson.teacherId[0].lastname }} {{ lesson.teacherId[0].firstname }}</div>
