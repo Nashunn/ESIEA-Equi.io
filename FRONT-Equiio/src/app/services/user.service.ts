@@ -24,7 +24,7 @@ export class UserService {
   }
 
   public addUser(firstname: string, lastname: string, mail: string, phone: string, licence: string,
-                 password: string): Observable<Response> {
+                 password: string, role?: string): Observable<Response> {
     return this.http.post<Response>(`${environment.apiUrl}/api/users/`, {
       firstname,
       lastname,
@@ -32,6 +32,7 @@ export class UserService {
       phone,
       licence,
       password,
+      role,
     });
   }
 

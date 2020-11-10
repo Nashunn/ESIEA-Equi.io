@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {NbDialogRef} from '@nebular/theme';
+import {Roles} from '../models/roles.model';
 import {AlertService} from '../services/alert.service';
 import {UserService} from '../services/user.service';
 
@@ -105,6 +106,10 @@ import {UserService} from '../services/user.service';
             name="reg_passwordConfirm" id="reg_passwordConfirm" placeholder="Confirmation Mot de passe"
             nbInput fullWidth
           />
+          <label for="reg_role" class="label-margin">Rôle (user par défaut)</label>
+          <nb-select id="reg_role" formControlName="reg_role" placeholder="Selectionner le rôle" fullWidth>
+            <nb-option *ngFor="let role of this.roles" [value]="role">{{ role }}</nb-option>
+          </nb-select>
           <div *ngIf="errorAdd" class="invalid-feedback mt-3 mb-0">{{errorAdd}}</div>
         </form>
       </nb-card-body>
@@ -121,6 +126,7 @@ export class UsersAddUserDialogComponent implements OnInit {
   public addUserForm: FormGroup;
   public addUserSubmitted = false;
   public errorAdd = '';
+  public roles = Object.values(Roles);
 
   constructor(protected dialogRef: NbDialogRef<UsersAddUserDialogComponent>, private userService: UserService,
               private alertService: AlertService, private formBuilder: FormBuilder) {
@@ -135,6 +141,7 @@ export class UsersAddUserDialogComponent implements OnInit {
       reg_licence: [''],
       reg_password: ['', Validators.required],
       reg_passwordConfirm: ['', Validators.required],
+      reg_role: [''],
     });
   }
 
@@ -154,7 +161,8 @@ export class UsersAddUserDialogComponent implements OnInit {
 
     this.userService.addUser(this.addUserForm.get('reg_firstname').value, this.addUserForm.get('reg_lastname').value,
       this.addUserForm.get('reg_email').value, this.addUserForm.get('reg_tel').value,
-      this.addUserForm.get('reg_licence').value, this.addUserForm.get('reg_password').value).subscribe(
+      this.addUserForm.get('reg_licence').value, this.addUserForm.get('reg_password').value,
+      this.addUserForm.get('reg_role').value).subscribe(
       (response) => {
         if (response.returnCode > 250) {
           this.alertService.error(response.message);
