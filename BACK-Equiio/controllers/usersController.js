@@ -181,3 +181,44 @@ exports.login = function(req, res) {
         }
     })
 }
+
+exports.changePassword = function (req, res) {
+    jwt.verify(req.headers['authorization'], config.secret, function(err, decoded) {
+        if (err) {
+            res.status(403).send({ returnCode: 403, message: "Token non valide" });
+        }
+        if (decoded.id === req.body.userId) {
+            User.findById(req.body.userId, function(err, user) {
+                if (!user) {
+                    const json = { returnCode: 500, message: "Erreur lors de la modification du mot de passe" }
+                    res.status(200).send(json);
+                } else {
+                    let pwdsMatches = bcrypt.compareSync(req.body.oldPassword, user.password);
+
+                    // Check if password is valid
+                    if (pwdsMatches) {
+                        const body = {
+                            password: bcrypt.hashSync(req.body.newPassword, 8)
+                        }
+
+                        User.findByIdAndUpdate(req.body.userId, body, function (err, user) {
+                            if (err) {
+                                const json = { returnCode: 500, message: "Erreur lors de la modification du mot de passe" }
+                                res.status(200).send(json);
+                            } else {
+                                const json = { returnCode: 200, message: 'Mot de passe modifié avec succès' }
+                                res.status(200).send(json);
+                            }
+                        });
+                    }
+                    else { // error
+                        const json = { returnCode: 400, message: "Erreur : L'ancien mot de passe n'est pas valide" }
+                        res.status(200).send(json);
+                    }
+                }
+            })
+        } else {
+            res.status(403).send({ returnCode: 403, message: "Vous n'êtes pas autorisé à faire cette action" });
+        }
+    })
+};
