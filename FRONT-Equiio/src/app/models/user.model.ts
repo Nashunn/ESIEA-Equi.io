@@ -12,4 +12,5 @@ export class User {
   public mail: string;
   public phone: string;
   public role: string;
+  public licence: string;
 }

@@ -24,7 +24,8 @@ checkAuth = function (roles) {
 
 router
     .post("/auth/login", usersController.login)
-    .post("/auth/register", usersController.registerUser, )
+    .post("/auth/register", usersController.registerUser)
+    .post("/auth/change_password", checkAuth([Roles.Admin, Roles.Teacher, Roles.User]), usersController.changePassword)
 
 router
     .post("/users", checkAuth([Roles.Admin]), usersController.createUser)
