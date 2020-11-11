@@ -29,7 +29,14 @@
             name="login_password" id="login_password" placeholder="Mot de passe"
             nbInput fullWidth
           />
-          <button nbButton fullWidth status="primary" size="medium">Se connecter</button>
+          <div class="row">
+            <div class="col-8">
+              <a routerLink="/auth/reset">Mot de passe oublié ?</a>
+            </div>
+            <div class="col-4">
+              <button nbButton fullWidth status="primary" size="medium">Se connecter</button>
+            </div>
+          </div>
           <div *ngIf="errorLog" class="invalid-feedback mt-3 mb-0">{{errorLog}}</div>
         </form>
       </nb-tab>

@@ -26,6 +26,7 @@ router
     .post("/auth/login", usersController.login)
     .post("/auth/register", usersController.registerUser)
     .post("/auth/change_password", checkAuth([Roles.Admin, Roles.Teacher, Roles.User]), usersController.changePassword)
+    .post("/auth/reset_password", usersController.resetPassword)
 
 router
     .post("/users", checkAuth([Roles.Admin]), usersController.createUser)
