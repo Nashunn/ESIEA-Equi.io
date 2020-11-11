@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { EquiioLoginComponent } from '../login/login.component';
+import { EquiioResetComponent } from '../reset/reset.component';
 
 export const routes: Routes = [
   {
@@ -13,6 +14,10 @@ export const routes: Routes = [
       {
         path: 'logout',
         component: EquiioLoginComponent,
+      },
+      {
+        path: 'reset',
+        component: EquiioResetComponent,
       },
     ],
   },

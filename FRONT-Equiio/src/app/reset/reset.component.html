@@ -1,0 +1,29 @@
+<nb-card class="col-6 offset-3 mt-5">
+  <nb-card-header class="row d-flex">
+    <nb-actions size="medium" class="col-2">
+      <nb-action icon="undo-outline" routerLink="/auth/login"></nb-action>
+    </nb-actions>
+    <div class="text-center col-8 align-self-center">
+      Mot de passe oublié ?
+    </div>
+  </nb-card-header>
+  <nb-card-body>
+    <form [formGroup]="resetPwdForm" (ngSubmit)="onSubmitResetPwd()">
+      <!-- Email -->
+      <label for="email" class="label-margin">Email/Téléphone<sup>*</sup></label>
+      <div *ngIf="loginSubmitted && flog.email.errors" class="invalid-feedback">
+        <div *ngIf="flog.email.errors.required">Email/Téléphone obligatoire</div>
+      </div>
+      <input
+        type="text"
+        class="input-margin"
+        formControlName="email"
+        [ngClass]="{ 'is-invalid': loginSubmitted && flog.email.errors }"
+        name="email" id="email" placeholder="Email/Téléphone"
+        nbInput fullWidth
+      />
+      <button nbButton fullWidth status="primary" size="medium" [disabled]="!flog.email.value">Valider</button>
+      <div *ngIf="errorLog" class="invalid-feedback mt-3 mb-0">{{errorLog}}</div>
+    </form>
+  </nb-card-body>
+</nb-card>

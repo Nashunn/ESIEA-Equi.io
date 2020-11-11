@@ -72,6 +72,10 @@ export class AuthenticationService {
     return this.http.post<Response>(`${environment.apiUrl}/api/auth/change_password`, {userId, oldPassword, newPassword});
   }
 
+  public resetPassword(mail): Observable<Response> {
+    return this.http.post<Response>(`${environment.apiUrl}/api/auth/reset_password`, {mail});
+  }
+
   public logout(): void {
     // remove user from local storage to log user out
     localStorage.removeItem('currentSession');
