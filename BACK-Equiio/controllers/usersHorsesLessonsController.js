@@ -1,31 +1,35 @@
 const UsersHorsesLessons = require('../models/users_horses_lessons');
 const lessonController = require("./lessonsController");
+const {populate} = require("mongoose");
 
 exports.findAllUHL = function (req, res) {
-    UsersHorsesLessons.find(function (err, lessons) {
+    UsersHorsesLessons.find(function (err, uhl) {
         if (err) {
             res.send(err);
+        } else {
+            res.json(uhl);
         }
-        res.json(lessons);
-    }).populate('user_id', 'horse_id', 'lesson_id');
+    }).populate('userId').populate('horseId').populate('lessonId');
 };
 
 exports.findUHL = function (req, res) {
-    UsersHorsesLessons.find({_id: req.params.id}, function (err, lessons) {
+    UsersHorsesLessons.find({_id: req.params.id}, function (err, uhl) {
         if (err) {
             res.send(err);
+        } else {
+            res.json(uhl[0]);
         }
-        res.json(lessons[0]);
-    }).populate('user_id', 'horse_id', 'lesson_id');
+    }).populate('userId').populate('horseId').populate('lessonId');
 };
 
 exports.findAllUHLByUser = function (req, res) {
-    UsersHorsesLessons.find({user_id: req.params.id}, function (err, lessons) {
+    UsersHorsesLessons.find({user_id: req.params.id}, function (err, uhl) {
         if (err) {
             res.send(err);
+        } else {
+            res.json(uhl);
         }
-        res.json(lessons);
-    }).populate('user_id', 'horse_id', 'lesson_id');
+    }).populate('horseId').populate({path: 'lessonId', populate: { path: 'teacherId' }});
 };
 
 exports.findAllUHLByLesson = function (req, res) {
@@ -71,12 +75,12 @@ exports.updateUHL = function (req, res) {
 };
 
 exports.deleteUHL = function (req, res) {
-    UsersHorsesLessons.findByIdAndDelete(req.params.id, function (err) {
+    UsersHorsesLessons.findByIdAndDelete(req.params.id, function (err, uhl) {
         if (err) {
             const json = { returnCode: 500, message: 'Erreur lors de la suppression de la leçon' }
             res.status(500).send(json);
         } else {
-            lessonController.substractSubscribers(req.body.lessonId, res); // substract one to the num of subs of the lesson
+            lessonController.substractSubscribers(uhl.lessonId, res); // substract one to the num of subs of the lesson
             const json = { returnCode: 200, message: 'Leçon supprimée avec succès' }
             res.status(200).send(json);
         }

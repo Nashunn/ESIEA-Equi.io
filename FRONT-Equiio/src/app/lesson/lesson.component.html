@@ -28,7 +28,7 @@
         </nb-card-header>
         <nb-card-body>
           <div *ngIf="!isEditMode">
-            <b>Moniteur :</b> {{ lesson.teacherId[0].lastname }} {{ lesson.teacherId[0].firstname }}<br/>
+            <b>Moniteur :</b> {{ lesson.teacherId.lastname }} {{ lesson.teacherId.firstname }}<br/>
             <b>Date : </b>{{ lesson.date | date:'dd MMM yyyy'}}<br/>
             <b>Heure : </b>{{ lesson.date | date:'HH:mm'}}<br/>
             <b>Nombre de cavaliers : </b>{{ lesson.numRiders }}<br/>
@@ -39,7 +39,7 @@
             <div class="row my-1">
               <div class="col-5 py-2"><b>Moniteur :</b></div>
               <input class="col-7" type="text" fieldSize="small"
-                     [placeholder]="lesson.teacherId[0].lastname + ' ' + lesson.teacherId[0].firstname"
+                     [placeholder]="lesson.teacherId.lastname + ' ' + lesson.teacherId.firstname"
                      nbInput disabled
               />
             </div>

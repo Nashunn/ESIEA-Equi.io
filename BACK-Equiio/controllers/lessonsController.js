@@ -5,8 +5,9 @@ exports.findAllLessons = function (req, res) {
     Lesson.find({date: {$gte: new Date()}}, function (err, lessons) {
         if (err) {
             res.send(err);
+        } else {
+            res.json(lessons);
         }
-        res.json(lessons);
     }).populate('teacherId');
 };
 
@@ -14,8 +15,9 @@ exports.findLesson = function (req, res) {
     Lesson.find({_id: req.params.id, date: {$gte: new Date()}}, function (err, lessons) {
         if (err) {
             res.send(err);
+        } else {
+            res.json(lessons[0]);
         }
-        res.json(lessons[0]);
     }).populate('teacherId');
 };
 

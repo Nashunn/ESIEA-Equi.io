@@ -27,7 +27,7 @@ let lessonSchema = mongoose.Schema({
         required: true,
         min: 0
     },
-    teacherId: [{ type: Schema.Types.ObjectId, ref: 'User' }]
+    teacherId: { type: Schema.Types.ObjectId, ref: 'User' }
 }, {
     versionKey: false
 });

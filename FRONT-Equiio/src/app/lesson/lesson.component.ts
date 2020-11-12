@@ -8,13 +8,13 @@ import {Response} from '../models/response.model';
 import {AlertService} from '../services/alert.service';
 import {HorseService} from '../services/horse.service';
 import {LessonService} from '../services/lesson.service';
-import {UsersHorsesLessonsServices} from '../services/usersHorsesLessons.services';
+import {UsersHorsesLessonsService} from '../services/usersHorsesLessons.service';
 
 @Component({
   selector: 'app-lesson',
   templateUrl: './lesson.component.html',
   styleUrls: ['./lesson.component.scss'],
-  providers: [LessonService, UsersHorsesLessonsServices, HorseService, AlertComponent, NbDialogService, {
+  providers: [LessonService, UsersHorsesLessonsService, HorseService, AlertComponent, NbDialogService, {
     provide: NB_DIALOG_CONFIG,
     useValue: {},
   }],
@@ -32,7 +32,7 @@ export class LessonComponent implements OnInit {
   constructor(
     private lessonService: LessonService,
     private alertService: AlertService,
-    private userHorseLessonService: UsersHorsesLessonsServices,
+    private userHorseLessonService: UsersHorsesLessonsService,
     private horseService: HorseService,
     private router: Router,
     private route: ActivatedRoute,

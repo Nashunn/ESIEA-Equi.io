@@ -14,7 +14,7 @@
         <nb-badge *ngIf="lesson.numSubs == lesson.numRiders-1" [text]="lesson.numSubs + '/' + lesson.numRiders" status="warning" position="top right"></nb-badge>
 
         <h5 class="my-2">{{ lesson.name }}</h5>
-        <div class=""><b>Moniteur : </b>{{ lesson.teacherId[0].lastname }} {{ lesson.teacherId[0].firstname }}</div>
+        <div class=""><b>Moniteur : </b>{{ lesson.teacherId.lastname }} {{ lesson.teacherId.firstname }}</div>
         <div class=""><b>Date : </b>{{ lesson.date | date:'dd MMM yyyy'}}</div>
         <div class=""><b>Heure : </b>{{ lesson.date | date:'HH:mm'}}</div>
         <div *ngIf="this.userRole === Roles.Teacher" class=""><b>Nombre de cavaliers : </b>{{ lesson.numRiders }}</div>

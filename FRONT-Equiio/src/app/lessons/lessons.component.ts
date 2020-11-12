@@ -8,13 +8,15 @@ import { Session } from '../models/session.model';
 import {AlertService} from '../services/alert.service';
 import { AuthenticationService } from '../services/authentication.service';
 import {LessonService} from '../services/lesson.service';
+import {UsersHorsesLessonsService} from '../services/usersHorsesLessons.service';
 import { LessonsAddDialogComponent } from './add-dialog/lessons-add-dialog.component';
+import {UserHorseLesson} from "../models/userHorseLesson.model";
 
 @Component({
   selector: 'app-lessons',
   templateUrl: './lessons.component.html',
   styleUrls: ['./lessons.component.scss'],
-  providers: [ LessonService, AlertComponent, NbDialogService, { provide: NB_DIALOG_CONFIG, useValue: {}} ],
+  providers: [ LessonService, UsersHorsesLessonsService, AlertComponent, NbDialogService, { provide: NB_DIALOG_CONFIG, useValue: {}} ],
 })
 
 export class LessonsComponent implements OnInit {
@@ -26,12 +28,14 @@ export class LessonsComponent implements OnInit {
   public allLessons: Lesson[]; // array of all lessons
   public nextLessons: Lesson[] = []; // array of next lessons
   public otherLessons: Lesson[] = []; // array of other lessons
+  private uhls = [];
 
   constructor(
     private authenticationService: AuthenticationService,
     private router: Router,
     private dialogService: NbDialogService,
     private lessonService: LessonService,
+    private userHorseLessonService: UsersHorsesLessonsService,
     private alertService: AlertService,
   ) {
     this.authenticationService.currentSession.subscribe((session) => {
@@ -51,7 +55,7 @@ export class LessonsComponent implements OnInit {
     if (this.userRole === Roles.Teacher) {
       this.getLessonTeacher();
     } else if (this.userRole === Roles.User) {
-      // this.getLessonUser();
+      this.getLessonUser();
     }
   }
 
@@ -83,8 +87,40 @@ export class LessonsComponent implements OnInit {
     );
   }
 
+  private getLessonUser(): void {
+    this.userHorseLessonService.getUHLsByUser(this.userId).subscribe((data) => {
+      this.allLessons = []; // empty it
+      data.forEach((value) => {
+        const uhlInfo = { horse: (value.horseId ? value.horseId : 'non attribué'), uhl: value };
+        this.uhls[value.lessonId.id] = uhlInfo;
+        this.allLessons.push(value.lessonId); // add lesson to allLessons
+      });
+      this.separateNextAndOtherLessons();
+    },
+    (err) => {
+      this.isLoading = false;
+      this.alertService.error('Erreur lors de la récupération des leçons');
+    },
+    () => this.isLoading = false,
+    );
+  }
+
   public openLessonDetails(id: string): void {
     this.router.navigate(['/lesson', id]);
+  }
+
+  public unsubscribeLesson(uhl: UserHorseLesson): void {
+    this.userHorseLessonService.deleteUHL(uhl).subscribe((data) => {
+      this.isLoading = true;
+    },
+    (err) => {
+      this.isLoading = false;
+      this.alertService.error('Erreur lors de la récupération des leçons');
+    },
+    () => {
+      this.isLoading = false;
+      this.getLessons();
+    });
   }
 
   public openAddLessonModal(lesson?: Lesson): void {

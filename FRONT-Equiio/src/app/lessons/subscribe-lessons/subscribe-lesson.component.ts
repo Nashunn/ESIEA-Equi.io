@@ -8,13 +8,13 @@ import {UserHorseLesson} from '../../models/userHorseLesson.model';
 import {AlertService} from '../../services/alert.service';
 import {AuthenticationService} from '../../services/authentication.service';
 import {LessonService} from '../../services/lesson.service';
-import {UsersHorsesLessonsServices} from '../../services/usersHorsesLessons.services';
+import {UsersHorsesLessonsService} from '../../services/usersHorsesLessons.service';
 
 @Component({
   selector: 'app-subscribe-lesson',
   templateUrl: './subscribe-lesson.component.html',
   styleUrls: ['./../lessons.component.scss'],
-  providers: [ LessonService, UsersHorsesLessonsServices, AlertComponent, NbDialogService, { provide: NB_DIALOG_CONFIG, useValue: {}} ],
+  providers: [ LessonService, UsersHorsesLessonsService, AlertComponent, NbDialogService, { provide: NB_DIALOG_CONFIG, useValue: {}} ],
 })
 export class SubscribeLessonComponent implements OnInit {
   public userRole: string;
@@ -29,7 +29,7 @@ export class SubscribeLessonComponent implements OnInit {
   constructor(
     private authenticationService: AuthenticationService,
     private lessonService: LessonService,
-    private userHorseLessonService: UsersHorsesLessonsServices,
+    private userHorseLessonService: UsersHorsesLessonsService,
     private alertService: AlertService,
   ) {
     this.authenticationService.currentSession.subscribe((session) => {
@@ -65,7 +65,7 @@ export class SubscribeLessonComponent implements OnInit {
     this.diplayedLessons = [];
 
     this.allLessons.every((v) => lessonsIds.push(v.id));
-    this.subsLessons.every((v) => uhlsIds.push(v.lessonId.toString()));
+    this.subsLessons.every((v) => uhlsIds.push(v.lessonId._id));
 
     lessonsIds.forEach((id) => {
       if (!uhlsIds.includes(id)) {

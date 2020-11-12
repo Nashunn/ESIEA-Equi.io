@@ -57,6 +57,6 @@ router
     .get("/uhl/:id", checkAuth([Roles.Admin, Roles.Teacher, Roles.User]), usersHorsesLessonsController.findUHL)
     .post("/uhl", checkAuth([Roles.Admin, Roles.Teacher, Roles.User]), usersHorsesLessonsController.createUHL)
     .put("/uhl/:id", checkAuth([Roles.Admin, Roles.Teacher, Roles.User]), usersHorsesLessonsController.updateUHL)
-    .delete("uhl/:id", checkAuth([Roles.Admin, Roles.Teacher, Roles.User]), usersHorsesLessonsController.deleteUHL)
+    .delete("/uhl/:id", checkAuth([Roles.Admin, Roles.Teacher, Roles.User]), usersHorsesLessonsController.deleteUHL)
 
 module.exports = router;
