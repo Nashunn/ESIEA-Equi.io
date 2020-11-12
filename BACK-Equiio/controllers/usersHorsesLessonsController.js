@@ -6,36 +6,40 @@ exports.findAllUHL = function (req, res) {
     UsersHorsesLessons.find(function (err, lessons) {
         if (err) {
             res.send(err);
+        } else {
+            res.json(lessons);
         }
-        res.json(lessons);
-    }).populate('user_id', 'horse_id', 'lesson_id');
+    }).populate('userId', 'horseId', 'lessonId');
 };
 
 exports.findUHL = function (req, res) {
     UsersHorsesLessons.find({_id: req.params.id}, function (err, lessons) {
         if (err) {
             res.send(err);
+        } else {
+            res.json(lessons[0]);
         }
-        res.json(lessons[0]);
-    }).populate('user_id', 'horse_id', 'lesson_id');
+    }).populate('userId', 'horseId', 'lessonId');
 };
 
 exports.findAllUHLByUser = function (req, res) {
     UsersHorsesLessons.find({user_id: req.params.id}, function (err, lessons) {
         if (err) {
             res.send(err);
+        } else {
+            res.json(lessons);
         }
-        res.json(lessons);
-    }).populate('user_id', 'horse_id', 'lesson_id');
+    }).populate('userId', 'horseId', 'lessonId');
 };
 
 exports.findAllUHLByLesson = function (req, res) {
     UsersHorsesLessons.find({user_id: req.params.id}, function (err, lessons) {
         if (err) {
             res.send(err);
+        } else {
+            res.json(lessons);
         }
-        res.json(lessons);
-    }).populate('user_id', 'horse_id', 'lesson_id');
+    }).populate('userId', 'horseId', 'lessonId');
 };
 
 exports.createUHL = function (req, res) {

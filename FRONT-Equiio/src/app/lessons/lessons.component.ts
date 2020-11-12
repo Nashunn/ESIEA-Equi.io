@@ -8,13 +8,14 @@ import { Session } from '../models/session.model';
 import {AlertService} from '../services/alert.service';
 import { AuthenticationService } from '../services/authentication.service';
 import {LessonService} from '../services/lesson.service';
+import {UsersHorsesLessonsServices} from '../services/usersHorsesLessons.services';
 import { LessonsAddDialogComponent } from './add-dialog/lessons-add-dialog.component';
 
 @Component({
   selector: 'app-lessons',
   templateUrl: './lessons.component.html',
   styleUrls: ['./lessons.component.scss'],
-  providers: [ LessonService, AlertComponent, NbDialogService, { provide: NB_DIALOG_CONFIG, useValue: {}} ],
+  providers: [ LessonService, UsersHorsesLessonsServices, AlertComponent, NbDialogService, { provide: NB_DIALOG_CONFIG, useValue: {}} ],
 })
 
 export class LessonsComponent implements OnInit {
@@ -32,6 +33,7 @@ export class LessonsComponent implements OnInit {
     private router: Router,
     private dialogService: NbDialogService,
     private lessonService: LessonService,
+    private userHorseLessonService: UsersHorsesLessonsServices,
     private alertService: AlertService,
   ) {
     this.authenticationService.currentSession.subscribe((session) => {
@@ -51,7 +53,7 @@ export class LessonsComponent implements OnInit {
     if (this.userRole === Roles.Teacher) {
       this.getLessonTeacher();
     } else if (this.userRole === Roles.User) {
-      // this.getLessonUser();
+      this.getLessonUser();
     }
   }
 
@@ -80,6 +82,24 @@ export class LessonsComponent implements OnInit {
         this.alertService.error('Erreur lors de la récupération des leçons');
       },
       () => this.isLoading = false,
+    );
+  }
+
+  private getLessonUser(): void {
+    this.userHorseLessonService.getUHLsByUser(this.userId).subscribe((data) => {
+      const uhlsData = data;
+      this.allLessons = []; // empty it
+      console.log(uhlsData);
+      /*uhlsData.forEach((value) => {
+        this.allLessons.push(value.lessonId[0]); // add lesson to allLessons
+      });*/
+      this.separateNextAndOtherLessons();
+    },
+    (err) => {
+      this.isLoading = false;
+      this.alertService.error('Erreur lors de la récupération des leçons');
+    },
+    () => this.isLoading = false,
     );
   }
 
