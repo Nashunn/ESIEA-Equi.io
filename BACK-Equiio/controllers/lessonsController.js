@@ -2,7 +2,7 @@ const errors = require('../utils/errors');
 const Lesson = require("../models/lessons");
 
 exports.findAllLessons = function (req, res) {
-    Lesson.find(function (err, lessons) {
+    Lesson.find({date: {$gte: new Date()}}, function (err, lessons) {
         if (err) {
             res.send(err);
         }
@@ -11,13 +11,24 @@ exports.findAllLessons = function (req, res) {
 };
 
 exports.findLesson = function (req, res) {
-    Lesson.find({_id: req.params.id}, function (err, lessons) {
+    Lesson.find({_id: req.params.id, date: {$gte: new Date()}}, function (err, lessons) {
         if (err) {
             res.send(err);
         }
         res.json(lessons[0]);
     }).populate('teacherId');
 };
+
+exports.findAllLessonsByTeacher = function (req, res) {
+    Lesson.find({teacherId: req.params.teacherId, date: {$gte: new Date()}}, function (err, lessons) {
+        if (err) {
+            const json = {returnCode: 500, message: "Erreur lors de la récupération des leçons"}
+            res.status(500).send(json);
+        } else {
+            res.json(lessons);
+        }
+    });
+}
 
 exports.createLesson = function (req, res) {
     Lesson.create({

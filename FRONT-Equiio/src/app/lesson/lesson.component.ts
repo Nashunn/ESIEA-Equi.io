@@ -4,9 +4,9 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {NB_DIALOG_CONFIG, NbDialogService} from '@nebular/theme';
 import {AlertComponent} from '../alert/alert.component';
 import {Lesson} from '../models/lesson.model';
+import {Response} from '../models/response.model';
 import {AlertService} from '../services/alert.service';
 import {LessonService} from '../services/lesson.service';
-import {Response} from "../models/response.model";
 
 @Component({
   selector: 'app-lesson',

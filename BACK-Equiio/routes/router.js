@@ -43,6 +43,7 @@ router
 
 router
     .get("/lessons", checkAuth([Roles.Admin, Roles.Teacher, Roles.User]), lessonsController.findAllLessons)
+    .get("/lessons/teacher/:teacherId", checkAuth([Roles.Admin, Roles.Teacher, Roles.User]), lessonsController.findAllLessonsByTeacher)
     .get("/lessons/:id", checkAuth([Roles.Admin, Roles.Teacher, Roles.User]), lessonsController.findLesson)
     .post("/lessons", checkAuth([Roles.Admin, Roles.Teacher]), lessonsController.createLesson)
     .put("/lessons/:id", checkAuth([Roles.Admin, Roles.Teacher]), lessonsController.updateLesson)
