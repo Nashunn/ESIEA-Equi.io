@@ -1,4 +1,3 @@
-const errors = require('../utils/errors');
 const UsersHorsesLessons = require('../models/users_horses_lessons');
 const lessonController = require("./lessonsController");
 
@@ -30,12 +29,13 @@ exports.findAllUHLByUser = function (req, res) {
 };
 
 exports.findAllUHLByLesson = function (req, res) {
-    UsersHorsesLessons.find({user_id: req.params.id}, function (err, lessons) {
+    UsersHorsesLessons.find({lessonId: req.params.lessonId}, function (err, lessons) {
         if (err) {
             res.send(err);
+        } else {
+            res.json(lessons);
         }
-        res.json(lessons);
-    }).populate('user_id', 'horse_id', 'lesson_id');
+    }).populate('userId').populate('horseId');
 };
 
 exports.createUHL = function (req, res) {

@@ -22,6 +22,10 @@ export class UsersHorsesLessonsServices {
     return this.http.get<UserHorseLesson[]>(`${environment.apiUrl}/api/uhl/user/${userId}`);
   }
 
+  public getUHLsByLesson(lessonId: string): Observable<UserHorseLesson[]> {
+    return this.http.get<UserHorseLesson[]>(`${environment.apiUrl}/api/uhl/lesson/${lessonId}`);
+  }
+
   public getUHL(uhlId: string): Observable<UserHorseLesson> {
     return this.http.get<UserHorseLesson>(`${environment.apiUrl}/api/uhl/${uhlId}`);
   }

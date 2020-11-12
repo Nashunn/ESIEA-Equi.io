@@ -53,6 +53,7 @@ router
 router
     .get("/uhl", checkAuth([Roles.Admin, Roles.Teacher, Roles.User]), usersHorsesLessonsController.findAllUHL)
     .get("/uhl/user/:userId", checkAuth([Roles.Admin, Roles.Teacher, Roles.User]), usersHorsesLessonsController.findAllUHLByUser)
+    .get("/uhl/lesson/:lessonId", checkAuth([Roles.Admin, Roles.Teacher, Roles.User]), usersHorsesLessonsController.findAllUHLByLesson)
     .get("/uhl/:id", checkAuth([Roles.Admin, Roles.Teacher, Roles.User]), usersHorsesLessonsController.findUHL)
     .post("/uhl", checkAuth([Roles.Admin, Roles.Teacher, Roles.User]), usersHorsesLessonsController.createUHL)
     .put("/uhl/:id", checkAuth([Roles.Admin, Roles.Teacher, Roles.User]), usersHorsesLessonsController.updateUHL)
