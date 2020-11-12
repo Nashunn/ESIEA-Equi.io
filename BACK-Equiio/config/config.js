@@ -5,5 +5,6 @@ module.exports = {
     dbPassword: "EquiDB7822Test",
     secret: "fiBFVISQDFINSQIVNISQFNVIUNgbsfbsdbgkjfndkgjn789898989sjfhqsihf",
     emailLogin: "contact.equiio@gmail.com",
-    emailPassword: "EquiMail7822Test"
+    emailPassword: "EquiMail7822Test",
+    prod: false
 }

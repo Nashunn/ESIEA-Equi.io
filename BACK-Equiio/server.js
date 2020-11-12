@@ -10,10 +10,17 @@ port = 3080;
 
 app.use(bodyParser.json({limit: '50mb'}));
 
-app.use(cors({
-    credentials: true,
-    origin: 'http://localhost:4200'
-}))
+if (config.prod) {
+    app.use(cors({
+        credentials: true,
+        origin: 'https://equiio.flowp.eu'
+    }))
+} else {
+    app.use(cors({
+        credentials: true,
+        origin: 'http://localhost:4200'
+    }))
+}
 
 // Start mongodb connection
 const uri = `mongodb+srv://${config.dbUser}:${config.dbPassword}@${config.dbHost}/${config.dbName}?retryWrites=true&w=majority`;
