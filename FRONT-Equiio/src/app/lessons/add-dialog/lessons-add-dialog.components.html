@@ -26,7 +26,7 @@
         name="date" id="date"
         nbInput fullWidth
       />
-      <nb-datepicker #dateTimePicker></nb-datepicker>
+      <nb-date-timepicker #dateTimePicker singleColumn [step]="10"></nb-date-timepicker>
       <!-- Number of riders -->
       <label for="date" class="label-margin">Nombre maximum de cavaliers<sup>*</sup></label>
       <div *ngIf="submitted && f.numRiders.errors" class="invalid-feedback">

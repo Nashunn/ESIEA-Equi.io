@@ -6,7 +6,7 @@ import { Response } from '../models/response.model';
 import { UserHorseLesson } from '../models/userHorseLesson.model';
 
 @Injectable()
-export class LessonService {
+export class UsersHorsesLessonsServices {
 
   constructor(private http: HttpClient) {}
 

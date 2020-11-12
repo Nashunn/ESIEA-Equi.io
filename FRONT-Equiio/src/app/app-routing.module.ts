@@ -5,6 +5,7 @@ import {HomeComponent} from './home/home.component';
 import {HorsesComponent} from './horses/horses.component';
 import {LessonComponent} from './lesson/lesson.component';
 import {LessonsComponent} from './lessons/lessons.component';
+import {SubscribeLessonComponent} from './lessons/subscribe-lessons/subscribe-lesson.component';
 import {Roles} from './models/roles.model';
 import {UserComponent} from './user/user.component';
 import {UsersComponent} from './users/users.component';
@@ -41,6 +42,12 @@ export const routes: Routes = [
     component: LessonsComponent,
     canActivate: [AuthGuard], // secured
     data: {roles: [Roles.User, Roles.Teacher, Roles.Admin]},
+  },
+  {
+    path: 'lessons/subscribe',
+    component: SubscribeLessonComponent,
+    canActivate: [AuthGuard], // secured
+    data: {roles: [Roles.User, Roles.Admin]},
   },
   {
     path: 'lesson/:id',

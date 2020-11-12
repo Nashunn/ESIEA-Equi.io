@@ -11,15 +11,21 @@ let lessonSchema = mongoose.Schema({
         trim: true,
         required: true
     },
+    level: {
+        type: Number,
+        trim: true,
+        required: true
+    },
     numRiders : {
         type: Number,
         trim: true,
         required: true
     },
-    level: {
+    numSubs : {
         type: Number,
         trim: true,
-        required: true
+        required: true,
+        min: 0
     },
     teacherId: [{ type: Schema.Types.ObjectId, ref: 'User' }]
 }, {

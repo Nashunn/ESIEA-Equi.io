@@ -2,7 +2,12 @@
   <button nbButton status="primary" size="medium" class="mb-3" (click)="openAddLessonModal()" *ngIf="this.userRole === Roles.Teacher">Créer une leçon</button>
   <!-- Next lessons in 24h -->
   <h4 class="mb-3 mt-0">Prochaines leçons</h4>
+  <!-- Loader -->
+  <nb-card [nbSpinner]="isLoading" *ngIf="isLoading" class="col-12">
+    <nb-card-body>Chargement</nb-card-body>
+  </nb-card>
   <!-- Next Lessons -->
+  <div *ngIf="nextLessons.length <= 0 && !isLoading">Pas de leçon prochainement</div>
   <nb-card *ngFor="let lesson of nextLessons" class="lesson mr-3 mb-3">
     <nb-card-body class="p-2 d-flex flex-column justify-content-center align-items-center text-center">
       <h5 class="my-2">{{ lesson.name }}</h5>
@@ -17,13 +22,13 @@
 
   <!-- List of lessons -->
   <h4 class="mb-3">Mes leçons</h4>
-
   <div class="d-flex justify-content-start flex-wrap">
     <!-- Loader -->
     <nb-card [nbSpinner]="isLoading" *ngIf="isLoading" class="col-12">
       <nb-card-body>Chargement</nb-card-body>
     </nb-card>
     <!-- Lessons -->
+    <div *ngIf="otherLessons.length <= 0 && !isLoading">Aucune autre leçon</div>
     <nb-card *ngFor="let lesson of otherLessons" class="lesson mr-3 mb-3">
       <nb-card-body class="p-2 d-flex flex-column justify-content-center align-items-center text-center">
         <h5 class="my-2">{{ lesson.name }}</h5>

@@ -9,7 +9,7 @@
         <nb-action icon="log-out-outline" (click)="logout()" icon-color="#222b45"></nb-action>
         <nb-action><a routerLink="/user">Mon compte</a></nb-action>
         <!-- User views -->
-        <nb-action *ngIf="this.userRole === Roles.User">M'inscrire à une leçon</nb-action>
+        <nb-action *ngIf="this.userRole === Roles.User"><a routerLink="/lessons/subscribe">M'inscrire à une leçon</a></nb-action>
 
         <!-- User and Teacher views -->
         <nb-action *ngIf="this.userRole === Roles.Teacher || this.userRole === Roles.User"><a routerLink="/lessons">Mes leçons</a></nb-action>

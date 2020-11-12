@@ -1,4 +1,3 @@
-import {DatePipe} from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {NB_DIALOG_CONFIG, NbDialogService} from '@nebular/theme';
@@ -15,7 +14,7 @@ import { LessonsAddDialogComponent } from './add-dialog/lessons-add-dialog.compo
   selector: 'app-lessons',
   templateUrl: './lessons.component.html',
   styleUrls: ['./lessons.component.scss'],
-  providers: [ LessonService, AlertComponent, NbDialogService, DatePipe, { provide: NB_DIALOG_CONFIG, useValue: {}} ],
+  providers: [ LessonService, AlertComponent, NbDialogService, { provide: NB_DIALOG_CONFIG, useValue: {}} ],
 })
 
 export class LessonsComponent implements OnInit {
@@ -34,7 +33,6 @@ export class LessonsComponent implements OnInit {
     private dialogService: NbDialogService,
     private lessonService: LessonService,
     private alertService: AlertService,
-    private datePipe: DatePipe,
   ) {
     this.authenticationService.currentSession.subscribe((session) => {
       this.session = session;
@@ -49,7 +47,7 @@ export class LessonsComponent implements OnInit {
     this.getLessons();
   }
 
-  private getLessons(): void {
+  public getLessons(): void {
     if (this.userRole === Roles.Teacher) {
       this.getLessonTeacher();
     } else if (this.userRole === Roles.User) {
@@ -58,6 +56,8 @@ export class LessonsComponent implements OnInit {
   }
 
   private separateNextAndOtherLessons(): void {
+    this.nextLessons = [];
+    this.otherLessons = [];
     const tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
 
@@ -83,10 +83,14 @@ export class LessonsComponent implements OnInit {
     );
   }
 
+  public openLessonDetails(id: string): void {
+    this.router.navigate(['/lesson', id]);
+  }
+
   public openAddLessonModal(lesson?: Lesson): void {
     // If no lesson are passed as arg
     if (!lesson) {
-      lesson = new Lesson('', Date.now(), 1, '', '');
+      lesson = new Lesson('', Date.now(), '', 1, 0, '');
     }
 
     this.dialogService.open(LessonsAddDialogComponent, {
@@ -94,9 +98,5 @@ export class LessonsComponent implements OnInit {
         lesson,
       },
     }).onClose.subscribe((addedLesson) => addedLesson && this.getLessons());
-  }
-
-  public openLessonDetails(id: string): void {
-    this.router.navigate(['/lesson', id]);
   }
 }

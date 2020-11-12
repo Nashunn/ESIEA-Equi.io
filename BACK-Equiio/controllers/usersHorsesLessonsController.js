@@ -1,5 +1,6 @@
 const errors = require('../utils/errors');
 const UsersHorsesLessons = require('../models/users_horses_lessons');
+const lessonController = require("./lessonsController");
 
 exports.findAllUHL = function (req, res) {
     UsersHorsesLessons.find(function (err, lessons) {
@@ -28,6 +29,15 @@ exports.findAllUHLByUser = function (req, res) {
     }).populate('user_id', 'horse_id', 'lesson_id');
 };
 
+exports.findAllUHLByLesson = function (req, res) {
+    UsersHorsesLessons.find({user_id: req.params.id}, function (err, lessons) {
+        if (err) {
+            res.send(err);
+        }
+        res.json(lessons);
+    }).populate('user_id', 'horse_id', 'lesson_id');
+};
+
 exports.createUHL = function (req, res) {
     UsersHorsesLessons.create({
             userId: req.body.userId,
@@ -37,10 +47,11 @@ exports.createUHL = function (req, res) {
         function (err, lesson) {
             // Check if correct
             if (err) {
-                const json = {returnCode: 500, message: "Erreur lors de la création"}
+                const json = {returnCode: 500, message: "Erreur lors de l'inscription"}
                 res.status(500).send(json);
             } else {
-                const json = {returnCode: 200, message: 'Créée avec succès'}
+                lessonController.addSubscribers(req.body.lessonId, res); // add one to the num of subs of the lesson
+                const json = {returnCode: 200, message: 'Inscription à la leçon avec succès'}
                 res.status(200).send(json);
             }
         }
@@ -65,6 +76,7 @@ exports.deleteUHL = function (req, res) {
             const json = { returnCode: 500, message: 'Erreur lors de la suppression de la leçon' }
             res.status(500).send(json);
         } else {
+            lessonController.substractSubscribers(req.body.lessonId, res); // substract one to the num of subs of the lesson
             const json = { returnCode: 200, message: 'Leçon supprimée avec succès' }
             res.status(200).send(json);
         }
