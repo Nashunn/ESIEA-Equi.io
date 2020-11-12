@@ -5,6 +5,15 @@ const User = require("../models/users");
 const Roles = require("../models/roles");
 const config = require("../config/config")
 
+const nodemailer = require('nodemailer');
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: config.emailLogin,
+        pass: config.emailPassword
+    }
+});
+
 function generateToken(userId, userRole) {
     // Assign token
     return jwt.sign({id: userId, role: userRole}, config.secret, {
@@ -181,3 +190,89 @@ exports.login = function(req, res) {
         }
     })
 }
+
+exports.changePassword = function (req, res) {
+    jwt.verify(req.headers['authorization'], config.secret, function(err, decoded) {
+        if (err) {
+            res.status(403).send({ returnCode: 403, message: "Token non valide" });
+        }
+        if (decoded.id === req.body.userId) {
+            User.findById(req.body.userId, function(err, user) {
+                if (!user) {
+                    const json = { returnCode: 500, message: "Erreur lors de la modification du mot de passe" }
+                    res.status(200).send(json);
+                } else {
+                    let pwdsMatches = bcrypt.compareSync(req.body.oldPassword, user.password);
+
+                    // Check if password is valid
+                    if (pwdsMatches) {
+                        const body = {
+                            password: bcrypt.hashSync(req.body.newPassword, 8)
+                        }
+
+                        User.findByIdAndUpdate(req.body.userId, body, function (err, user) {
+                            if (err) {
+                                const json = { returnCode: 500, message: "Erreur lors de la modification du mot de passe" }
+                                res.status(200).send(json);
+                            } else {
+                                const json = { returnCode: 200, message: 'Mot de passe modifié avec succès' }
+                                res.status(200).send(json);
+                            }
+                        });
+                    }
+                    else { // error
+                        const json = { returnCode: 400, message: "Erreur : L'ancien mot de passe n'est pas valide" }
+                        res.status(200).send(json);
+                    }
+                }
+            })
+        } else {
+            res.status(403).send({ returnCode: 403, message: "Vous n'êtes pas autorisé à faire cette action" });
+        }
+    })
+};
+
+exports.resetPassword = function (req, res) {
+    User.findOne({'$or': [{mail: req.body.mail}, {phone: req.body.mail}]}, function(err, user) {
+        if (err) {
+            const json = { returnCode: 500,  message: 'Erreur serveur' }
+            res.send(err, json);
+        } else if (!user) {
+            const json = { returnCode: 401, message: 'Utilisateur non trouvé' }
+            res.status(200).send(json);
+        } else {
+            const randPassword = Array(10)
+                .fill("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz")
+                .map(function(x) { return x[Math.floor(Math.random() * x.length)] }).join('');
+
+            const body = {
+                password: bcrypt.hashSync(randPassword, 8)
+            }
+            User.findByIdAndUpdate(user.id, body, function (err, user) {
+                if (err) {
+                    const json = { returnCode: 500, message: "Erreur lors de la réinitialisation du mot de passe" }
+                    res.status(200).send(json);
+                } else {
+                    const content = `Bonjour, voici votre nouveau mot de passe pour vous connecter à Equiio. N'oubliez pas de le changer. \nMot de passe : ${randPassword} \nA bientôt sur Equiio !`
+
+                    const mailOptions = {
+                        from: 'contact.equiio@gmail.com',
+                        to: user.mail,
+                        subject: 'Votre nouveau mot de passe',
+                        text: content
+                    };
+
+                    transporter.sendMail(mailOptions, function(error, info) {
+                        if (error) {
+                            const json = { returnCode: 500, message: "Erreur lors de la réinitialisation du mot de passe" }
+                            res.status(200).send(json);
+                        } else {
+                            const json = { returnCode: 200, message: 'Nouveau mot de passe envoyé par mail' }
+                            res.status(200).send(json);
+                        }
+                    });
+                }
+            });
+        }
+    })
+};

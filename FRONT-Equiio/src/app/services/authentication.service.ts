@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
+import {Response} from '../models/response.model';
 import {Session} from '../models/session.model';
 
 @Injectable({ providedIn: 'root' })
@@ -65,6 +66,14 @@ export class AuthenticationService {
         this.currentSessionSubject.next(new Session(res.token));
         return res;
       }));
+  }
+
+  public updatePassword(userId, oldPassword, newPassword): Observable<Response> {
+    return this.http.post<Response>(`${environment.apiUrl}/api/auth/change_password`, {userId, oldPassword, newPassword});
+  }
+
+  public resetPassword(mail): Observable<Response> {
+    return this.http.post<Response>(`${environment.apiUrl}/api/auth/reset_password`, {mail});
   }
 
   public logout(): void {

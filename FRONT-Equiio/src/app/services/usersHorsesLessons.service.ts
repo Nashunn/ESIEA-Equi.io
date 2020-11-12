@@ -6,7 +6,7 @@ import { Response } from '../models/response.model';
 import { UserHorseLesson } from '../models/userHorseLesson.model';
 
 @Injectable()
-export class UsersHorsesLessonsServices {
+export class UsersHorsesLessonsService {
 
   constructor(private http: HttpClient) {}
 
@@ -22,6 +22,10 @@ export class UsersHorsesLessonsServices {
     return this.http.get<UserHorseLesson[]>(`${environment.apiUrl}/api/uhl/user/${userId}`);
   }
 
+  public getUHLsByLesson(lessonId: string): Observable<UserHorseLesson[]> {
+    return this.http.get<UserHorseLesson[]>(`${environment.apiUrl}/api/uhl/lesson/${lessonId}`);
+  }
+
   public getUHL(uhlId: string): Observable<UserHorseLesson> {
     return this.http.get<UserHorseLesson>(`${environment.apiUrl}/api/uhl/${uhlId}`);
   }
@@ -30,8 +34,8 @@ export class UsersHorsesLessonsServices {
     return this.http.put<Response>(`${environment.apiUrl}/api/uhl/${uhl.id}`, uhl);
   }
 
-  public deleteUHL(uhlId: string): Observable<Response> {
-    return this.http.delete<Response>(`${environment.apiUrl}/api/uhl/${uhlId}`);
+  public deleteUHL(uhl: UserHorseLesson): Observable<Response> {
+    return this.http.delete<Response>(`${environment.apiUrl}/api/uhl/${uhl.id}`);
   }
 
 }

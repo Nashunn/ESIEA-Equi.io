@@ -6,8 +6,8 @@
     <nb-card-header class="row">
       <div class="col-lg-8 text-left">Mes informations</div>
       <div class="col-lg-4 text-right">
-        <button nbButton *ngIf="!isEditMode" status="danger" shape="round" size="small" (click)="toggleEditMode()"
-                nbTooltip="Modifier mes informations" nbTooltipPlacement="left" nbTooltipStatus="danger">
+        <button nbButton *ngIf="!isEditMode" status="primary" shape="round" size="small" (click)="toggleEditMode()"
+                nbTooltip="Modifier mes informations" nbTooltipPlacement="left" nbTooltipStatus="primary">
           <nb-icon icon="edit-outline"></nb-icon>
         </button>
         <button nbButton *ngIf="isEditMode" status="success" shape="round" size="small" (click)="toggleEditModeAndUpdateUser()"
@@ -34,6 +34,10 @@
           <div class="col-6 text-left">Téléphone</div>
           <div class="col-6 text-right">{{user.phone}}</div>
         </div>
+        <div class="row mb-3">
+          <div class="col-6 text-left">Licence</div>
+          <div class="col-6 text-right">{{user.licence}}</div>
+        </div>
       </div>
 
       <div *ngIf="isEditMode">
@@ -53,6 +57,45 @@
           <div class="col-7 text-left">Téléphone</div>
           <input class="col-4" type="text" nbInput [(ngModel)]="user.phone" fieldSize="small">
         </div>
+        <div class="row input-margin">
+          <div class="col-7 text-left">Licence</div>
+          <input class="col-4" type="text" nbInput [(ngModel)]="user.licence" fieldSize="small">
+        </div>
+      </div>
+    </nb-card-body>
+  </nb-card>
+</div>
+
+<div class="m-0 row justify-content-center">
+  <nb-card [nbSpinner]="isLoading" class="accent accent-info" style="width: 50%">
+    <nb-card-header class="row">
+      <div class="col-lg-8 text-left">Mot de passe</div>
+      <div class="col-lg-4 text-right">
+        <button nbButton *ngIf="isChangePasswordMode" status="danger" shape="round" size="small" (click)="cancelChangePassword()"
+                nbTooltip="Annuler la modification du mot de passe" nbTooltipPlacement="left" nbTooltipStatus="danger">
+          <nb-icon icon="close-outline"></nb-icon>
+        </button>
+      </div>
+    </nb-card-header>
+    <nb-card-body *ngIf="!isLoading">
+      <div *ngIf="!isChangePasswordMode" class="text-center">
+        <button nbButton status="primary" (click)="toggleChangePasswordMode()">Modifier mon mot de passe</button>
+      </div>
+
+      <div *ngIf="isChangePasswordMode">
+        <div class="row input-margin">
+          <div class="col-7 text-left">Ancien mot de passe</div>
+          <input class="col-4" type="password" nbInput [(ngModel)]="this.oldPassword" fieldSize="small">
+        </div>
+        <div class="row input-margin">
+          <div class="col-7 text-left">Nouveau mot de passe</div>
+          <input class="col-4" type="password" nbInput [(ngModel)]="this.newPassword" fieldSize="small">
+        </div>
+        <div class="row input-margin">
+          <div class="col-7 text-left">Confirmation de mot de passe</div>
+          <input class="col-4" type="password" nbInput [(ngModel)]="this.newPasswordConfirm" fieldSize="small">
+        </div>
+        <button nbButton status="success" [disabled]="!isChangePasswordValid()" class="col-lg-4 text-right" (click)="changePassword()">Valider</button>
       </div>
     </nb-card-body>
   </nb-card>

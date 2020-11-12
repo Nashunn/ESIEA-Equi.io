@@ -25,7 +25,9 @@ checkAuth = function (roles) {
 
 router
     .post("/auth/login", usersController.login)
-    .post("/auth/register", usersController.registerUser, )
+    .post("/auth/register", usersController.registerUser)
+    .post("/auth/change_password", checkAuth([Roles.Admin, Roles.Teacher, Roles.User]), usersController.changePassword)
+    .post("/auth/reset_password", usersController.resetPassword)
 
 router
     .post("/users", checkAuth([Roles.Admin]), usersController.createUser)
@@ -51,9 +53,10 @@ router
 router
     .get("/uhl", checkAuth([Roles.Admin, Roles.Teacher, Roles.User]), usersHorsesLessonsController.findAllUHL)
     .get("/uhl/user/:userId", checkAuth([Roles.Admin, Roles.Teacher, Roles.User]), usersHorsesLessonsController.findAllUHLByUser)
+    .get("/uhl/lesson/:lessonId", checkAuth([Roles.Admin, Roles.Teacher, Roles.User]), usersHorsesLessonsController.findAllUHLByLesson)
     .get("/uhl/:id", checkAuth([Roles.Admin, Roles.Teacher, Roles.User]), usersHorsesLessonsController.findUHL)
     .post("/uhl", checkAuth([Roles.Admin, Roles.Teacher, Roles.User]), usersHorsesLessonsController.createUHL)
     .put("/uhl/:id", checkAuth([Roles.Admin, Roles.Teacher, Roles.User]), usersHorsesLessonsController.updateUHL)
-    .delete("uhl/:id", checkAuth([Roles.Admin, Roles.Teacher, Roles.User]), usersHorsesLessonsController.deleteUHL)
+    .delete("/uhl/:id", checkAuth([Roles.Admin, Roles.Teacher, Roles.User]), usersHorsesLessonsController.deleteUHL)
 
 module.exports = router;
