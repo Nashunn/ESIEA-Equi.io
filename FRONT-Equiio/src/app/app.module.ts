@@ -11,15 +11,15 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import {
-  NbActionsModule, NbAlertModule,
-  NbButtonModule,
-  NbCardModule, NbDatepickerModule, NbDateTimePickerComponent,
-  NbIconModule,
-  NbInputModule, NbSelectModule,
-  NbSidebarModule,
-  NbSpinnerModule, NbTimepickerModule,
-  NbTooltipModule,
-  NbTreeGridModule, NbUserModule,
+    NbActionsModule, NbAlertModule, NbBadgeModule,
+    NbButtonModule,
+    NbCardModule, NbDatepickerModule, NbDateTimePickerComponent,
+    NbIconModule,
+    NbInputModule, NbSelectModule,
+    NbSidebarModule,
+    NbSpinnerModule, NbTimepickerModule,
+    NbTooltipModule,
+    NbTreeGridModule, NbUserModule,
 } from '@nebular/theme';
 import { NbLayoutModule, NbThemeModule } from '@nebular/theme';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
@@ -32,10 +32,10 @@ import { HorsesComponent } from './horses/horses.component';
 import { LessonComponent } from './lesson/lesson.component';
 import {LessonsAddDialogComponent} from './lessons/add-dialog/lessons-add-dialog.component';
 import { LessonsComponent } from './lessons/lessons.component';
+import {SubscribeLessonComponent} from './lessons/subscribe-lessons/subscribe-lesson.component';
 import { UserComponent } from './user/user.component';
 import { UsersAddUserDialogComponent } from './users/users-add-user-dialog.component';
 import { UsersComponent } from './users/users.component';
-import {DatePipe} from "@angular/common";
 
 @NgModule({
   bootstrap: [AppComponent],
@@ -51,35 +51,37 @@ import {DatePipe} from "@angular/common";
     LessonsComponent,
     LessonsAddDialogComponent,
     LessonComponent,
+    SubscribeLessonComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    NbThemeModule.forRoot({name: 'default'}),
-    NbLayoutModule,
-    NbEvaIconsModule,
-    NbIconModule,
-    RouterModule.forRoot(routes, {useHash: true}),
-    NbSidebarModule.forRoot(),
-    NbButtonModule,
-    NbTreeGridModule,
-    NbCardModule,
-    NbInputModule,
-    NbActionsModule,
-    NbTooltipModule,
-    HttpClientModule,
-    NbSpinnerModule,
-    NbAlertModule,
-    Ng2SmartTableModule,
-    NbUserModule,
-    ReactiveFormsModule,
-    FormsModule,
-    NbDatepickerModule.forRoot(),
-    NbTimepickerModule.forRoot(),
-    NbSelectModule,
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+        NbThemeModule.forRoot({name: 'default'}),
+        NbLayoutModule,
+        NbEvaIconsModule,
+        NbIconModule,
+        RouterModule.forRoot(routes, {useHash: true}),
+        NbSidebarModule.forRoot(),
+        NbButtonModule,
+        NbTreeGridModule,
+        NbCardModule,
+        NbInputModule,
+        NbActionsModule,
+        NbTooltipModule,
+        HttpClientModule,
+        NbSpinnerModule,
+        NbAlertModule,
+        Ng2SmartTableModule,
+        NbUserModule,
+        ReactiveFormsModule,
+        FormsModule,
+        NbDatepickerModule.forRoot(),
+        NbTimepickerModule.forRoot(),
+        NbSelectModule,
+        NbBadgeModule,
+    ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },

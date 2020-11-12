@@ -5,6 +5,7 @@ const router = express.Router();
 const usersController = require("../controllers/usersController");
 const horsesController = require("../controllers/horsesController");
 const lessonsController = require("../controllers/lessonsController");
+const usersHorsesLessonsController = require("../controllers/usersHorsesLessonsController");
 const Roles = require("../models/roles");
 const config = require("../config/config")
 
@@ -48,5 +49,13 @@ router
     .post("/lessons", checkAuth([Roles.Admin, Roles.Teacher]), lessonsController.createLesson)
     .put("/lessons/:id", checkAuth([Roles.Admin, Roles.Teacher]), lessonsController.updateLesson)
     .delete("lessons/:id", checkAuth([Roles.Admin, Roles.Teacher]), lessonsController.deleteLesson)
+
+router
+    .get("/uhl", checkAuth([Roles.Admin, Roles.Teacher, Roles.User]), usersHorsesLessonsController.findAllUHL)
+    .get("/uhl/user/:userId", checkAuth([Roles.Admin, Roles.Teacher, Roles.User]), usersHorsesLessonsController.findAllUHLByUser)
+    .get("/uhl/:id", checkAuth([Roles.Admin, Roles.Teacher, Roles.User]), usersHorsesLessonsController.findUHL)
+    .post("/uhl", checkAuth([Roles.Admin, Roles.Teacher, Roles.User]), usersHorsesLessonsController.createUHL)
+    .put("/uhl/:id", checkAuth([Roles.Admin, Roles.Teacher, Roles.User]), usersHorsesLessonsController.updateUHL)
+    .delete("uhl/:id", checkAuth([Roles.Admin, Roles.Teacher, Roles.User]), usersHorsesLessonsController.deleteUHL)
 
 module.exports = router;

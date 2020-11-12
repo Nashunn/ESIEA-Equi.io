@@ -27,15 +27,16 @@ exports.findAllLessonsByTeacher = function (req, res) {
         } else {
             res.json(lessons);
         }
-    });
+    }).populate('teacherId');
 }
 
 exports.createLesson = function (req, res) {
     Lesson.create({
         name: req.body.name,
         date: req.body.date,
-        numRiders: req.body.numRiders,
         level: req.body.level,
+        numRiders: req.body.numRiders,
+        numSubs: req.body.numSubs,
         teacherId: req.body.teacherId,
     },
     function (err, lesson) {
@@ -62,6 +63,14 @@ exports.updateLesson = function (req, res) {
         }
     });
 };
+
+exports.addSubscribers = function (lessonId, res) {
+    Lesson.findByIdAndUpdate(lessonId, { $inc :{ numSubs: 1 } }, {new: true}, function (err) {})
+}
+
+exports.substractSubscribers = function (lessonId, res) {
+    Lesson.findByIdAndUpdate(lessonId, { $inc :{ numSubs: -1 } }, {new: true}, function (err) {})
+}
 
 exports.deleteLesson = function (req, res) {
     Lesson.findByIdAndDelete(req.params.id, function (err) {

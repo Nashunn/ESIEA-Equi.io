@@ -56,13 +56,14 @@ export class LessonsAddDialogComponent implements OnInit {
     const lesson = new Lesson(
       this.form.get('name').value,
       this.form.get('date').value,
-      this.form.get('numRiders').value,
       this.form.get('level').value,
+      this.form.get('numRiders').value,
+      0,
       this.authenticationService.currentSessionValue.getUserId(),
     );
     // Add lesson
     this.lessonService.addLesson(lesson).subscribe(
-      (response: Response|any) => {
+      (response) => {
         if (response.returnCode > 200) {
           this.alertService.error(response.message);
         } else {
