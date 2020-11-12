@@ -2,9 +2,9 @@ const mongoose = require("mongoose");
 const Schema = require("mongoose/lib/schema");
 
 let UsersHorsesLessonsSchema = mongoose.Schema({
-    userId: [{ type: Schema.Types.ObjectId, ref: 'User' }],
-    horseId: [{ type: Schema.Types.ObjectId, ref: 'Horse' }],
-    lessonId: [{ type: Schema.Types.ObjectId, ref: 'Lesson' }],
+    userId: { type: Schema.Types.ObjectId, ref: 'User' },
+    horseId: { type: Schema.Types.ObjectId, ref: 'Horse' },
+    lessonId: { type: Schema.Types.ObjectId, ref: 'Lesson' },
 });
 
 // Duplicate the ID field.
