@@ -121,7 +121,7 @@ export class LessonComponent implements OnInit {
     const newUhl = {
       id: event.newData.id,
       userId: event.newData.userId,
-      horseId: event.newData.horseId,
+      horseId: event.newData.horse,
       lessonId: event.newData.lessonId,
     };
 
