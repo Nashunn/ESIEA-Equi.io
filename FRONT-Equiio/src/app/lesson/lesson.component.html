@@ -84,12 +84,22 @@
               </nb-select>
             </div>
           </div>
-          <!-- Inscrits -->
-          <div class="row my-1">
-            <div class="col-5 py-2"><b>Inscrits : </b> <span *ngIf="!subscribers.length">Aucun inscrits !</span></div>
-            <ng2-smart-table *ngIf="!this.isLoading && !this.horsesLoading && subscribers.length" class="users-table" [settings]="settings"
-                             [source]="this.subscribers" (editConfirm)="onUpdateConfirm($event)"></ng2-smart-table>
-          </div>
+        </nb-card-body>
+      </nb-card>
+    </div>
+    <!-- Inscrits -->
+    <div class="row my-3">
+      <nb-card class="col-10">
+        <nb-card-header>Inscrits</nb-card-header>
+        <nb-card-body class="row my-1">
+          <div class="py-2"><span *ngIf="!subscribers.length">Aucun inscrits !</span></div>
+          <ng2-smart-table
+            *ngIf="!this.isLoading && !this.horsesLoading && subscribers.length"
+            class="users-table"
+            [settings]="settings"
+            [source]="this.subscribers"
+            (editConfirm)="onUpdateConfirm($event)">
+          </ng2-smart-table>
         </nb-card-body>
       </nb-card>
     </div>
