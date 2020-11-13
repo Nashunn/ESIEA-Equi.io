@@ -19,10 +19,10 @@ exports.createHorse = function (req, res) {
         },
         function (err, horse) {
             if (err) {
-                const json = {returnCode: 500, message: 'Failed to create horse'}
+                const json = {returnCode: 500, message: 'Erreur lors de la création du cheval'}
                 res.status(500).send(json);
             } else {
-                const json = {returnCode: 200, message: 'Horse created with success'}
+                const json = {returnCode: 200, message: 'Cheval créé avec succès'}
                 res.status(200).send(json);
             }
         }
@@ -32,10 +32,10 @@ exports.createHorse = function (req, res) {
 exports.updateHorse = function (req, res) {
     Horse.findByIdAndUpdate(req.params.id, req.body, function (err) {
         if (err) {
-            const json = {returnCode: 500, message: 'Failed to update horse'}
+            const json = {returnCode: 500, message: 'Erreur lors de la modification du cheval'}
             res.status(500).send(json);
         } else {
-            const json = {returnCode: 200, message: 'Horse updated with success'}
+            const json = {returnCode: 200, message: 'Cheval modifié avec succès'}
             res.status(200).send(json);
         }
     });
@@ -44,10 +44,10 @@ exports.updateHorse = function (req, res) {
 exports.deleteHorse = function (req, res) {
     Horse.findByIdAndDelete(req.params.id, function (err) {
         if (err) {
-            const json = {returnCode: 500, message: 'Failed to delete horse'}
+            const json = {returnCode: 500, message: 'Erreur lors de la suppression du cheval'}
             res.status(500).send(json);
         } else {
-            const json = {returnCode: 200, message: 'Horse deleted with success'}
+            const json = {returnCode: 200, message: 'Cheval supprimé avec succès'}
             res.status(200).send(json);
         }
     });
