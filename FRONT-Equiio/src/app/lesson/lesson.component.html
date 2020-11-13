@@ -16,8 +16,8 @@
         <nb-card-header class="row p-2">
           <div class="col-lg-8 text-left pt-2">Informations</div>
           <div class="col-lg-4 text-right">
-            <button nbButton *ngIf="!isEditMode" status="danger" shape="round" size="small" (click)="toggleEditMode()"
-                    nbTooltip="Modifier mes informations" nbTooltipPlacement="left" nbTooltipStatus="danger">
+            <button nbButton *ngIf="!isEditMode" status="primary" shape="round" size="small" (click)="toggleEditMode()"
+                    nbTooltip="Modifier mes informations" nbTooltipPlacement="left" nbTooltipStatus="primary">
               <nb-icon icon="edit-outline"></nb-icon>
             </button>
             <button nbButton *ngIf="isEditMode" status="success" shape="round" size="small" (click)="toggleEditModeAndUpdateLesson()"
@@ -85,6 +85,13 @@
             </div>
           </div>
         </nb-card-body>
+        <nb-card-footer *ngIf="lesson.numSubs < 3" class="row">
+          <div class="col-7 mt-1">Vous avez moins de 3 inscrits sur cette leçon.</div>
+          <div class="col-5 text-right">
+            <button *ngIf="!isDeleteMode" nbButton status="warning" size="tiny" (click)="toggleDeleteMode()">Annuler le cours</button>
+            <button *ngIf="isDeleteMode" nbButton status="danger" size="tiny" (click)="confirmDelete()">Confirmer l'annulation</button>
+          </div>
+        </nb-card-footer>
       </nb-card>
     </div>
     <!-- Inscrits -->
