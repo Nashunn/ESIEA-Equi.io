@@ -86,8 +86,8 @@
           </div>
           <!-- Inscrits -->
           <div class="row my-1">
-            <div class="col-5 py-2"><b>Inscrits :</b></div>
-            <ng2-smart-table *ngIf="!this.isLoading && !this.horsesLoading" class="users-table" [settings]="settings"
+            <div class="col-5 py-2"><b>Inscrits : </b> <span *ngIf="!subscribers.length">Aucun inscrits !</span></div>
+            <ng2-smart-table *ngIf="!this.isLoading && !this.horsesLoading && subscribers.length" class="users-table" [settings]="settings"
                              [source]="this.subscribers" (editConfirm)="onUpdateConfirm($event)"></ng2-smart-table>
           </div>
         </nb-card-body>
