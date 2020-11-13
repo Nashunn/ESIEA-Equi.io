@@ -63,7 +63,7 @@ export class LessonComponent implements OnInit {
               id: uhl.id,
               userId: uhl.userId,
               horseId: uhl.horseId ? uhl.horseId.id : null,
-              horse: uhl.horseId,
+              horseName: uhl.horseId ? uhl.horseId.name : null,
               lessonId: uhl.lessonId,
               firstname: uhl.userId.firstname,
               lastname: uhl.userId.lastname,
@@ -117,10 +117,12 @@ export class LessonComponent implements OnInit {
   }
 
   public onUpdateConfirm(event): void {
+    const horseId = this.horses.find((horse) => horse.name === event.newData.horseName).id;
+
     const newUhl = {
       id: event.newData.id,
       userId: event.newData.userId,
-      horseId: event.newData.horse,
+      horseId,
       lessonId: event.newData.lessonId,
     };
 
@@ -172,14 +174,13 @@ export class LessonComponent implements OnInit {
           title: 'Licence',
           editable: false,
         },
-        horse: {
+        horseName: {
           title: 'Cheval',
-          valuePrepareFunction: (horse) => horse ? horse.name : '',
           editor: {
             type: 'list',
             config: {
               list: Object.values(this.horses).map((horse) => {
-                return {value: horse.id, title: horse.name};
+                return {value: horse.name, title: horse.name};
               }),
             },
           },
