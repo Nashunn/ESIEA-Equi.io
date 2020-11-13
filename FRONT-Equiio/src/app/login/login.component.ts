@@ -5,6 +5,7 @@ import { first } from 'rxjs/operators';
 import {Response} from '../models/response.model';
 import {AlertService} from '../services/alert.service';
 import { AuthenticationService } from '../services/authentication.service';
+import {Roles} from "../models/roles.model";
 
 @Component({
   selector: 'app-login',
@@ -20,6 +21,7 @@ export class EquiioLoginComponent implements OnInit {
   public registerSubmitted = false;
   public errorLog = '';
   public errorReg = '';
+  public failedAuthCount = 0;
 
   // Constructor
   constructor(
@@ -69,12 +71,21 @@ export class EquiioLoginComponent implements OnInit {
       .pipe(first())
       .subscribe((response: Response|any) => {
         if (response.returnCode > 200) {
-          this.alertService.error(response.message);
-          // this.errorLog = response.message;
+          if (this.failedAuthCount < 2) {
+            this.alertService.error(response.message);
+            this.failedAuthCount++;
+          } else {
+            this.failedAuthCount = 0;
+            this.router.navigate(['/auth/reset']);
+          }
         } else {
-          // get return url from route parameters or default to '/'
-          const returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
-          this.router.navigate([returnUrl]);
+          if (this.authenticationService.currentSessionValue.getUserRole() === Roles.Admin) {
+            this.router.navigate(['/users']);
+          } else {
+            // get return url from route parameters or default to '/'
+            const returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
+            this.router.navigate([returnUrl]);
+          }
         }
       });
   }
