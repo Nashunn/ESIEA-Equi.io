@@ -11,19 +11,18 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import {
-    NbActionsModule, NbAlertModule, NbBadgeModule,
-    NbButtonModule,
-    NbCardModule, NbDatepickerModule, NbDateTimePickerComponent,
-    NbIconModule,
-    NbInputModule, NbSelectModule,
-    NbSidebarModule,
-    NbSpinnerModule, NbTimepickerModule,
-    NbTooltipModule,
-    NbTreeGridModule, NbUserModule,
+  NbActionsModule, NbAlertModule, NbBadgeModule,
+  NbButtonModule,
+  NbCardModule, NbDatepickerModule,
+  NbIconModule,
+  NbInputModule, NbSelectModule,
+  NbSidebarModule,
+  NbSpinnerModule, NbTimepickerModule, NbToastrModule,
+  NbTooltipModule,
+  NbTreeGridModule, NbUserModule,
 } from '@nebular/theme';
 import { NbLayoutModule, NbThemeModule } from '@nebular/theme';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
-import { AlertComponent } from './alert/alert.component';
 import { ErrorInterceptor } from './helpers/error.interceptor';
 import { JwtInterceptor } from './helpers/jwt.interceptor';
 import { HomeComponent } from './home/home.component';
@@ -47,7 +46,6 @@ import { UsersComponent } from './users/users.component';
     UsersComponent,
     UsersAddUserDialogComponent,
     HomeComponent,
-    AlertComponent,
     LessonsComponent,
     LessonsAddDialogComponent,
     LessonComponent,
@@ -81,6 +79,7 @@ import { UsersComponent } from './users/users.component';
         NbTimepickerModule.forRoot(),
         NbSelectModule,
         NbBadgeModule,
+        NbToastrModule.forRoot(),
     ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

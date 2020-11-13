@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {AlertComponent} from '../alert/alert.component';
 import { Response } from '../models/response.model';
 import {User} from '../models/user.model';
 import {AlertService} from '../services/alert.service';
@@ -10,7 +9,7 @@ import {UserService} from '../services/user.service';
   selector: 'app-user',
   styleUrls: ['./user.component.scss'],
   templateUrl: './user.component.html',
-  providers: [UserService, AlertComponent],
+  providers: [UserService],
 })
 export class UserComponent implements OnInit {
   public isEditMode = false;

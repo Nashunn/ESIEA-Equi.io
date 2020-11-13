@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NB_DIALOG_CONFIG, NbDialogService} from '@nebular/theme';
-import {AlertComponent} from '../alert/alert.component';
 import {Horse} from '../models/horse.model';
 import {Lesson} from '../models/lesson.model';
 import {Response} from '../models/response.model';
@@ -14,7 +13,7 @@ import {UsersHorsesLessonsService} from '../services/usersHorsesLessons.service'
   selector: 'app-lesson',
   templateUrl: './lesson.component.html',
   styleUrls: ['./lesson.component.scss'],
-  providers: [LessonService, UsersHorsesLessonsService, HorseService, AlertComponent, NbDialogService, {
+  providers: [LessonService, UsersHorsesLessonsService, HorseService, NbDialogService, {
     provide: NB_DIALOG_CONFIG,
     useValue: {},
   }],

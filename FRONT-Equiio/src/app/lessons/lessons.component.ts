@@ -1,22 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {NB_DIALOG_CONFIG, NbDialogService} from '@nebular/theme';
-import {AlertComponent} from '../alert/alert.component';
 import {Lesson} from '../models/lesson.model';
 import { Roles } from '../models/roles.model';
 import { Session } from '../models/session.model';
+import {UserHorseLesson} from '../models/userHorseLesson.model';
 import {AlertService} from '../services/alert.service';
 import { AuthenticationService } from '../services/authentication.service';
 import {LessonService} from '../services/lesson.service';
 import {UsersHorsesLessonsService} from '../services/usersHorsesLessons.service';
 import { LessonsAddDialogComponent } from './add-dialog/lessons-add-dialog.component';
-import {UserHorseLesson} from "../models/userHorseLesson.model";
 
 @Component({
   selector: 'app-lessons',
   templateUrl: './lessons.component.html',
   styleUrls: ['./lessons.component.scss'],
-  providers: [ LessonService, UsersHorsesLessonsService, AlertComponent, NbDialogService, { provide: NB_DIALOG_CONFIG, useValue: {}} ],
+  providers: [ LessonService, UsersHorsesLessonsService, NbDialogService, { provide: NB_DIALOG_CONFIG, useValue: {}} ],
 })
 
 export class LessonsComponent implements OnInit {
