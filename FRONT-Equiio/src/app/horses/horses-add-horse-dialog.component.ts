@@ -22,8 +22,8 @@ import {HorseService} from '../services/horse.service';
       </nb-card-body>
       <nb-card-footer>
         <div>
-          <button nbButton status="danger" class="col-lg-6" (click)="cancel()">Annuler</button>
-          <button nbButton status="success" class="col-lg-6"
+          <button nbButton status="danger" class="col-6" (click)="cancel()">Annuler</button>
+          <button nbButton status="success" class="col-6"
                   (click)="submit(name.value, height.value, description.value)">Valider
           </button>
         </div>
@@ -34,7 +34,6 @@ import {HorseService} from '../services/horse.service';
 export class HorsesAddHorseDialogComponent {
   @Input() public horse: Horse;
 
-  // FIXME (YLB): Add file input : https://github.com/akveo/nebular/issues/2285
   constructor(protected dialogRef: NbDialogRef<HorsesAddHorseDialogComponent>, private horseService: HorseService,
               private alertService: AlertService) {
   }
