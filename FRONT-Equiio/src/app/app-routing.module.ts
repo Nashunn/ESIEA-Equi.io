@@ -1,10 +1,74 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {AuthGuard} from './helpers/auth.guard';
+import {HomeComponent} from './home/home.component';
+import {HorsesComponent} from './horses/horses.component';
+import {LessonComponent} from './lesson/lesson.component';
+import {LessonsComponent} from './lessons/lessons.component';
+import {SubscribeLessonComponent} from './lessons/subscribe-lessons/subscribe-lesson.component';
+import {Roles} from './models/roles.model';
+import {UserComponent} from './user/user.component';
+import {UsersComponent} from './users/users.component';
 
-const routes: Routes = [];
+export const routes: Routes = [
+  {
+    path: 'home',
+    component: HomeComponent,
+  },
+  {
+    path: 'auth',
+    loadChildren: () => import('src/app/auth/auth.module').then((m) => m.NgxAuthModule),
+  },
+  {
+    path: 'user',
+    component: UserComponent,
+    canActivate: [AuthGuard], // secured
+    data: {roles: [Roles.User, Roles.Teacher, Roles.Admin]},
+  },
+  {
+    path: 'users',
+    component: UsersComponent,
+    canActivate: [AuthGuard], // secured
+    data: {roles: [Roles.Admin]},
+  },
+  {
+    path: 'horses',
+    component: HorsesComponent,
+    canActivate: [AuthGuard], // secured
+    data: {roles: [Roles.Admin, Roles.Teacher]},
+  },
+  {
+    path: 'lessons',
+    component: LessonsComponent,
+    canActivate: [AuthGuard], // secured
+    data: {roles: [Roles.User, Roles.Teacher, Roles.Admin]},
+  },
+  {
+    path: 'lessons/subscribe',
+    component: SubscribeLessonComponent,
+    canActivate: [AuthGuard], // secured
+    data: {roles: [Roles.User, Roles.Admin]},
+  },
+  {
+    path: 'lesson/:id',
+    component: LessonComponent,
+    canActivate: [AuthGuard], // secured
+    data: {roles: [Roles.Teacher, Roles.Admin]},
+  },
+  {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: '/home',
+  },
+  {
+    path: '**',
+    pathMatch: 'full',
+    redirectTo: '/home',
+  },
+];
 
 @NgModule({
+  exports: [RouterModule],
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
 })
 export class AppRoutingModule { }

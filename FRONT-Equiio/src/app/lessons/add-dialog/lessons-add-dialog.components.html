@@ -1,0 +1,69 @@
+<nb-card style="width: 50vw">
+  <nb-card-body>
+    <h4 class="my-3">Créer une leçon</h4>
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <!-- Name -->
+      <label for="name" class="label-margin">Nom</label>
+      <input
+        type="text"
+        class="input-margin"
+        formControlName="name"
+        [ngClass]="{ 'is-invalid': submitted && f.name.errors }"
+        name="name" id="name" placeholder="Nom"
+        nbInput fullWidth
+      />
+      <!-- Date -->
+      <label for="date" class="label-margin">Date<sup>*</sup></label>
+      <div *ngIf="submitted && f.date.errors" class="invalid-feedback">
+        <div *ngIf="f.date.errors.required">Obligatoire</div>
+      </div>
+      <input
+        class="input-margin"
+        placeholder="Date"
+        formControlName="date"
+        [ngClass]="{ 'is-invalid': submitted && f.date.errors }"
+        [nbDatepicker]="dateTimePicker"
+        name="date" id="date"
+        nbInput fullWidth
+      />
+      <nb-date-timepicker #dateTimePicker singleColumn [step]="10"></nb-date-timepicker>
+      <!-- Number of riders -->
+      <label for="date" class="label-margin">Nombre maximum de cavaliers<sup>*</sup></label>
+      <div *ngIf="submitted && f.numRiders.errors" class="invalid-feedback">
+        <div *ngIf="f.numRiders.errors.required">Obligatoire</div>
+      </div>
+      <input
+        type="number"
+        min="0"
+        class="input-margin"
+        formControlName="numRiders"
+        [ngClass]="{ 'is-invalid': submitted && f.numRiders.errors }"
+        name="numRiders" id="numRiders" placeholder="Nombre maximum de cavaliers"
+        nbInput fullWidth
+      />
+      <!-- Level -->
+      <label for="level" class="label-margin">Niveau<sup>*</sup></label>
+      <div *ngIf="submitted && f.level.errors" class="invalid-feedback">
+        <div *ngIf="f.level.errors.required">Obligatoire</div>
+      </div>
+      <nb-select
+        class="input-margin"
+        placeholder="Niveau"
+        formControlName="level"
+        [ngClass]="{ 'is-invalid': submitted && f.name.errors }"
+        name="level" id="level"
+        fullWidth
+      >
+        <nb-option *ngFor="let level of [1,2,3,4,5,6,7]" [value]="level">
+          Galop {{ level }}
+        </nb-option>
+      </nb-select>
+    </form>
+    <!-- Form Button -->
+    <div class="d-flex justify-content-between flex-wrap">
+      <button nbButton status="danger" size="medium" class="col-5" (click)="cancel()">Annuler</button>
+      <button nbButton status="primary" size="medium" class="col-5" (click)="submit()">Créer</button>
+    </div>
+    <div *ngIf="error" class="invalid-feedback mt-3 mb-0">{{error}}</div>
+  </nb-card-body>
+</nb-card>

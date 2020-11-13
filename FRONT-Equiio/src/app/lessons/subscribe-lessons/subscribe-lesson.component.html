@@ -1,0 +1,27 @@
+<div class="m-5">
+  <h4 class="mb-3">Leçons proposées</h4>
+  <div class="d-flex justify-content-start flex-wrap">
+    <!-- Loader -->
+    <nb-card *ngIf="isLoading" [nbSpinner]="isLoading" class="col-12">
+      <nb-card-body>Chargement</nb-card-body>
+    </nb-card>
+    <!-- Lessons -->
+    <div *ngIf="diplayedLessons.length <= 0 && !isLoading">Aucune autre leçon disponible</div>
+    <nb-card *ngFor="let lesson of diplayedLessons" class="lesson mr-3 mb-3">
+      <nb-card-body class="p-2 m-1 d-flex flex-column justify-content-center align-items-center text-center">
+        <nb-badge *ngIf="lesson.numSubs < lesson.numRiders" [text]="lesson.numSubs + '/' + lesson.numRiders" status="primary" position="top right"></nb-badge>
+        <nb-badge *ngIf="lesson.numSubs >= lesson.numRiders" [text]="lesson.numSubs + '/' + lesson.numRiders" status="danger" position="top right"></nb-badge>
+        <nb-badge *ngIf="lesson.numSubs == lesson.numRiders-1" [text]="lesson.numSubs + '/' + lesson.numRiders" status="warning" position="top right"></nb-badge>
+
+        <h5 class="my-2">{{ lesson.name }}</h5>
+        <div class=""><b>Moniteur : </b>{{ lesson.teacherId.lastname }} {{ lesson.teacherId.firstname }}</div>
+        <div class=""><b>Date : </b>{{ lesson.date | date:'dd MMM yyyy'}}</div>
+        <div class=""><b>Heure : </b>{{ lesson.date | date:'HH:mm'}}</div>
+        <div *ngIf="this.userRole === Roles.Teacher" class=""><b>Nombre de cavaliers : </b>{{ lesson.numRiders }}</div>
+        <div class=""><b>Niveau : </b>Galop {{ lesson.level }}</div>
+        <button *ngIf="lesson.numSubs < lesson.numRiders" nbButton status="primary" size="tiny" class="my-3" (click)="subscribeToLesson(lesson.id)">S'inscrire à la leçon</button>
+        <button *ngIf="lesson.numSubs >= lesson.numRiders" nbButton status="primary" size="tiny" class="my-3" (click)="subscribeToLesson(lesson.id)" disabled>Complet</button>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
