@@ -39,12 +39,10 @@ export class LessonComponent implements OnInit {
 
   public ngOnInit(): void {
     const lessonId = this.route.snapshot.paramMap.get('id');
-    this.getLesson(lessonId);
-    this.getHorses();
-    this.getUHLsByLesson(lessonId);
+    this.getLessonData(lessonId);
   }
 
-  private getLesson(lessonId: string): void {
+  private getLessonData(lessonId: string): void {
     this.lessonService.getLesson(lessonId).subscribe((data) => {
         this.lesson = data;
         this.tempLessonDate = new Date(this.lesson.date);
@@ -53,6 +51,7 @@ export class LessonComponent implements OnInit {
         this.alertService.error('Erreur lors de la récupération de la leçon');
         this.router.navigate(['/lessons']);
       },
+      () => this.getHorses(),
     );
   }
 
@@ -63,7 +62,7 @@ export class LessonComponent implements OnInit {
             const subscriber = {
               id: uhl.id,
               userId: uhl.userId,
-              horseId: uhl.horseId.id,
+              horseId: uhl.horseId ? uhl.horseId.id : null,
               horse: uhl.horseId,
               lessonId: uhl.lessonId,
               firstname: uhl.userId.firstname,
@@ -72,7 +71,7 @@ export class LessonComponent implements OnInit {
               phone: uhl.userId.phone,
               licence: uhl.userId.licence,
             };
-            console.log(subscriber);
+
             this.subscribers.push(subscriber);
           },
         );
@@ -93,6 +92,7 @@ export class LessonComponent implements OnInit {
         this.alertService.error('Erreur lors de la récupération des chevaux');
       },
       () => {
+        this.getUHLsByLesson(this.lesson.id);
         this.generateTableSettings();
         this.horsesLoading = false;
       });
