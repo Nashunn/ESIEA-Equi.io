@@ -54,7 +54,7 @@ export class LessonsAddDialogComponent implements OnInit {
 
     // Create lesson if everything is ready
     const lesson = new Lesson(
-      this.form.get('name').value,
+      this.form.get('name').value === '' ? 'Leçon' : this.form.get('name').value,
       this.form.get('date').value,
       this.form.get('level').value,
       this.form.get('numRiders').value,
