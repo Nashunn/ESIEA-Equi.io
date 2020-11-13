@@ -23,10 +23,11 @@ exports.findUHL = function (req, res) {
 };
 
 exports.findAllUHLByUser = function (req, res) {
-    UsersHorsesLessons.find({user_id: req.params.id}, function (err, uhl) {
+    UsersHorsesLessons.find({userId: req.params.userId}, function (err, uhl) {
         if (err) {
             res.send(err);
         } else {
+            console.log(uhl);
             res.json(uhl);
         }
     }).populate('horseId').populate({path: 'lessonId', populate: { path: 'teacherId' }});
