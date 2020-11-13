@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {NB_DIALOG_CONFIG, NbDialogService} from '@nebular/theme';
 import {LocalDataSource} from 'ng2-smart-table';
-import {AlertComponent} from '../alert/alert.component';
 import {Roles} from '../models/roles.model';
 import {User} from '../models/user.model';
 import {AlertService} from '../services/alert.service';
@@ -12,7 +11,7 @@ import {UsersAddUserDialogComponent} from './users-add-user-dialog.component';
   selector: 'app-user',
   styleUrls: ['./users.component.scss'],
   templateUrl: './users.component.html',
-  providers: [UserService, AlertComponent, NbDialogService, { provide: NB_DIALOG_CONFIG, useValue: {}}],
+  providers: [UserService, NbDialogService, { provide: NB_DIALOG_CONFIG, useValue: {}}],
 })
 export class UsersComponent implements OnInit {
   public source: LocalDataSource;

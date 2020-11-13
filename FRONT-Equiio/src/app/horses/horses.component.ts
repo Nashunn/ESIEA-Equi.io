@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {NB_DIALOG_CONFIG, NbDialogService} from '@nebular/theme';
-import {AlertComponent} from '../alert/alert.component';
 import {Horse} from '../models/horse.model';
 import {AlertService} from '../services/alert.service';
 import {HorseService} from '../services/horse.service';
@@ -10,7 +9,7 @@ import {HorsesAddHorseDialogComponent} from './horses-add-horse-dialog.component
   selector: 'app-horses',
   styleUrls: ['./horses.component.scss'],
   templateUrl: './horses.component.html',
-  providers: [HorseService, AlertComponent, NbDialogService, { provide: NB_DIALOG_CONFIG, useValue: {}}],
+  providers: [HorseService, NbDialogService, { provide: NB_DIALOG_CONFIG, useValue: {}}],
 })
 export class HorsesComponent implements OnInit {
 

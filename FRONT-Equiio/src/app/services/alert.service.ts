@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
-import { filter } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
+import {NbToastrService} from '@nebular/theme';
 import { Alert } from '../models/alert.model';
 
 @Injectable({ providedIn: 'root' })
@@ -9,32 +9,27 @@ export class AlertService {
   private subject = new Subject<Alert>();
   private defaultId = 'default-alert';
 
-  public onAlert(id = this.defaultId): Observable<Alert> {
-    return this.subject.asObservable().pipe(filter((x) => x && x.id === id));
+  constructor(private toastrService: NbToastrService) {
   }
 
   public success(message: string, options?: any): void {
-    this.alert(new Alert({ ...options, status: 'success', message }));
+    this.toastrService.show('', message, {status: 'success'});
   }
 
   public error(message: string, options?: any): void {
-    this.alert(new Alert({ ...options, status: 'danger', message }));
+    this.toastrService.show('', message, {status: 'danger'});
   }
 
   public info(message: string, options?: any): void {
-    this.alert(new Alert({ ...options, status: 'info', message }));
+    this.toastrService.show('', message, {status: 'info'});
   }
 
   public warn(message: string, options?: any): void {
-    this.alert(new Alert({ ...options, status: 'warning', message }));
+    this.toastrService.show('', message, {status: 'warning'});
   }
 
   public alert(alert: Alert): void {
     alert.id = alert.id || this.defaultId;
     this.subject.next(alert);
-  }
-
-  public clear(id = this.defaultId): void {
-    this.subject.next(new Alert({ id }));
   }
 }

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {NB_DIALOG_CONFIG, NbDialogService} from '@nebular/theme';
-import {AlertComponent} from '../../alert/alert.component';
 import {Lesson} from '../../models/lesson.model';
 import { Roles } from '../../models/roles.model';
 import {Session} from '../../models/session.model';
@@ -14,7 +13,7 @@ import {UsersHorsesLessonsService} from '../../services/usersHorsesLessons.servi
   selector: 'app-subscribe-lesson',
   templateUrl: './subscribe-lesson.component.html',
   styleUrls: ['./../lessons.component.scss'],
-  providers: [ LessonService, UsersHorsesLessonsService, AlertComponent, NbDialogService, { provide: NB_DIALOG_CONFIG, useValue: {}} ],
+  providers: [ LessonService, UsersHorsesLessonsService, NbDialogService, { provide: NB_DIALOG_CONFIG, useValue: {}} ],
 })
 export class SubscribeLessonComponent implements OnInit {
   public userRole: string;
