@@ -1,5 +1,6 @@
 const errors = require('../utils/errors');
 const Lesson = require("../models/lessons");
+const UserHorseLesson = require('../models/users_horses_lessons');
 
 exports.findAllLessons = function (req, res) {
     Lesson.find({date: {$gte: new Date()}}, function (err, lessons) {

@@ -48,7 +48,7 @@ router
     .get("/lessons/:id", checkAuth([Roles.Admin, Roles.Teacher, Roles.User]), lessonsController.findLesson)
     .post("/lessons", checkAuth([Roles.Admin, Roles.Teacher]), lessonsController.createLesson)
     .put("/lessons/:id", checkAuth([Roles.Admin, Roles.Teacher]), lessonsController.updateLesson)
-    .delete("lessons/:id", checkAuth([Roles.Admin, Roles.Teacher]), lessonsController.deleteLesson)
+    .delete("/lessons/:id", checkAuth([Roles.Admin, Roles.Teacher]), lessonsController.deleteLesson)
 
 router
     .get("/uhl", checkAuth([Roles.Admin, Roles.Teacher, Roles.User]), usersHorsesLessonsController.findAllUHL)

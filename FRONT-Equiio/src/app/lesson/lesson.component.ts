@@ -8,6 +8,7 @@ import {AlertService} from '../services/alert.service';
 import {HorseService} from '../services/horse.service';
 import {LessonService} from '../services/lesson.service';
 import {UsersHorsesLessonsService} from '../services/usersHorsesLessons.service';
+import {UserHorseLesson} from "../models/userHorseLesson.model";
 
 @Component({
   selector: 'app-lesson',
@@ -23,9 +24,11 @@ export class LessonComponent implements OnInit {
   public isLoading = true;
   public horsesLoading = true;
   public isEditMode = false;
+  public isDeleteMode = false;
   public lesson: Lesson; // actual lesson
   public tempLessonDate: Date; // form temp date
   public subscribers: any[] = [];
+  public uhls: UserHorseLesson[] = [];
   public horses: Horse[] = [];
 
   constructor(
@@ -57,6 +60,8 @@ export class LessonComponent implements OnInit {
 
   public getUHLsByLesson(lessonId: string): void {
     this.userHorseLessonService.getUHLsByLesson(lessonId).subscribe((data) => {
+        this.uhls = data; // get uhls
+
         Object.values(data).forEach(
           (uhl: any) => {
             const subscriber = {
@@ -114,6 +119,36 @@ export class LessonComponent implements OnInit {
       },
     );
     this.isEditMode = false;
+  }
+
+  public toggleDeleteMode(): void {
+    this.isDeleteMode = true;
+    setTimeout( () => {
+      this.isDeleteMode = false;
+    }, 3000);
+  }
+
+  public confirmDelete(): void {
+    this.lessonService.deleteLesson(this.lesson.id).subscribe(
+      (response) => {
+        if (response.returnCode > 200) {
+          this.alertService.error(response.message);
+        } else {
+          this.alertService.success(response.message);
+        }
+      },
+      () => {
+        this.alertService.error('Erreur lors de la suppression de la leçon');
+      },
+      () => {
+        // Cascade delete userHorseLesson
+        this.uhls.forEach((value) => {
+          this.userHorseLessonService.deleteUHL(value);
+        });
+        // Navigate url
+        this.router.navigate(['/lessons']);
+      },
+    );
   }
 
   public onUpdateConfirm(event): void {
