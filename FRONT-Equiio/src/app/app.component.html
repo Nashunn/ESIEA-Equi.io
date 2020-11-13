@@ -16,7 +16,7 @@
 
         <!-- Admin views -->
         <nb-action *ngIf="this.userRole === Roles.Admin"><a routerLink="/users">Gestion des utilisateurs</a></nb-action>
-        <nb-action *ngIf="this.userRole === Roles.Admin"><a routerLink="/horses">Gestion des chevaux</a></nb-action>
+        <nb-action *ngIf="this.userRole === Roles.Admin || this.userRole === Roles.Teacher"><a routerLink="/horses">Gestion des chevaux</a></nb-action>
       </nb-actions>
 
       <nb-actions *ngIf="!tokenValid" size="medium" class="d-flex flex-row-reverse">

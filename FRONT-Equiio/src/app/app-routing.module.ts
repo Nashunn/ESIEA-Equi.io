@@ -35,7 +35,7 @@ export const routes: Routes = [
     path: 'horses',
     component: HorsesComponent,
     canActivate: [AuthGuard], // secured
-    data: {roles: [Roles.Admin]},
+    data: {roles: [Roles.Admin, Roles.Teacher]},
   },
   {
     path: 'lessons',
