@@ -92,6 +92,7 @@
       <nb-card class="col-10">
         <nb-card-header>Inscrits</nb-card-header>
         <nb-card-body class="row my-1">
+          <nb-alert status="warning" *ngIf="!this.horses.length"><div>Attention, aucun cheval n'est disponible <a routerLink="/horses">cliquez-ici</a> pour en ajouter.</div></nb-alert>
           <div class="py-2"><span *ngIf="!subscribers.length">Aucun inscrits !</span></div>
           <ng2-smart-table
             *ngIf="!this.isLoading && !this.horsesLoading && subscribers.length"

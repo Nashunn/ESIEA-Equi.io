@@ -38,9 +38,9 @@ router
 
 router
     .get("/horses", checkAuth([Roles.Admin, Roles.Teacher, Roles.User]), horsesController.findAllHorses)
-    .post("/horses", checkAuth([Roles.Admin]), horsesController.createHorse)
-    .put("/horses/:id", checkAuth([Roles.Admin]), horsesController.updateHorse)
-    .delete("/horses/:id", checkAuth([Roles.Admin]), horsesController.deleteHorse)
+    .post("/horses", checkAuth([Roles.Admin, Roles.Teacher]), horsesController.createHorse)
+    .put("/horses/:id", checkAuth([Roles.Admin, Roles.Teacher]), horsesController.updateHorse)
+    .delete("/horses/:id", checkAuth([Roles.Admin, Roles.Teacher]), horsesController.deleteHorse)
 
 router
     .get("/lessons", checkAuth([Roles.Admin, Roles.Teacher, Roles.User]), lessonsController.findAllLessons)
