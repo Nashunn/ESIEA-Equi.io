@@ -27,10 +27,10 @@ We chose to make this application in Angular with a Node.js backend.
 Todo
 
 ## Tools
-- ![Angular](https://angular.io/)
-- ![Node.js](https://nodejs.org/)
-- ![Angular Material](https://material.angular.io/) 
-- ![MongoDB](https://cloud.mongodb.com/)
+- [Angular](https://angular.io/)
+- [Node.js](https://nodejs.org/)
+- [Angular Material](https://material.angular.io/) 
+- [MongoDB](https://cloud.mongodb.com/)
 
 ## Installation
 Todo
