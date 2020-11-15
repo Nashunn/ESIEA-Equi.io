@@ -24,7 +24,81 @@ We chose to make this application in Angular with a Node.js backend.
   - manage the list of the club's horses (name) so that the instructors can associate them with the riders
 
 ## Demonstration
-Todo
+### General
+- Homepage
+
+![User homepage](./_screenshots/accueil_no%20connection.png)
+
+- Registration
+
+![Registration](./_screenshots/inscription.png)
+
+- Connexion
+
+![Connexion](./_screenshots/connexion.png)
+
+- Forget Password
+
+![Forget Password](./_screenshots/forgetPassword.png)
+
+- User Account
+
+![User Account](./_screenshots/user_account.png)
+
+![User Account Modify](./_screenshots/user_account_modify.png)
+
+### User
+- Lessons
+
+![User lessons](./_screenshots/user_lessons.png)
+
+- Subscribe to lessons
+
+![User subscribe lessons](./_screenshots/user_subscribe.png)
+
+![User subscribe lessons](./_screenshots/user_subscribe_alert.png)
+
+### Teacher
+- Lessons
+
+![Teacher lessons](./_screenshots/teacher_lessons.png)
+
+- Create lessons
+
+![Teacher create lesson](./_screenshots/teacher_lessons_create.png)
+
+- Lesson details
+
+![Teacher lesson details](./_screenshots/teacher_lesson_details.png)
+
+![Teacher lesson details Modify](./_screenshots/teacher_lesson_details_modify.png)
+
+### Admin
+- User manager
+
+![Admin user manager](./_screenshots/admin_userManager.png)
+
+- Create user
+
+![Admin create user](./_screenshots/admin_createUser.png)
+
+- Horses manager
+
+![Admin horse manager](./_screenshots/horses.png)
+
+- Create horse
+
+![Admin create horse](./_screenshots/horses_create.png)
+
+- Modify horse
+
+![Admin create horse](./_screenshots/horses_modify.png)
+
+- Delete horse
+
+![Admin create horse](./_screenshots/horses_delete.png)
+
+![Admin create horse](./_screenshots/horses_delete_alert.png)
 
 ## Tools
 - [Angular](https://angular.io/)
@@ -33,4 +107,16 @@ Todo
 - [MongoDB](https://cloud.mongodb.com/)
 
 ## Installation
-Todo
+```
+# clone project
+git clone https://github.com/Nashunn/ESIEA-Equi.io.git
+
+# install Back dependencies and start it 
+cd BACK-Equiio\
+npm install
+nodemon server.js
+
+# install Front dependencies and start it
+cd FRONT-Equiio\
+npm install
+npm start
